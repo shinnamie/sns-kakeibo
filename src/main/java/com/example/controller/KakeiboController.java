@@ -10,6 +10,6 @@ public class KakeiboController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list() {
-		return "kakeibo/list";
+		return "kakeiboList";
 	}
 }
