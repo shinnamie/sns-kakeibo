@@ -22,6 +22,6 @@ public class KakeiboController {
 	public String list(Model model) {
 		List<Kakeibo> kakeiboList = kakeiboService.kakeiboList();
 		model.addAttribute("kakeiboList", kakeiboList);
-		return "kakeiboList";
+		return "kakeibo/kakeiboList";
 	}
 }

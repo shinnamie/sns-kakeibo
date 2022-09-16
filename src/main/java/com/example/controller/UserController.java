@@ -10,7 +10,7 @@ public class UserController {
 
 	@GetMapping(value = "")
 	public String index() {
-		return "login";
+		return "user/login";
 	}
 
 
