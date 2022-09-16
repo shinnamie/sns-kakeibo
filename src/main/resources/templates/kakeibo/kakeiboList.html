@@ -27,10 +27,10 @@
                 <tr th:each="kakeibo : ${kakeiboList}" class="align-middle">
                     <td th:text="${kakeibo.id}">1</td>
                     <td th:text="${kakeibo.settlementDate}">2022-09-01</td>
-                    <td th:text="${kakeibo.expenseItemId}">3</td>
+                    <td th:text="${kakeibo.expenseItem.expenseItemName}">3</td>
                     <td th:text="${kakeibo.expenditureAmount}">3000</td>
                     <td th:text="${kakeibo.incomeAmount}">0</td>
-                    <td th:text="${kakeibo.settlementId}">2</td>
+                    <td th:text="${kakeibo.settlement.settlementName}">2</td>
                     <td th:text="${kakeibo.usedStore}">◯◯スーパー</td>
                     <td th:text="${kakeibo.remarks}">テストテスト</td>
                     <td th:text="${kakeibo.insertDate}">2022-09-01</td>
