@@ -40,6 +40,7 @@
  		<result property="incomeAmount" column="income_amount"/>
  		<result property="incomeAmount" column="income_amount"/>
  		<result property="usedStore" column="used_store"/>
+ 		<result property="remarks" column="remarks"/>
  		<result property="insertDate" column="insert_date"/>
  		<result property="updateDate" column="update_date"/>
  		<association property="expenseItem" resultMap="expenseItemResultMap"/>
