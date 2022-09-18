@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>家計簿一覧</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/dashboard.css}">
+<link rel="stylesheet" th:href="@{/css/example.css}">
+</head>
+<body>
+    <!-- ヘッド/インクルード化しているので、編集する際はheader.htmlから -->
+    <div th:insert="common/head :: frag_head"></div>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <!-- メニューバー/インクルード化しているので、編集する際はheader.htmlから -->
+            <div th:insert="common/sidebar :: frag_menu"></div>
+            
+            <form th:action="@{/kakeibo/}">
+
+
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>

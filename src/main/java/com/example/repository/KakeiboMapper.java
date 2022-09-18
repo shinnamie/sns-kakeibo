@@ -16,4 +16,9 @@ public interface KakeiboMapper {
 	 */
 	List<Kakeibo> findAll();
 
+	/**
+	 * 家計簿の新規登録
+	 */
+	void save();
+
 }

@@ -9,20 +9,12 @@
 <link rel="stylesheet" th:href="@{/css/example.css}">
 </head>
 <body>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">家計簿</a>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="検索" aria-label="検索">
-        <ul class="navbar-nav px-3">
-          <li class="nav-item text-nowrap">
-            <!-- <a class="nav-link" href="#">Sign out</a> -->
-            <a class="nav-link" href="#">サインアウト</a>
-          </li>
-        </ul>
-    </nav>
+    <!-- ヘッド/インクルード化しているので、編集する際はheader.htmlから -->
+    <div th:insert="common/head :: frag_head"></div>
     
     <div class="container-fluid">
         <div class="row">
-            <!-- メニューバー/インクルード化しているので、編集する際はheader.htmlから -->
+            <!-- メニューバー/インクルード化しているので、編集する際はsidebar.htmlから -->
             <div th:insert="common/sidebar :: frag_menu"></div>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -30,7 +22,6 @@
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
-                                    <th>id</th>
                                     <th>決済日付</th>
                                     <th>費目</th>
                                     <th>支出金額</th>
@@ -44,7 +35,6 @@
                             </thead>
                             <tbody>
                                 <tr th:each="kakeibo : ${kakeiboList}" class="align-middle">
-                                    <td th:text="${kakeibo.id}">1</td>
                                     <td th:text="${kakeibo.settlementDate}">2022-09-01</td>
                                     <td th:text="${kakeibo.expenseItem.expenseItemName}">3</td>
                                     <td th:text="${kakeibo.expenditureAmount}">3000</td>

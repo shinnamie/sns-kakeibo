@@ -24,7 +24,7 @@
 			expense_item as ei
 		ON
 			k.expense_item_id = ei.id
-		INNER JOIN
+		LEFT JOIN
 			settlement as s
 		ON
 			k.settlement_id = s.id
@@ -56,4 +56,13 @@
  		<result property="id" column="id"/>
  		<result property="settlementName" column="settlement_name"/>
  	</resultMap>
+ 	
+ 	<!-- 家計簿新規登録 -->
+ 	<insert id="save">
+ 		INSERT INTO kakeibo
+ 			(user_id, settlement_date, expense_item_id, expenditure_amount, income_amount, settlement_id, used_store, remarks, insert_date, update_date)
+ 		VALUES
+ 			(#{user_id}, #{settlement_date}, #{expense_item_id}, #{expenditure_amount}, #{income_amount}, #{settlement_id}, #{used_store}, #{remarks}, #{insert_date}, #{update_date})
+ 	</insert>
+ 	
  </mapper>
