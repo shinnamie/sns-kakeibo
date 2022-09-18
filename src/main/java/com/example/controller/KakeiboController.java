@@ -32,7 +32,7 @@ public class KakeiboController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping(value = "/list")
 	public String list(Model model) {
 		List<Kakeibo> kakeiboList = kakeiboService.kakeiboList();
 		model.addAttribute("kakeiboList", kakeiboList);
@@ -44,7 +44,7 @@ public class KakeiboController {
 	 * 
 	 * @return
 	 */
-	@GetMapping(value = "/addKaikeibo")
+	@GetMapping(value = "/addKakeibo")
 	public String addKakeibo() {
 		return "kakeibo/add";
 	}
