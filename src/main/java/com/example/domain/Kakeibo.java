@@ -1,5 +1,6 @@
 package com.example.domain;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class Kakeibo {
@@ -23,118 +24,95 @@ public class Kakeibo {
 	/** 備考 */
 	private String remarks;
 	/** 登録日 */
-	private LocalDate insertDate;
+	private Timestamp insertDate;
 	/** 更新日 */
-	private LocalDate updateDate;
+	private Timestamp updateDate;
 	/** 費目 */
 	private ExpenseItem expenseItem;
 	/** 決済 */
 	private Settlement settlement;
-
 	public long getId() {
 		return id;
 	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 	public Integer getUserId() {
 		return userId;
 	}
-
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-
 	public LocalDate getSettlementDate() {
 		return settlementDate;
 	}
-
 	public void setSettlementDate(LocalDate settlementDate) {
 		this.settlementDate = settlementDate;
 	}
-
 	public Integer getExpenseItemId() {
 		return expenseItemId;
 	}
-
 	public void setExpenseItemId(Integer expenseItemId) {
 		this.expenseItemId = expenseItemId;
 	}
-
 	public Integer getExpenditureAmount() {
 		return expenditureAmount;
 	}
-
 	public void setExpenditureAmount(Integer expenditureAmount) {
 		this.expenditureAmount = expenditureAmount;
 	}
-
 	public Integer getIncomeAmount() {
 		return incomeAmount;
 	}
-
 	public void setIncomeAmount(Integer incomeAmount) {
 		this.incomeAmount = incomeAmount;
 	}
-
 	public Integer getSettlementId() {
 		return settlementId;
 	}
-
 	public void setSettlementId(Integer settlementId) {
 		this.settlementId = settlementId;
 	}
-
 	public String getUsedStore() {
 		return usedStore;
 	}
-
 	public void setUsedStore(String usedStore) {
 		this.usedStore = usedStore;
 	}
-
 	public String getRemarks() {
 		return remarks;
 	}
-
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
 
-	public LocalDate getInsertDate() {
+	public Timestamp getInsertDate() {
 		return insertDate;
 	}
 
-	public void setInsertDate(LocalDate insertDate) {
+	public void setInsertDate(Timestamp insertDate) {
 		this.insertDate = insertDate;
 	}
 
-	public LocalDate getUpdateDate() {
+	public Timestamp getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(LocalDate updateDate) {
+	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
 	}
-
 	public ExpenseItem getExpenseItem() {
 		return expenseItem;
 	}
-
 	public void setExpenseItem(ExpenseItem expenseItem) {
 		this.expenseItem = expenseItem;
 	}
-
 	public Settlement getSettlement() {
 		return settlement;
 	}
-
 	public void setSettlement(Settlement settlement) {
 		this.settlement = settlement;
 	}
-
 	@Override
 	public String toString() {
 		return "Kakeibo [id=" + id + ", userId=" + userId + ", settlementDate=" + settlementDate + ", expenseItemId="
@@ -143,5 +121,6 @@ public class Kakeibo {
 				+ ", insertDate=" + insertDate + ", updateDate=" + updateDate + ", expenseItem=" + expenseItem
 				+ ", settlement=" + settlement + "]";
 	}
+
 
 }

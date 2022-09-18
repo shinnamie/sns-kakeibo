@@ -23,4 +23,13 @@ public class KakeiboService {
 		return kakeiboMapper.findAll();
 	}
 
+	/**
+	 * 家計簿の新規登録
+	 * 
+	 * @param kakeibo
+	 */
+	public void save(Kakeibo kakeibo) {
+		kakeiboMapper.save(kakeibo);
+	}
+
 }

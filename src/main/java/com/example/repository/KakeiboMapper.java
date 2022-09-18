@@ -18,7 +18,9 @@ public interface KakeiboMapper {
 
 	/**
 	 * 家計簿の新規登録
+	 * 
+	 * @param kakeibo
 	 */
-	void save();
+	void save(Kakeibo kakeibo);
 
 }

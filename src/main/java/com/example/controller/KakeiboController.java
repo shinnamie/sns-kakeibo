@@ -1,7 +1,10 @@
 package com.example.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,7 +53,25 @@ public class KakeiboController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public void create(AddKakeiboForm addKakeiboForm) {
-		
+	public String create(AddKakeiboForm addKakeiboForm) {
+		Kakeibo kakeibo = new Kakeibo();
+		// 現在の登録日時の取得
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+		// 決済日時を変換・セット
+		LocalDate settlementDate = addKakeiboForm.getSettlementDate().toLocalDate();
+		kakeibo.setSettlementDate(settlementDate);
+
+		// フォームの値をドメインにコピー
+		BeanUtils.copyProperties(addKakeiboForm, kakeibo);
+
+		// 登録日時と(最終)更新日時を手動でセット
+		kakeibo.setInsertDate(timestamp);
+		kakeibo.setUpdateDate(timestamp);
+
+		// 新規登録処理
+		kakeiboService.save(kakeibo);
+
+		return "redirect:/kakeibo/list";
 	}
 }

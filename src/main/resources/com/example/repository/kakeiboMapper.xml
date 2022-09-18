@@ -62,7 +62,7 @@
  		INSERT INTO kakeibo
  			(user_id, settlement_date, expense_item_id, expenditure_amount, income_amount, settlement_id, used_store, remarks, insert_date, update_date)
  		VALUES
- 			(#{user_id}, #{settlement_date}, #{expense_item_id}, #{expenditure_amount}, #{income_amount}, #{settlement_id}, #{used_store}, #{remarks}, #{insert_date}, #{update_date})
+ 			(#{userId}, #{settlementDate}, #{expenseItemId}, #{expenditureAmount}, #{incomeAmount}, #{settlementId}, #{usedStore}, #{remarks}, #{insertDate}, #{updateDate})
  	</insert>
  	
  </mapper>
