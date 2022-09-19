@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,7 +55,11 @@ public class KakeiboController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(AddKakeiboForm addKakeiboForm) {
+	public String create(@Validated AddKakeiboForm addKakeiboForm, BindingResult result) {
+		if (result.hasErrors()) {
+			return "kakeibo/add";
+		}
+
 		Kakeibo kakeibo = new Kakeibo();
 		// 現在の登録日時の取得
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -66,8 +72,8 @@ public class KakeiboController {
 		BeanUtils.copyProperties(addKakeiboForm, kakeibo);
 
 		// 登録日時と(最終)更新日時を手動でセット
-		kakeibo.setInsertDate(timestamp);
-		kakeibo.setUpdateDate(timestamp);
+		kakeibo.setInsertAt(timestamp);
+		kakeibo.setUpdateAt(timestamp);
 
 		// 新規登録処理
 		kakeiboService.save(kakeibo);

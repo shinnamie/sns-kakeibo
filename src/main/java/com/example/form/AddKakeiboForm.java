@@ -3,6 +3,11 @@ package com.example.form;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
 import com.example.domain.ExpenseItem;
 import com.example.domain.Settlement;
 
@@ -13,12 +18,18 @@ public class AddKakeiboForm {
 	/** ユーザーId */
 	private Integer userId;
 	/** 決済日付 */
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@NotNull(message = "日付を指定してください")
 	private Date settlementDate;
 	/** 費目Id */
 	private Integer expenseItemId;
 	/** 支出金額 */
+	@NotNull(message = "金額を0以上で入力してください")
+	@NumberFormat(pattern = "#,###")
 	private Integer expenditureAmount;
 	/** 収入金額 */
+	@NotNull(message = "金額を0以上で入力してください")
+	@NumberFormat(pattern = "#,###")
 	private Integer incomeAmount;
 	/** 決済Id */
 	private Integer settlementId;

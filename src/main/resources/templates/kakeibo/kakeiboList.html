@@ -46,7 +46,7 @@
                                     <td th:text="${kakeibo.settlement.settlementName}">2</td>
                                     <td th:text="${kakeibo.usedStore}">◯◯スーパー</td>
                                     <td th:text="${kakeibo.remarks}">テストテスト</td>
-                                    <td th:text="${#dates.format(kakeibo.insertDate, 'yyyy月MM月dd日')}">2022-09-01</td>
+                                    <td th:text="${#dates.format(kakeibo.insertAt, 'yyyy月MM月dd日')}">2022-09-01</td>
                                 </tr>
                             </tbody>
                         </table>
