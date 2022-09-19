@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.example.repository.KakeiboMapper">
+ 	
+ 	<!-- 家計簿一覧表示 -->
+ 	<select id="findAll" resultMap="kakeiboResultMap">
+ 		SELECT
+ 			k.id,
+ 			k.user_id,
+			k.settlement_date,
+			ei.expense_item_name,
+			k.expenditure_amount,
+			k.income_amount,
+			s.settlement_name,
+			k.used_store,
+			k.remarks,
+			k.insert_date,
+			k.update_date
+		FROM
+			kakeibo AS k
+		INNER JOIN
+			expense_item as ei
+		ON
+			k.expense_item_id = ei.id
+		INNER JOIN
+			settlement as s
+		ON
+			k.settlement_id = s.id
+		ORDER BY
+			k.settlement_date DESC;
+ 	</select>
+ 		
+ 	<resultMap id="kakeiboResultMap" type="com.example.domain.Kakeibo">
+ 		<id property="id" column="id"/>
+ 		<result property="userId" column="user_id"/>
+ 		<result property="settlementDate" column="settlement_date"/>
+ 		<result property="expenditureAmount" column="expenditure_amount"/>
+ 		<result property="incomeAmount" column="income_amount"/>
+ 		<result property="incomeAmount" column="income_amount"/>
+ 		<result property="usedStore" column="used_store"/>
+ 		<result property="remarks" column="remarks"/>
+ 		<result property="insertDate" column="insert_date"/>
+ 		<result property="updateDate" column="update_date"/>
+ 		<association property="expenseItem" resultMap="expenseItemResultMap"/>
+ 		<association property="settlement" resultMap="settlementResultMap"/>
+ 	</resultMap>
+ 	
+ 	<resultMap id="expenseItemResultMap" type="com.example.domain.ExpenseItem">
+ 		<result property="id" column="id"/>
+ 		<result property="expenseItemName" column="expense_item_name"/>
+ 	</resultMap>
+ 	
+ 	<resultMap id="settlementResultMap" type="com.example.domain.Settlement">
+ 		<result property="id" column="id"/>
+ 		<result property="settlementName" column="settlement_name"/>
+ 	</resultMap>
+ </mapper>
