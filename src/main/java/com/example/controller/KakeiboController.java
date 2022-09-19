@@ -26,7 +26,7 @@ public class KakeiboController {
 
 	@ModelAttribute
 	private AddKakeiboForm addKakeiboForm() {
-		return new AddKakeiboForm();
+		return new AddKakeiboForm(0, 0);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class KakeiboController {
 	 * @return
 	 */
 	@GetMapping(value = "/addKakeibo")
-	public String addKakeibo() {
+	public String addKakeibo(AddKakeiboForm addKakeiboForm) {
 		return "kakeibo/add";
 	}
 

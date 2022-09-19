@@ -47,8 +47,8 @@
                         <option value="18">保険</option>
                         <option value="19">その他</option>
                     </select><br>
-                    支出金額：<input type="text" name="expenditureAmount"><br>
-                    収入金額：<input type="text" name="incomeAmount"><br>
+                    支出金額：<input type="text" name="expenditureAmount" th:field="*{expenditureAmount}"><br>
+                    収入金額：<input type="text" name="incomeAmount" th:field="*{incomeAmount}"><br>
                     決済方法：
                     <select name="settlementId" id="">
                         <option value="0">---</option>

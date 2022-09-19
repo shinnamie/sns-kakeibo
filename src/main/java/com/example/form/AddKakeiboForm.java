@@ -34,6 +34,21 @@ public class AddKakeiboForm {
 	private ExpenseItem expenseItem;
 	/** 決済 */
 	private Settlement settlement;
+
+	public AddKakeiboForm() {
+	}
+
+	/**
+	 * デフォルトで支出金額と収入金額をセットするコンストラクタを用意
+	 * 
+	 * @param expenditureAmount
+	 * @param incomeAmount
+	 */
+	public AddKakeiboForm(Integer expenditureAmount, Integer incomeAmount) {
+		this.expenditureAmount = expenditureAmount;
+		this.incomeAmount = incomeAmount;
+	}
+
 	public long getId() {
 		return id;
 	}
