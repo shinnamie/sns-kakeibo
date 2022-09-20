@@ -7,8 +7,8 @@
  	<!-- 家計簿一覧表示 -->
  	<select id="findAll" resultMap="kakeiboResultMap">
  		SELECT
- 			k.id,
- 			k.user_id,
+			k.id,
+			k.user_id,
 			k.settlement_date,
 			ei.expense_item_name,
 			k.expenditure_amount,
@@ -18,8 +18,7 @@
 			k.remarks,
 			k.insert_at,
 			k.update_at
-		FROM
-			kakeibo AS k
+		FROM kakeibo AS k
 		INNER JOIN
 			expense_item as ei
 		ON
@@ -28,6 +27,12 @@
 			settlement as s
 		ON
 			k.settlement_id = s.id
+		LEFT JOIN
+			kakeibo_delete_at as kda
+		ON
+			k.id = kda.kakeibo_id
+		WHERE
+			k.is_deleted = false
 		ORDER BY
 			k.settlement_date DESC;
  	</select>
