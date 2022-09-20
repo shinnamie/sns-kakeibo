@@ -27,6 +27,7 @@ public class Kakeibo {
 	private Timestamp insertAt;
 	/** 更新日 */
 	private Timestamp updateAt;
+	private boolean isDelete;
 	/** 費目 */
 	private ExpenseItem expenseItem;
 	/** 決済 */
@@ -85,21 +86,25 @@ public class Kakeibo {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-
 	public Timestamp getInsertAt() {
 		return insertAt;
 	}
-
 	public void setInsertAt(Timestamp insertAt) {
 		this.insertAt = insertAt;
 	}
-
 	public Timestamp getUpdateAt() {
 		return updateAt;
 	}
-
 	public void setUpdateAt(Timestamp updateAt) {
 		this.updateAt = updateAt;
+	}
+
+	public boolean isDelete() {
+		return isDelete;
+	}
+
+	public void setDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 	public ExpenseItem getExpenseItem() {
 		return expenseItem;
@@ -118,8 +123,8 @@ public class Kakeibo {
 		return "Kakeibo [id=" + id + ", userId=" + userId + ", settlementDate=" + settlementDate + ", expenseItemId="
 				+ expenseItemId + ", expenditureAmount=" + expenditureAmount + ", incomeAmount=" + incomeAmount
 				+ ", settlementId=" + settlementId + ", usedStore=" + usedStore + ", remarks=" + remarks + ", insertAt="
-				+ insertAt + ", updateAt=" + updateAt + ", expenseItem=" + expenseItem + ", settlement=" + settlement
-				+ "]";
+				+ insertAt + ", updateAt=" + updateAt + ", isDelete=" + isDelete + ", expenseItem=" + expenseItem
+				+ ", settlement=" + settlement + "]";
 	}
 
 

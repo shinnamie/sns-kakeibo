@@ -43,6 +43,7 @@
  		<result property="remarks" column="remarks"/>
  		<result property="insertAt" column="insert_at"/>
  		<result property="updateAt" column="update_at"/>
+ 		<result property="isDelete" column="is_delete"/>
  		<association property="expenseItem" resultMap="expenseItemResultMap"/>
  		<association property="settlement" resultMap="settlementResultMap"/>
  	</resultMap>
