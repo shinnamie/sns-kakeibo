@@ -27,14 +27,14 @@ public interface KakeiboMapper {
 	/**
 	 * 論理削除フラグ
 	 * 
-	 * @param isDelete 削除フラグ
+	 * @param kakeibo 家計簿
 	 */
 	void updateIsDelete(Kakeibo kakeibo);
 
 	/**
 	 * 家計簿の論理削除
 	 * 
-	 * @param 家計簿論理削除データ
+	 * @param deletedKakeibo 家計簿論理削除データ
 	 */
 	void delete(DeletedKakeibo deletedKakeibo);
 

@@ -96,7 +96,7 @@ public class KakeiboController {
 	/**
 	 * 家計簿を論理削除する
 	 * 
-	 * @param id
+	 * @param id 家計簿id
 	 * @return
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
