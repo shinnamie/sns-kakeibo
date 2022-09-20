@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 <link rel="stylesheet" th:href="@{/css/dashboard.css}">
 <link rel="stylesheet" th:href="@{/css/example.css}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
 </head>
 <body>
     <!-- ヘッド/インクルード化しているので、編集する際はheader.htmlから -->
@@ -47,6 +48,17 @@
                                     <td th:text="${kakeibo.usedStore}">◯◯スーパー</td>
                                     <td th:text="${kakeibo.remarks}">テストテスト</td>
                                     <td th:text="${#dates.format(kakeibo.insertAt, 'yyyy月MM月dd日')}">2022-09-01</td>
+                                    <td>
+                                        <form th:action="@{/kakeibo/update}">
+                                            <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form th:action="@{/kakeibo/delete}" method="post">
+                                            <input name="id" type="hidden" th:value="${kakeibo.id}">
+                                            <button type="submit"><i class="fa-solid fa-trash"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

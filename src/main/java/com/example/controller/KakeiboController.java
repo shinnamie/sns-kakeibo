@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.domain.DeletedKakeibo;
 import com.example.domain.Kakeibo;
 import com.example.form.AddKakeiboForm;
 import com.example.service.KakeiboService;
@@ -88,6 +89,23 @@ public class KakeiboController {
 
 		// 新規登録処理
 		kakeiboService.save(kakeibo);
+
+		return "redirect:/kakeibo/list";
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String delete(Integer id) {
+		DeletedKakeibo deletedKakeibo = new DeletedKakeibo();
+
+		// 現在の日時を取得
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+		// 値をセット
+		deletedKakeibo.setKakeiboId(id);
+		deletedKakeibo.setDeleteAt(timestamp);
+
+		// 論理削除
+		kakeiboService.delete(deletedKakeibo);
 
 		return "redirect:/kakeibo/list";
 	}

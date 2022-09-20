@@ -65,4 +65,12 @@
  			(#{userId}, #{settlementDate}, #{expenseItemId}, #{expenditureAmount}, #{incomeAmount}, #{settlementId}, #{usedStore}, #{remarks}, #{insertAt}, #{updateAt})
  	</insert>
  	
+ 	<!-- 家計簿削除 -->
+ 	<insert id="delete">
+ 		INSERT INTO kakeibo_delete_at
+ 			(kakeibo_id, delete_at)
+ 		VALUES
+ 			(#{kakeiboId}, #{deleteAt})
+ 	</insert>
+ 	
  </mapper>
