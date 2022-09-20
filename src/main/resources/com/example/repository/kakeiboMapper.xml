@@ -60,9 +60,9 @@
  	<!-- 家計簿新規登録 -->
  	<insert id="save">
  		INSERT INTO kakeibo
- 			(user_id, settlement_date, expense_item_id, expenditure_amount, income_amount, settlement_id, used_store, remarks, insert_date, update_date)
+ 			(user_id, settlement_date, expense_item_id, expenditure_amount, income_amount, settlement_id, used_store, remarks, insert_at, update_at)
  		VALUES
- 			(#{userId}, #{settlementDate}, #{expenseItemId}, #{expenditureAmount}, #{incomeAmount}, #{settlementId}, #{usedStore}, #{remarks}, #{insertDate}, #{updateDate})
+ 			(#{userId}, #{settlementDate}, #{expenseItemId}, #{expenditureAmount}, #{incomeAmount}, #{settlementId}, #{usedStore}, #{remarks}, #{insertAt}, #{updateAt})
  	</insert>
  	
  </mapper>
