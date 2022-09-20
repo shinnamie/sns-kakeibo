@@ -26,9 +26,14 @@ public class KakeiboController {
 	@Autowired
 	KakeiboService kakeiboService;
 
+	/**
+	 * 支出金額及び収入金額はnullを許容しないため、あらかじめ初期値として0をセット
+	 * 
+	 * @return 家計簿新規登録フォーム
+	 */
 	@ModelAttribute
 	private AddKakeiboForm addKakeiboForm() {
-		return new AddKakeiboForm(0, 0);
+		return new AddKakeiboForm("0", "0");
 	}
 
 	/**
@@ -70,6 +75,12 @@ public class KakeiboController {
 
 		// フォームの値をドメインにコピー
 		BeanUtils.copyProperties(addKakeiboForm, kakeibo);
+
+		// 支出金額と収入金額を変換してセット
+		Integer expenditureAmount = Integer.parseInt(addKakeiboForm.getExpenditureAmount());
+		Integer incomeAmount = Integer.parseInt(addKakeiboForm.getIncomeAmount());
+		kakeibo.setExpenditureAmount(expenditureAmount);
+		kakeibo.setIncomeAmount(incomeAmount);
 
 		// 登録日時と(最終)更新日時を手動でセット(Timestamp型)
 		kakeibo.setInsertAt(timestamp);

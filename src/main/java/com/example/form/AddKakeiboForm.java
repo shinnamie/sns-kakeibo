@@ -3,10 +3,12 @@ package com.example.form;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
 
 import com.example.domain.ExpenseItem;
 import com.example.domain.Settlement;
@@ -25,13 +27,15 @@ public class AddKakeiboForm {
 	@NotNull(message = "費目を選択してください")
 	private Integer expenseItemId;
 	/** 支出金額 */
-	@NotNull(message = "金額を0以上で入力してください")
-	@NumberFormat(pattern = "#,###")
-	private Integer expenditureAmount;
+	@PositiveOrZero(message = "数値を0か整数で入力してください")
+	@Range(min = 0, max = 99999999, message = "数値は8桁(0~99999999)まで入力できます")
+	@Digits(integer = 8, fraction = 0, message = "小数点以下は入力できません")
+	private String expenditureAmount;
 	/** 収入金額 */
-	@NotNull(message = "金額を0以上で入力してください")
-	@NumberFormat(pattern = "#,###")
-	private Integer incomeAmount;
+	@PositiveOrZero(message = "数値を0か整数で入力してください")
+	@Range(min = 0, max = 99999999, message = "数値は8桁(0~99999999)まで入力できます")
+	@Digits(integer = 8, fraction = 0, message = "小数点以下は入力できません")
+	private String incomeAmount;
 	/** 決済Id */
 	private Integer settlementId;
 	/** 利用店舗 */
@@ -56,7 +60,7 @@ public class AddKakeiboForm {
 	 * @param expenditureAmount
 	 * @param incomeAmount
 	 */
-	public AddKakeiboForm(Integer expenditureAmount, Integer incomeAmount) {
+	public AddKakeiboForm(String expenditureAmount, String incomeAmount) {
 		this.expenditureAmount = expenditureAmount;
 		this.incomeAmount = incomeAmount;
 	}
@@ -93,19 +97,19 @@ public class AddKakeiboForm {
 		this.expenseItemId = expenseItemId;
 	}
 
-	public Integer getExpenditureAmount() {
+	public String getExpenditureAmount() {
 		return expenditureAmount;
 	}
 
-	public void setExpenditureAmount(Integer expenditureAmount) {
+	public void setExpenditureAmount(String expenditureAmount) {
 		this.expenditureAmount = expenditureAmount;
 	}
 
-	public Integer getIncomeAmount() {
+	public String getIncomeAmount() {
 		return incomeAmount;
 	}
 
-	public void setIncomeAmount(Integer incomeAmount) {
+	public void setIncomeAmount(String incomeAmount) {
 		this.incomeAmount = incomeAmount;
 	}
 
