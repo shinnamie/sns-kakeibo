@@ -64,14 +64,14 @@ public class KakeiboController {
 		// 現在の登録日時の取得
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-		// 決済日時を変換・セット
-		LocalDate settlementDate = addKakeiboForm.getSettlementDate().toLocalDate();
+		// 決済日時を変換・セット(LocalDate型)
+		LocalDate settlementDate = addKakeiboForm.getSettlementDate();
 		kakeibo.setSettlementDate(settlementDate);
 
 		// フォームの値をドメインにコピー
 		BeanUtils.copyProperties(addKakeiboForm, kakeibo);
 
-		// 登録日時と(最終)更新日時を手動でセット
+		// 登録日時と(最終)更新日時を手動でセット(Timestamp型)
 		kakeibo.setInsertAt(timestamp);
 		kakeibo.setUpdateAt(timestamp);
 

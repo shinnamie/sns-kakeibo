@@ -1,10 +1,11 @@
 package com.example.form;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import com.example.domain.ExpenseItem;
@@ -17,7 +18,9 @@ public class AddKakeiboForm {
 	/** ユーザーId */
 	private Integer userId;
 	/** 決済日付 */
-	private Date settlementDate;
+	@NotNull(message = "日付を指定してください")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate settlementDate;
 	/** 費目Id */
 	private Integer expenseItemId;
 	/** 支出金額 */
@@ -73,11 +76,11 @@ public class AddKakeiboForm {
 		this.userId = userId;
 	}
 
-	public Date getSettlementDate() {
+	public LocalDate getSettlementDate() {
 		return settlementDate;
 	}
 
-	public void setSettlementDate(Date settlementDate) {
+	public void setSettlementDate(LocalDate settlementDate) {
 		this.settlementDate = settlementDate;
 	}
 
@@ -169,6 +172,7 @@ public class AddKakeiboForm {
 				+ ", insertAt=" + insertAt + ", updateAt=" + updateAt + ", expenseItem=" + expenseItem + ", settlement="
 				+ settlement + "]";
 	}
+
 
 
 }
