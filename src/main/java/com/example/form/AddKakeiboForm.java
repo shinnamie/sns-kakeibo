@@ -1,16 +1,19 @@
-package com.example.domain;
+package com.example.form;
 
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 
-public class Kakeibo {
+import com.example.domain.ExpenseItem;
+import com.example.domain.Settlement;
+
+public class AddKakeiboForm {
 
 	/** 家計簿Id */
 	private long id;
 	/** ユーザーId */
 	private Integer userId;
 	/** 決済日付 */
-	private LocalDate settlementDate;
+	private Date settlementDate;
 	/** 費目Id */
 	private Integer expenseItemId;
 	/** 支出金額 */
@@ -43,10 +46,12 @@ public class Kakeibo {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	public LocalDate getSettlementDate() {
+
+	public Date getSettlementDate() {
 		return settlementDate;
 	}
-	public void setSettlementDate(LocalDate settlementDate) {
+
+	public void setSettlementDate(Date settlementDate) {
 		this.settlementDate = settlementDate;
 	}
 	public Integer getExpenseItemId() {
@@ -85,19 +90,15 @@ public class Kakeibo {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-
 	public Timestamp getInsertDate() {
 		return insertDate;
 	}
-
 	public void setInsertDate(Timestamp insertDate) {
 		this.insertDate = insertDate;
 	}
-
 	public Timestamp getUpdateDate() {
 		return updateDate;
 	}
-
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
 	}
@@ -115,9 +116,9 @@ public class Kakeibo {
 	}
 	@Override
 	public String toString() {
-		return "Kakeibo [id=" + id + ", userId=" + userId + ", settlementDate=" + settlementDate + ", expenseItemId="
-				+ expenseItemId + ", expenditureAmount=" + expenditureAmount + ", incomeAmount=" + incomeAmount
-				+ ", settlementId=" + settlementId + ", usedStore=" + usedStore + ", remarks=" + remarks
+		return "AddKakeiboForm [id=" + id + ", userId=" + userId + ", settlementDate=" + settlementDate
+				+ ", expenseItemId=" + expenseItemId + ", expenditureAmount=" + expenditureAmount + ", incomeAmount="
+				+ incomeAmount + ", settlementId=" + settlementId + ", usedStore=" + usedStore + ", remarks=" + remarks
 				+ ", insertDate=" + insertDate + ", updateDate=" + updateDate + ", expenseItem=" + expenseItem
 				+ ", settlement=" + settlement + "]";
 	}
