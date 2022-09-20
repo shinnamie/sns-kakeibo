@@ -22,6 +22,7 @@ public class AddKakeiboForm {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate settlementDate;
 	/** 費目Id */
+	@NotNull(message = "費目を選択してください")
 	private Integer expenseItemId;
 	/** 支出金額 */
 	@NotNull(message = "金額を0以上で入力してください")
