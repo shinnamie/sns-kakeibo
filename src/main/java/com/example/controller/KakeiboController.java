@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.domain.DeletedKakeibo;
 import com.example.domain.Kakeibo;
 import com.example.form.AddKakeiboForm;
+import com.example.form.EditKakeiboForm;
 import com.example.service.KakeiboService;
 
 @Controller
@@ -35,6 +36,11 @@ public class KakeiboController {
 	@ModelAttribute
 	private AddKakeiboForm addKakeiboForm() {
 		return new AddKakeiboForm("0", "0");
+	}
+
+	@ModelAttribute
+	private EditKakeiboForm editKakeiboForm() {
+		return new EditKakeiboForm();
 	}
 
 	/**
@@ -58,6 +64,11 @@ public class KakeiboController {
 	@GetMapping(value = "/addKakeibo")
 	public String addKakeibo(AddKakeiboForm addKakeiboForm) {
 		return "kakeibo/add";
+	}
+
+	@GetMapping(value = "/update")
+	public String update() {
+		return "kakeibo/edit";
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
