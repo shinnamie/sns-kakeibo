@@ -34,6 +34,15 @@ public class KakeiboService {
 	}
 
 	/**
+	 * 論理削除フラグ
+	 * 
+	 * @param isDelete 削除フラグ
+	 */
+	public void updateIsDelete(Kakeibo kakeibo) {
+		kakeiboMapper.updateIsDelete(kakeibo);
+	}
+
+	/**
 	 * 家計簿の論理削除
 	 * 
 	 * @param kakeiboId 削除する家計簿Id

@@ -93,9 +93,16 @@ public class KakeiboController {
 		return "redirect:/kakeibo/list";
 	}
 
+	/**
+	 * 家計簿を論理削除する
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(Integer id) {
 		DeletedKakeibo deletedKakeibo = new DeletedKakeibo();
+		Kakeibo kakeibo = new Kakeibo();
 
 		// 現在の日時を取得
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -103,6 +110,11 @@ public class KakeiboController {
 		// 値をセット
 		deletedKakeibo.setKakeiboId(id);
 		deletedKakeibo.setDeleteAt(timestamp);
+
+		// 削除フラグをtrueにする
+		kakeibo.setId(id);
+		kakeibo.setDeleted(true);
+		kakeiboService.updateIsDelete(kakeibo);
 
 		// 論理削除
 		kakeiboService.delete(deletedKakeibo);
