@@ -24,9 +24,9 @@ public class Kakeibo {
 	/** 備考 */
 	private String remarks;
 	/** 登録日 */
-	private Timestamp insertDate;
+	private Timestamp insertAt;
 	/** 更新日 */
-	private Timestamp updateDate;
+	private Timestamp updateAt;
 	/** 費目 */
 	private ExpenseItem expenseItem;
 	/** 決済 */
@@ -86,20 +86,20 @@ public class Kakeibo {
 		this.remarks = remarks;
 	}
 
-	public Timestamp getInsertDate() {
-		return insertDate;
+	public Timestamp getInsertAt() {
+		return insertAt;
 	}
 
-	public void setInsertDate(Timestamp insertDate) {
-		this.insertDate = insertDate;
+	public void setInsertAt(Timestamp insertAt) {
+		this.insertAt = insertAt;
 	}
 
-	public Timestamp getUpdateDate() {
-		return updateDate;
+	public Timestamp getUpdateAt() {
+		return updateAt;
 	}
 
-	public void setUpdateDate(Timestamp updateDate) {
-		this.updateDate = updateDate;
+	public void setUpdateAt(Timestamp updateAt) {
+		this.updateAt = updateAt;
 	}
 	public ExpenseItem getExpenseItem() {
 		return expenseItem;
@@ -117,9 +117,9 @@ public class Kakeibo {
 	public String toString() {
 		return "Kakeibo [id=" + id + ", userId=" + userId + ", settlementDate=" + settlementDate + ", expenseItemId="
 				+ expenseItemId + ", expenditureAmount=" + expenditureAmount + ", incomeAmount=" + incomeAmount
-				+ ", settlementId=" + settlementId + ", usedStore=" + usedStore + ", remarks=" + remarks
-				+ ", insertDate=" + insertDate + ", updateDate=" + updateDate + ", expenseItem=" + expenseItem
-				+ ", settlement=" + settlement + "]";
+				+ ", settlementId=" + settlementId + ", usedStore=" + usedStore + ", remarks=" + remarks + ", insertAt="
+				+ insertAt + ", updateAt=" + updateAt + ", expenseItem=" + expenseItem + ", settlement=" + settlement
+				+ "]";
 	}
 
 

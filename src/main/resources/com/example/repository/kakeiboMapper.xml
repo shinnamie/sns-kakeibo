@@ -16,8 +16,8 @@
 			s.settlement_name,
 			k.used_store,
 			k.remarks,
-			k.insert_date,
-			k.update_date
+			k.insert_at,
+			k.update_at
 		FROM
 			kakeibo AS k
 		INNER JOIN
@@ -41,8 +41,8 @@
  		<result property="incomeAmount" column="income_amount"/>
  		<result property="usedStore" column="used_store"/>
  		<result property="remarks" column="remarks"/>
- 		<result property="insertDate" column="insert_date"/>
- 		<result property="updateDate" column="update_date"/>
+ 		<result property="insertAt" column="insert_at"/>
+ 		<result property="updateAt" column="update_at"/>
  		<association property="expenseItem" resultMap="expenseItemResultMap"/>
  		<association property="settlement" resultMap="settlementResultMap"/>
  	</resultMap>
@@ -60,9 +60,9 @@
  	<!-- 家計簿新規登録 -->
  	<insert id="save">
  		INSERT INTO kakeibo
- 			(user_id, settlement_date, expense_item_id, expenditure_amount, income_amount, settlement_id, used_store, remarks, insert_date, update_date)
+ 			(user_id, settlement_date, expense_item_id, expenditure_amount, income_amount, settlement_id, used_store, remarks, insert_at, update_at)
  		VALUES
- 			(#{userId}, #{settlementDate}, #{expenseItemId}, #{expenditureAmount}, #{incomeAmount}, #{settlementId}, #{usedStore}, #{remarks}, #{insertDate}, #{updateDate})
+ 			(#{userId}, #{settlementDate}, #{expenseItemId}, #{expenditureAmount}, #{incomeAmount}, #{settlementId}, #{usedStore}, #{remarks}, #{insertAt}, #{updateAt})
  	</insert>
  	
  </mapper>

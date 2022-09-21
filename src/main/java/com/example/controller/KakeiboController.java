@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,9 +26,14 @@ public class KakeiboController {
 	@Autowired
 	KakeiboService kakeiboService;
 
+	/**
+	 * 支出金額及び収入金額はnullを許容しないため、あらかじめ初期値として0をセット
+	 * 
+	 * @return 家計簿新規登録フォーム
+	 */
 	@ModelAttribute
 	private AddKakeiboForm addKakeiboForm() {
-		return new AddKakeiboForm();
+		return new AddKakeiboForm("0", "0");
 	}
 
 	/**
@@ -48,26 +55,36 @@ public class KakeiboController {
 	 * @return
 	 */
 	@GetMapping(value = "/addKakeibo")
-	public String addKakeibo() {
+	public String addKakeibo(AddKakeiboForm addKakeiboForm) {
 		return "kakeibo/add";
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(AddKakeiboForm addKakeiboForm) {
+	public String create(@Validated AddKakeiboForm addKakeiboForm, BindingResult result) {
+		if (result.hasErrors()) {
+			return "kakeibo/add";
+		}
+
 		Kakeibo kakeibo = new Kakeibo();
 		// 現在の登録日時の取得
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-		// 決済日時を変換・セット
-		LocalDate settlementDate = addKakeiboForm.getSettlementDate().toLocalDate();
+		// 決済日時を変換・セット(LocalDate型)
+		LocalDate settlementDate = addKakeiboForm.getSettlementDate();
 		kakeibo.setSettlementDate(settlementDate);
 
 		// フォームの値をドメインにコピー
 		BeanUtils.copyProperties(addKakeiboForm, kakeibo);
 
-		// 登録日時と(最終)更新日時を手動でセット
-		kakeibo.setInsertDate(timestamp);
-		kakeibo.setUpdateDate(timestamp);
+		// 支出金額と収入金額を変換してセット
+		Integer expenditureAmount = Integer.parseInt(addKakeiboForm.getExpenditureAmount());
+		Integer incomeAmount = Integer.parseInt(addKakeiboForm.getIncomeAmount());
+		kakeibo.setExpenditureAmount(expenditureAmount);
+		kakeibo.setIncomeAmount(incomeAmount);
+
+		// 登録日時と(最終)更新日時を手動でセット(Timestamp型)
+		kakeibo.setInsertAt(timestamp);
+		kakeibo.setUpdateAt(timestamp);
 
 		// 新規登録処理
 		kakeiboService.save(kakeibo);
