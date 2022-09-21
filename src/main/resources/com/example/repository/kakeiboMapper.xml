@@ -107,6 +107,15 @@
  	</insert>
  	
  	
+ 	<!-- 家計簿編集用 -->
+ 	<update id="update">
+ 	UPDATE kakeibo SET
+ 		settlement_date = #{settlementDate}, expense_item_id = #{expenseItemId}, expenditure_amount = #{expenditureAmount}, income_amount = #{incomeAmount}, settlement_id = #{settlementId}, used_store = #{usedStore}, remarks = #{remarks}
+ 	WHERE
+ 		id = #{id}
+ 	</update>
+ 	
+ 	
  	<!-- 家計簿論理削除 -->
  	<update id="updateIsDelete">
  		UPDATE kakeibo SET 

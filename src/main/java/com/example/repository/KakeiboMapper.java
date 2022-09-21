@@ -32,6 +32,13 @@ public interface KakeiboMapper {
 	void save(Kakeibo kakeibo);
 
 	/**
+	 * 家計簿の編集
+	 * 
+	 * @param kakeibo
+	 */
+	void update(Kakeibo kakeibo);
+
+	/**
 	 * 論理削除フラグ
 	 * 
 	 * @param kakeibo 家計簿

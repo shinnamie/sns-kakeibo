@@ -20,9 +20,9 @@
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h2>家計簿編集</h2>
                 </div>
-                <form th:action="@{/kakeibo/create}" th:object="${editKakeiboForm}" method="post">
-                    <!-- ユーザーID(とりあえずダミーを使用(ID=1)) -->
-                    <input type="hidden" value="1" name="userId">
+                <form th:action="@{/kakeibo/update}" th:object="${editKakeiboForm}" method="post">
+                    <!-- 家計簿Id -->
+                    <input type="hidden" name="id" th:value="*{id}">
                     <!-- 決済日時 -->
                     <div th:errors="*{settlementDate}" style="color: red;"></div>
                     決済日時：<input type="date" name="settlementDate" th:field="*{settlementDate}"><br>

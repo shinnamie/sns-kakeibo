@@ -124,6 +124,36 @@ public class KakeiboController {
 	}
 
 	/**
+	 * 家計簿の更新処理
+	 * 
+	 * @param editKakeiboForm
+	 * @param result
+	 * @return
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(@Validated EditKakeiboForm editKakeiboForm, BindingResult result) {
+		if (result.hasErrors()) {
+			return "kakeibo/edit";
+		}
+
+		Kakeibo kakeibo = new Kakeibo();
+
+		// 値をdomainにコピー
+		BeanUtils.copyProperties(editKakeiboForm, kakeibo);
+
+		// 支出金額と収入金額を変換してセット
+		Integer expenditureAmount = Integer.parseInt(editKakeiboForm.getExpenditureAmount());
+		Integer incomeAmount = Integer.parseInt(editKakeiboForm.getIncomeAmount());
+		kakeibo.setExpenditureAmount(expenditureAmount);
+		kakeibo.setIncomeAmount(incomeAmount);
+
+		// 更新処理の実装
+		kakeiboService.update(kakeibo);
+
+		return "redirect:/kakeibo/list";
+	}
+
+	/**
 	 * 家計簿を論理削除する
 	 * 
 	 * @param id 家計簿id

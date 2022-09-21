@@ -45,6 +45,15 @@ public class KakeiboService {
 	}
 
 	/**
+	 * 家計簿の編集
+	 * 
+	 * @param kakeibo
+	 */
+	public void update(Kakeibo kakeibo) {
+		kakeiboMapper.update(kakeibo);
+	}
+
+	/**
 	 * 論理削除フラグ
 	 * 
 	 * @param kakeibo 家計簿
