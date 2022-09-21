@@ -67,6 +67,6 @@ public interface KakeiboMapper {
 	 * 
 	 * @return
 	 */
-	MonthlyBalanceCalculationResult MonthlyBalanceCalculate(String year, String month);
+	MonthlyBalanceCalculationResult monthlyBalanceCalculate(String year, String month);
 
 }

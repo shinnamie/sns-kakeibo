@@ -189,7 +189,7 @@ public class KakeiboController {
 
 		// 収支計算
 		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
-				.MonthlyBalanceCalculate(year, month);
+				.monthlyBalanceCalculate(year, month);
 
 		// それぞれの結果をスコープに格納
 		model.addAttribute("kakeiboMonthList", kakeiboMonthList);

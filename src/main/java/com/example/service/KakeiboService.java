@@ -88,8 +88,8 @@ public class KakeiboService {
 	 * 
 	 * @return
 	 */
-	public MonthlyBalanceCalculationResult MonthlyBalanceCalculate(String year, String month) {
-		return kakeiboMapper.MonthlyBalanceCalculate(year, month);
+	public MonthlyBalanceCalculationResult monthlyBalanceCalculate(String year, String month) {
+		return kakeiboMapper.monthlyBalanceCalculate(year, month);
 	}
 
 }

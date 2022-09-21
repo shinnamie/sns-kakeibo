@@ -8,6 +8,7 @@
 <link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
 <link rel="stylesheet" th:href="@{/css//common/example.css}">
 <link rel="stylesheet" th:href="@{/css/kakeibo/input.css}">
+<link rel="stylesheet" th:href="@{/css/kakeibo/month.css}">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
 </head>
 <body>
@@ -37,12 +38,37 @@
                     </div>
                 </form>
 
-                <!-- テーブル表示 -->
+                <!-- 収支計算ボックス -->
                 <div th:if="${monthlyBalanceCalculationResult}">
-                    <div th:text="${monthlyBalanceCalculationResult.TotalIncomeAmount}"></div>
-                    <div th:text="${monthlyBalanceCalculationResult.TotalExpenditureAmount}"></div>
-                    <div th:text="${monthlyBalanceCalculationResult.BalanceCalculationResult}"></div>
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                        <div class="table-responsive">
+                            <table class="table-striped table-sm calculated-box">
+                                <tr>
+                                    <th>収入金額</th>
+                                    <th></th>
+                                    <th>支出金額</th>
+                                    <th></th>
+                                    <th>当月収支</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.TotalIncomeAmount, '3', 'COMMA') + '円'}"></div>
+                                    </td>
+                                    <td>ー</td>
+                                    <td>
+                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.TotalExpenditureAmount, '3', 'COMMA') + '円'}"></div>
+                                    </td>
+                                    <td>＝</td>
+                                    <td>
+                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.BalanceCalculationResult, '3', 'COMMA') + '円'}"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- テーブル表示 -->
                 <div th:if="${kakeiboMonthList}">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <div class="table-responsive">

@@ -162,10 +162,10 @@
  	
  	
  	<!-- 月別収支計算 -->
- 	<select id="MonthlyBalanceCalculate" resultMap="BalanceCalculationResultMap">
+ 	<select id="monthlyBalanceCalculate" resultMap="BalanceCalculationResultMap">
  		SELECT
-			SUM(expenditure_amount) AS total_expenditure_amount,
 			SUM(income_amount) AS total_income_amount,
+			SUM(expenditure_amount) AS total_expenditure_amount,
 			(SUM(income_amount) - SUM(expenditure_amount)) AS balance_calculation_result
 		FROM kakeibo
 		WHERE
@@ -174,8 +174,8 @@
  	</select>
  	
  	<resultMap id="BalanceCalculationResultMap" type="com.example.domain.MonthlyBalanceCalculationResult">
- 		<result property="TotalIncomeAmount" column="total_expenditure_amount"/>
- 		<result property="TotalExpenditureAmount" column="total_income_amount"/>
+ 		<result property="TotalIncomeAmount" column="total_income_amount"/>
+ 		<result property="TotalExpenditureAmount" column="total_expenditure_amount"/>
  		<result property="BalanceCalculationResult" column="balance_calculation_result"/>
  	</resultMap>
  </mapper>
