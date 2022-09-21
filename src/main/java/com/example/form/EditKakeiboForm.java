@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,13 +26,11 @@ public class EditKakeiboForm {
 	@NotNull(message = "費目を選択してください")
 	private Integer expenseItemId;
 	/** 支出金額 */
-	@PositiveOrZero(message = "数値を0か整数で入力してください")
-	@Range(min = 0, max = 99999999, message = "数値は8桁(0~99999999)まで入力できます")
+	@Range(min = 0, max = 99999999, message = "数値は整数で8桁(0~99999999)で入力してください")
 	@Digits(integer = 8, fraction = 0, message = "小数点以下は入力できません")
 	private String expenditureAmount;
 	/** 収入金額 */
-	@PositiveOrZero(message = "数値を0か整数で入力してください")
-	@Range(min = 0, max = 99999999, message = "数値は8桁(0~99999999)まで入力できます")
+	@Range(min = 0, max = 99999999, message = "数値は整数で8桁(0~99999999)で入力してください")
 	@Digits(integer = 8, fraction = 0, message = "小数点以下は入力できません")
 	private String incomeAmount;
 	/** 決済Id */
@@ -50,43 +47,6 @@ public class EditKakeiboForm {
 	private Settlement settlement;
 
 	public EditKakeiboForm() {
-	}
-
-	/**
-	 * 編集の際にデフォルトで表示するコンストラクタを準備
-	 * 
-	 * @param id
-	 * @param userId
-	 * @param settlementDate
-	 * @param expenseItemId
-	 * @param expenditureAmount
-	 * @param incomeAmount
-	 * @param settlementId
-	 * @param usedStore
-	 * @param remarks
-	 * @param updateAt
-	 * @param expenseItem
-	 * @param settlement
-	 */
-	public EditKakeiboForm(long id, Integer userId, @NotNull(message = "日付を指定してください") LocalDate settlementDate,
-			@NotNull(message = "費目を選択してください") Integer expenseItemId,
-			@PositiveOrZero(message = "数値を0か整数で入力してください") @Range(min = 0, max = 99999999, message = "数値は8桁(0~99999999)まで入力できます") @Digits(integer = 8, fraction = 0, message = "小数点以下は入力できません") String expenditureAmount,
-			@PositiveOrZero(message = "数値を0か整数で入力してください") @Range(min = 0, max = 99999999, message = "数値は8桁(0~99999999)まで入力できます") @Digits(integer = 8, fraction = 0, message = "小数点以下は入力できません") String incomeAmount,
-			Integer settlementId, String usedStore, String remarks, Timestamp updateAt, ExpenseItem expenseItem,
-			Settlement settlement) {
-		super();
-		this.id = id;
-		this.userId = userId;
-		this.settlementDate = settlementDate;
-		this.expenseItemId = expenseItemId;
-		this.expenditureAmount = expenditureAmount;
-		this.incomeAmount = incomeAmount;
-		this.settlementId = settlementId;
-		this.usedStore = usedStore;
-		this.remarks = remarks;
-		this.updateAt = updateAt;
-		this.expenseItem = expenseItem;
-		this.settlement = settlement;
 	}
 
 	public long getId() {
