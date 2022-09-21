@@ -71,4 +71,15 @@ public class KakeiboService {
 		kakeiboMapper.delete(deletedKakeibo);
 	}
 
+	/**
+	 * 月別集計
+	 * 
+	 * @param year  集計年
+	 * @param month 集計月
+	 * @return 集計結果
+	 */
+	public List<Kakeibo> findByYearAndMonth(String year, String month) {
+		return kakeiboMapper.findByYearAndMonth(year, month);
+	}
+
 }

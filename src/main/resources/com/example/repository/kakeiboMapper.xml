@@ -66,7 +66,6 @@
 			k.id = #{id};
  	</select>
  	
- 	
  	<!-- 家計簿情報取得用のresultMap -->
  	<resultMap id="kakeiboResultMap" type="com.example.domain.Kakeibo">
  		<id property="id" column="id"/>
@@ -128,4 +127,36 @@
  			(#{kakeiboId}, #{deleteAt})
  	</insert>
  	
+ 	
+ 	<!-- 月別集計用 -->
+ 	<select id="findByYearAndMonth" resultMap="kakeiboResultMap">
+ 		SELECT
+			k.id,
+			k.user_id,
+			k.settlement_date,
+			k.expense_item_id,
+			ei.expense_item_name,
+			k.expenditure_amount,
+			k.income_amount,
+			k.settlement_id,
+			s.settlement_name,
+			k.used_store,
+			k.remarks,
+			k.insert_at
+		FROM kakeibo AS k
+		INNER JOIN
+			expense_item as ei
+		ON
+			k.expense_item_id = ei.id
+		LEFT JOIN
+			settlement as s
+		ON
+			k.settlement_id = s.id
+		WHERE
+			k.is_deleted = false
+			and TO_CHAR(k.settlement_date, 'YYYY-MM') LIKE '${year}-%${month}%'
+		ORDER BY
+			k.settlement_date DESC,
+			k.update_at DESC;
+ 	</select>
  </mapper>

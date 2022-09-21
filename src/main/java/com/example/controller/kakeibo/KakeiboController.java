@@ -84,7 +84,7 @@ public class KakeiboController {
 	}
 
 	@GetMapping(value = "/monthly-aggregation")
-	public String aggregatedByMonth() {
+	public String monthlyAggregation() {
 		return "kakeibo/month";
 	}
 
@@ -179,5 +179,18 @@ public class KakeiboController {
 		kakeiboService.delete(deletedKakeibo);
 
 		return "redirect:/kakeibo/list";
+	}
+
+	@RequestMapping(value = "/aggregated-month", method = RequestMethod.POST)
+	public String aggregatedByMonth(String year, String month, Model model) {
+		// 年月のパラメーターを元に検索、結果を取得
+		List<Kakeibo> kakeiboMonthList = kakeiboService.findByYearAndMonth(year, month);
+
+		// 結果をスコープに格納
+		model.addAttribute("kakeiboMonthList", kakeiboMonthList);
+
+		System.out.println(kakeiboMonthList);
+
+		return "kakeibo/month";
 	}
 }
