@@ -26,11 +26,15 @@
                     <input type="hidden" name="id" th:value="*{id}">
                     <!-- 決済日時 -->
                     <div th:errors="*{settlementDate}" style="color: red;"></div>
-                    決済日時：<input type="date" name="settlementDate" th:field="*{settlementDate}"><br>
+                    <div class="inputs">
+                        <label class="label">決済日時</label>
+                        <input class="input_form" type="date" name="settlementDate" th:field="*{settlementDate}">
+                    </div>
                     <!-- 費目 -->
                     <div th:errors="*{expenseItemId}" style="color: red;"></div>
-                    費目：
-                    <select name="expenseItemId" id="" th:field="*{expenseItemId}">
+                    <div class="inputs">
+                        <label class="label">費目</label>
+                        <select name="expenseItemId" id="" th:field="*{expenseItemId}">
                         <option value="">---</option>
                         <option value="1">給料</option>
                         <option value="2">雑収入</option>
@@ -51,31 +55,49 @@
                         <option value="17">税・社会保障</option>
                         <option value="18">保険</option>
                         <option value="19">その他</option>
-                    </select><br>
+                        </select>
+                    </div>
                     <!-- 支出金額 -->
                     <div th:errors="*{expenditureAmount}" style="color: red;"></div>
-                    支出金額：<input type="text" name="expenditureAmount" th:field="*{expenditureAmount}"><br>
+                    <div class="inputs">
+                        <label class="label">支出金額</label>
+                        <input class="input_form" type="text" name="expenditureAmount" th:field="*{expenditureAmount}">
+                    </div>
                     <!-- 収入金額 -->
                     <div th:errors="*{incomeAmount}" style="color: red;"></div>
-                    収入金額：<input type="text" name="incomeAmount" th:field="*{incomeAmount}"><br>
+                    <div class="inputs">
+                        <label class="label">収入金額</label>
+                        <input class="input_form" type="text" name="incomeAmount" th:field="*{incomeAmount}">
+                    </div>
                     <!-- 決済方法 -->
-                    決済方法：
-                    <select name="settlementId" id="" th:field="*{settlementId}">
-                        <option value="">---</option>
-                        <option value="1">銀行</option>
-                        <option value="2">現金</option>
-                        <option value="3">クレジットカード</option>
-                        <option value="4">IC</option>
-                        <option value="5">WAON</option>
-                        <option value="6">PayPay</option>
-                        <option value="7">ポイント</option>
-                    </select><br>
+                    <div class="inputs">
+                        <label class="label">決済方法</label>
+                        <select class="input_form" name="settlementId" id="" th:field="*{settlementId}">
+                            <option value="">---</option>
+                            <option value="1">銀行</option>
+                            <option value="2">現金</option>
+                            <option value="3">クレジットカード</option>
+                            <option value="4">IC</option>
+                            <option value="5">WAON</option>
+                            <option value="6">PayPay</option>
+                            <option value="7">ポイント</option>
+                        </select>
+                    </div>
                     <!-- 利用店舗 -->
-                    利用店舗：<input type="text" name="usedStore" th:field="*{usedStore}"><br>
+                    <div class="inputs">
+                        <label class="label">利用店舗</label>
+                        <input class="input_form" type="text" name="usedStore" th:field="*{usedStore}"><br>
+                    </div>
                     <!-- 備考 -->
-                    備考：<input type="text" name="remarks" th:field="*{remarks}"><br>
-                    <button type="submit" class="btn btn-sm btn-outline-secondary">更新</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="history.back()">戻る</button>
+                    <div class="inputs">
+                        <label class="label">備考</label>
+                        <input class="input_form" type="text" name="remarks" th:field="*{remarks}"><br>
+                    </div>
+                    <div class="btn-area">
+                        <input type="button" class="btn btn-sm btn-outline-secondary" onclick="history.back()" value="戻る">
+                        <input type="reset" class="btn btn-sm btn-outline-secondary" value="リセット">
+                        <input type="submit" class="btn btn-sm btn-outline-secondary" value="更新">
+                    </div>
                 </form>
             </main>
         </div>
