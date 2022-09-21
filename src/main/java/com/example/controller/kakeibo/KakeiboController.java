@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.kakeibo;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
