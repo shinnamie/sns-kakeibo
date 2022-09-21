@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.domain.DeletedKakeibo;
 import com.example.domain.Kakeibo;
+import com.example.domain.MonthlyBalanceCalculationResult;
 import com.example.form.AddKakeiboForm;
 import com.example.form.EditKakeiboForm;
 import com.example.service.KakeiboService;
@@ -186,10 +187,13 @@ public class KakeiboController {
 		// 年月のパラメーターを元に検索、結果を取得
 		List<Kakeibo> kakeiboMonthList = kakeiboService.findByYearAndMonth(year, month);
 
-		// 結果をスコープに格納
-		model.addAttribute("kakeiboMonthList", kakeiboMonthList);
+		// 収支計算
+		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
+				.MonthlyBalanceCalculate(year, month);
 
-		System.out.println(kakeiboMonthList);
+		// それぞれの結果をスコープに格納
+		model.addAttribute("kakeiboMonthList", kakeiboMonthList);
+		model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
 
 		return "kakeibo/month";
 	}

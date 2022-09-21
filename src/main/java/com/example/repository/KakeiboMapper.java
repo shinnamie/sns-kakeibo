@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.domain.DeletedKakeibo;
 import com.example.domain.Kakeibo;
+import com.example.domain.MonthlyBalanceCalculationResult;
 
 @Mapper
 public interface KakeiboMapper {
@@ -60,5 +61,12 @@ public interface KakeiboMapper {
 	 * @return 集計結果
 	 */
 	List<Kakeibo> findByYearAndMonth(String year, String month);
+
+	/**
+	 * 月別の収支計算結果
+	 * 
+	 * @return
+	 */
+	MonthlyBalanceCalculationResult MonthlyBalanceCalculate(String year, String month);
 
 }

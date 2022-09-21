@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.domain.DeletedKakeibo;
 import com.example.domain.Kakeibo;
+import com.example.domain.MonthlyBalanceCalculationResult;
 import com.example.repository.KakeiboMapper;
 
 @Service
@@ -80,6 +81,15 @@ public class KakeiboService {
 	 */
 	public List<Kakeibo> findByYearAndMonth(String year, String month) {
 		return kakeiboMapper.findByYearAndMonth(year, month);
+	}
+
+	/**
+	 * 月別の収支計算結果
+	 * 
+	 * @return
+	 */
+	public MonthlyBalanceCalculationResult MonthlyBalanceCalculate(String year, String month) {
+		return kakeiboMapper.MonthlyBalanceCalculate(year, month);
 	}
 
 }
