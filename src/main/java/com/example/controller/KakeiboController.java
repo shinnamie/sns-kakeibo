@@ -57,7 +57,7 @@ public class KakeiboController {
 	}
 	
 	/**
-	 * 家計簿登録画面を表示
+	 * 家計簿登録画面を表示(元のデータをデフォルト表示)
 	 * 
 	 * @return
 	 */
@@ -83,6 +83,13 @@ public class KakeiboController {
 		return "kakeibo/edit";
 	}
 
+	/**
+	 * 家計簿の新規登録処理
+	 * 
+	 * @param addKakeiboForm
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String create(@Validated AddKakeiboForm addKakeiboForm, BindingResult result) {
 		if (result.hasErrors()) {
