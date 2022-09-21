@@ -38,6 +38,9 @@
                     </div>
                 </form>
 
+                <!-- データが存在しない場合のメッセージ -->
+                <div th:if="${message}" th:text="${message}" style="color: red;"></div>
+
                 <!-- 収支計算ボックス -->
                 <div th:if="${monthlyBalanceCalculationResult}">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">

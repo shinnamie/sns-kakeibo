@@ -192,8 +192,12 @@ public class KakeiboController {
 				.monthlyBalanceCalculate(year, month);
 
 		// それぞれの結果をスコープに格納
-		model.addAttribute("kakeiboMonthList", kakeiboMonthList);
-		model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
+		if (kakeiboMonthList == null || kakeiboMonthList.size() == 0) {
+			model.addAttribute("message", "ご入力頂いた年月のデータは存在しません。");
+		} else {
+			model.addAttribute("kakeiboMonthList", kakeiboMonthList);
+			model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
+		}
 
 		return "kakeibo/month";
 	}
