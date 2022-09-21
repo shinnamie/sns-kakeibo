@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>家計簿一覧</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
+<link rel="stylesheet" th:href="@{/css//common/example.css}">
+<link rel="stylesheet" th:href="@{/css/kakeibo/input.css}">
+</head>
+<body>
+    <!-- ヘッド/インクルード化しているので、編集する際はheader.htmlから -->
+    <div th:insert="common/head :: frag_head"></div>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <!-- メニューバー/インクルード化しているので、編集する際はheader.htmlから -->
+            <div th:insert="common/sidebar :: frag_menu"></div>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h2>月別集計</h2>
+                </div>
+                <form th:action="@{/kakeibo/aggregatedByMonth}" method="post">
+                    <!-- 月別集計 -->
+                    <div class="inputs">
+                        <label class="label">集計したい年</label>
+                        <input class="input_form" type="text" name="year">年
+                    </div>
+                    <div class="inputs">
+                        <label class="label">集計したい月</label>
+                        <input class="input_form" type="text" name="month">月
+                    </div>
+                    <div class="btn-area">
+                        <input type="submit" class="btn btn-sm btn-outline-secondary" value="検索">
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

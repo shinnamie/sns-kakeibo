@@ -83,6 +83,11 @@ public class KakeiboController {
 		return "kakeibo/edit";
 	}
 
+	@GetMapping(value = "/monthly-aggregation")
+	public String aggregatedByMonth() {
+		return "kakeibo/month";
+	}
+
 	/**
 	 * 家計簿の新規登録処理
 	 * 
