@@ -10,9 +10,11 @@
 			k.id,
 			k.user_id,
 			k.settlement_date,
+			k.expense_item_id,
 			ei.expense_item_name,
 			k.expenditure_amount,
 			k.income_amount,
+			k.settlement_id,
 			s.settlement_name,
 			k.used_store,
 			k.remarks,
@@ -41,9 +43,10 @@
  		<id property="id" column="id"/>
  		<result property="userId" column="user_id"/>
  		<result property="settlementDate" column="settlement_date"/>
+ 		<result property="expenseItemId" column="expense_item_id"/>
  		<result property="expenditureAmount" column="expenditure_amount"/>
  		<result property="incomeAmount" column="income_amount"/>
- 		<result property="incomeAmount" column="income_amount"/>
+ 		<result property="settlementId" column="settlement_id"/>
  		<result property="usedStore" column="used_store"/>
  		<result property="remarks" column="remarks"/>
  		<result property="insertAt" column="insert_at"/>
@@ -62,6 +65,35 @@
  		<result property="id" column="id"/>
  		<result property="settlementName" column="settlement_name"/>
  	</resultMap>
+ 	
+ 	<!-- 家計簿1件のデータを取得(編集用) -->
+ 	<select id="findByKakeiboId" resultMap="kakeiboResultMap">
+ 		SELECT
+			k.id,
+			k.user_id,
+			k.settlement_date,
+			k.expense_item_id,
+			ei.expense_item_name,
+			k.expenditure_amount,
+			k.income_amount,
+			k.settlement_id,
+			s.settlement_name,
+			k.used_store,
+			k.remarks,
+			k.insert_at,
+			k.update_at
+		FROM kakeibo AS k
+		INNER JOIN
+			expense_item as ei
+		ON
+			k.expense_item_id = ei.id
+		LEFT JOIN
+			settlement as s
+		ON
+			k.settlement_id = s.id
+		WHERE
+			k.id = #{id};
+ 	</select>
  	
  	<!-- 家計簿新規登録 -->
  	<insert id="save">

@@ -18,6 +18,13 @@ public interface KakeiboMapper {
 	List<Kakeibo> findAll();
 
 	/**
+	 * 家計簿idから家計簿情報を取得
+	 * 
+	 * @return 検索結果(1件)
+	 */
+	Kakeibo findByKakeiboId(Integer id);
+
+	/**
 	 * 家計簿の新規登録
 	 * 
 	 * @param kakeibo

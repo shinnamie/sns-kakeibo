@@ -67,7 +67,19 @@ public class KakeiboController {
 	}
 
 	@GetMapping(value = "/update")
-	public String update() {
+	public String update(Integer id, EditKakeiboForm editKakeiboForm) {
+		// idから家計簿情報を1件取得する
+		Kakeibo kakeibo = kakeiboService.findByKakeiboId(id);
+
+		// 値をコピー(kakeibo→editKakeiboForm)
+		BeanUtils.copyProperties(kakeibo, editKakeiboForm);
+
+		// 収入金額と支出金額に関してはdomainと型が異なるため手動でセット
+		String expenditureAmount = kakeibo.getExpenditureAmount().toString();
+		String incomeAmount = kakeibo.getIncomeAmount().toString();
+		editKakeiboForm.setExpenditureAmount(expenditureAmount);
+		editKakeiboForm.setIncomeAmount(incomeAmount);
+
 		return "kakeibo/edit";
 	}
 

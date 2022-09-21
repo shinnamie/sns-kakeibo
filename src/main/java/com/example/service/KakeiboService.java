@@ -24,6 +24,17 @@ public class KakeiboService {
 		return kakeiboMapper.findAll();
 	}
 
+
+	/**
+	 * 家計簿idから家計簿情報を取得
+	 * 
+	 * @param id 家計簿id
+	 * @return kakeibo 家計簿
+	 */
+	public Kakeibo findByKakeiboId(Integer id) {
+		return kakeiboMapper.findByKakeiboId(id);
+	}
+
 	/**
 	 * 家計簿の新規登録
 	 * 
