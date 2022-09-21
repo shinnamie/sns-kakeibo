@@ -38,33 +38,6 @@
 		ORDER BY
 			k.settlement_date DESC;
  	</select>
- 		
- 	<resultMap id="kakeiboResultMap" type="com.example.domain.Kakeibo">
- 		<id property="id" column="id"/>
- 		<result property="userId" column="user_id"/>
- 		<result property="settlementDate" column="settlement_date"/>
- 		<result property="expenseItemId" column="expense_item_id"/>
- 		<result property="expenditureAmount" column="expenditure_amount"/>
- 		<result property="incomeAmount" column="income_amount"/>
- 		<result property="settlementId" column="settlement_id"/>
- 		<result property="usedStore" column="used_store"/>
- 		<result property="remarks" column="remarks"/>
- 		<result property="insertAt" column="insert_at"/>
- 		<result property="updateAt" column="update_at"/>
- 		<result property="isDeleted" column="is_deleted"/>
- 		<association property="expenseItem" resultMap="expenseItemResultMap"/>
- 		<association property="settlement" resultMap="settlementResultMap"/>
- 	</resultMap>
- 	
- 	<resultMap id="expenseItemResultMap" type="com.example.domain.ExpenseItem">
- 		<result property="id" column="id"/>
- 		<result property="expenseItemName" column="expense_item_name"/>
- 	</resultMap>
- 	
- 	<resultMap id="settlementResultMap" type="com.example.domain.Settlement">
- 		<result property="id" column="id"/>
- 		<result property="settlementName" column="settlement_name"/>
- 	</resultMap>
  	
  	<!-- 家計簿1件のデータを取得(編集用) -->
  	<select id="findByKakeiboId" resultMap="kakeiboResultMap">
@@ -95,6 +68,36 @@
 			k.id = #{id};
  	</select>
  	
+ 	
+ 	<!-- 家計簿情報取得用のresultMap -->
+ 	<resultMap id="kakeiboResultMap" type="com.example.domain.Kakeibo">
+ 		<id property="id" column="id"/>
+ 		<result property="userId" column="user_id"/>
+ 		<result property="settlementDate" column="settlement_date"/>
+ 		<result property="expenseItemId" column="expense_item_id"/>
+ 		<result property="expenditureAmount" column="expenditure_amount"/>
+ 		<result property="incomeAmount" column="income_amount"/>
+ 		<result property="settlementId" column="settlement_id"/>
+ 		<result property="usedStore" column="used_store"/>
+ 		<result property="remarks" column="remarks"/>
+ 		<result property="insertAt" column="insert_at"/>
+ 		<result property="updateAt" column="update_at"/>
+ 		<result property="isDeleted" column="is_deleted"/>
+ 		<association property="expenseItem" resultMap="expenseItemResultMap"/>
+ 		<association property="settlement" resultMap="settlementResultMap"/>
+ 	</resultMap>
+ 	
+ 	<resultMap id="expenseItemResultMap" type="com.example.domain.ExpenseItem">
+ 		<result property="id" column="id"/>
+ 		<result property="expenseItemName" column="expense_item_name"/>
+ 	</resultMap>
+ 	
+ 	<resultMap id="settlementResultMap" type="com.example.domain.Settlement">
+ 		<result property="id" column="id"/>
+ 		<result property="settlementName" column="settlement_name"/>
+ 	</resultMap>
+ 	
+ 	
  	<!-- 家計簿新規登録 -->
  	<insert id="save">
  		INSERT INTO kakeibo
@@ -102,6 +105,7 @@
  		VALUES
  			(#{userId}, #{settlementDate}, #{expenseItemId}, #{expenditureAmount}, #{incomeAmount}, #{settlementId}, #{usedStore}, #{remarks}, #{insertAt}, #{updateAt})
  	</insert>
+ 	
  	
  	<!-- 家計簿論理削除 -->
  	<update id="updateIsDelete">
