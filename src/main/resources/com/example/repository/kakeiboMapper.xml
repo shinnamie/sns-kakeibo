@@ -19,7 +19,8 @@
 			k.used_store,
 			k.remarks,
 			k.insert_at,
-			k.update_at
+			k.update_at,
+			k.is_deleted
 		FROM kakeibo AS k
 		INNER JOIN
 			expense_item as ei
@@ -29,14 +30,11 @@
 			settlement as s
 		ON
 			k.settlement_id = s.id
-		LEFT JOIN
-			kakeibo_delete_at as kda
-		ON
-			k.id = kda.kakeibo_id
 		WHERE
 			k.is_deleted = false
 		ORDER BY
-			k.settlement_date DESC;
+			k.settlement_date DESC,
+			k.update_at DESC;
  	</select>
  	
  	<!-- 家計簿1件のデータを取得(編集用) -->
@@ -101,9 +99,9 @@
  	<!-- 家計簿新規登録 -->
  	<insert id="save">
  		INSERT INTO kakeibo
- 			(user_id, settlement_date, expense_item_id, expenditure_amount, income_amount, settlement_id, used_store, remarks, insert_at, update_at)
+ 			(user_id, settlement_date, expense_item_id, expenditure_amount, income_amount, settlement_id, used_store, remarks)
  		VALUES
- 			(#{userId}, #{settlementDate}, #{expenseItemId}, #{expenditureAmount}, #{incomeAmount}, #{settlementId}, #{usedStore}, #{remarks}, #{insertAt}, #{updateAt})
+ 			(#{userId}, #{settlementDate}, #{expenseItemId}, #{expenditureAmount}, #{incomeAmount}, #{settlementId}, #{usedStore}, #{remarks})
  	</insert>
  	
  	
