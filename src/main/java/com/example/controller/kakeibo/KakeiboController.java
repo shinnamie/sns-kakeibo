@@ -84,9 +84,9 @@ public class KakeiboController {
 		return "kakeibo/edit";
 	}
 
-	@GetMapping(value = "/monthly-aggregation")
+	@GetMapping(value = "/yearly-or-monthly-aggregation")
 	public String monthlyAggregation() {
-		return "kakeibo/month";
+		return "kakeibo/year-and-month";
 	}
 
 	/**
@@ -190,12 +190,12 @@ public class KakeiboController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/aggregated-month", method = RequestMethod.POST)
+	@RequestMapping(value = "/aggregated-year-or-month", method = RequestMethod.POST)
 	public String aggregatedByMonth(String year, String month, Model model) {
 		// 年月のパラメーターを元に検索、結果を取得
 		List<Kakeibo> kakeiboMonthList = kakeiboService.findByYearAndMonth(year, month);
 
-		// 収支計算
+		// 収支計算結果の取得
 		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
 				.monthlyBalanceCalculate(year, month);
 
@@ -207,6 +207,6 @@ public class KakeiboController {
 			model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
 		}
 
-		return "kakeibo/month";
+		return "kakeibo/year-and-month";
 	}
 }
