@@ -1,4 +1,4 @@
-package com.example.form;
+package com.example.form.kakeibo;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.example.domain.ExpenseItem;
-import com.example.domain.Settlement;
+import com.example.domain.kakeibo.ExpenseItem;
+import com.example.domain.kakeibo.Settlement;
 
 public class AddKakeiboForm {
 

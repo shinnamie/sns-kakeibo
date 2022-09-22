@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.domain.DeletedKakeibo;
-import com.example.domain.Kakeibo;
-import com.example.domain.MonthlyBalanceCalculationResult;
-import com.example.form.AddKakeiboForm;
-import com.example.form.EditKakeiboForm;
-import com.example.service.KakeiboService;
+import com.example.domain.kakeibo.DeletedKakeibo;
+import com.example.domain.kakeibo.Kakeibo;
+import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
+import com.example.form.kakeibo.AddKakeiboForm;
+import com.example.form.kakeibo.EditKakeiboForm;
+import com.example.service.kakeibo.KakeiboService;
 
 @Controller
 @RequestMapping("/kakeibo")
@@ -182,6 +182,14 @@ public class KakeiboController {
 		return "redirect:/kakeibo/list";
 	}
 
+	/**
+	 * 月別集計結果を取得する
+	 * 
+	 * @param year
+	 * @param month
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/aggregated-month", method = RequestMethod.POST)
 	public String aggregatedByMonth(String year, String month, Model model) {
 		// 年月のパラメーターを元に検索、結果を取得

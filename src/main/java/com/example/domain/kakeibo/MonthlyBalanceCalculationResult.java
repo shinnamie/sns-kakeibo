@@ -1,4 +1,4 @@
-package com.example.domain;
+package com.example.domain.kakeibo;
 
 public class MonthlyBalanceCalculationResult {
 

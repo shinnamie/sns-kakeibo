@@ -1,14 +1,14 @@
-package com.example.service;
+package com.example.service.kakeibo;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.domain.DeletedKakeibo;
-import com.example.domain.Kakeibo;
-import com.example.domain.MonthlyBalanceCalculationResult;
-import com.example.repository.KakeiboMapper;
+import com.example.domain.kakeibo.DeletedKakeibo;
+import com.example.domain.kakeibo.Kakeibo;
+import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
+import com.example.repository.kakeibo.KakeiboMapper;
 
 @Service
 public class KakeiboService {

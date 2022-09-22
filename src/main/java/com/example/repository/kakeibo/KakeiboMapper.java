@@ -1,12 +1,12 @@
-package com.example.repository;
+package com.example.repository.kakeibo;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.domain.DeletedKakeibo;
-import com.example.domain.Kakeibo;
-import com.example.domain.MonthlyBalanceCalculationResult;
+import com.example.domain.kakeibo.DeletedKakeibo;
+import com.example.domain.kakeibo.Kakeibo;
+import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
 
 @Mapper
 public interface KakeiboMapper {
