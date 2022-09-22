@@ -201,7 +201,7 @@ public class KakeiboController {
 
 		// それぞれの結果をスコープに格納
 		if (kakeiboMonthList == null || kakeiboMonthList.size() == 0) {
-			model.addAttribute("message", "ご入力頂いた年月のデータは存在しません。");
+			model.addAttribute("message", "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
 		} else {
 			model.addAttribute("kakeiboMonthList", kakeiboMonthList);
 			model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
