@@ -1,6 +1,5 @@
 package com.example.controller.kakeibo;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -164,20 +163,16 @@ public class KakeiboController {
 		DeletedKakeibo deletedKakeibo = new DeletedKakeibo();
 		Kakeibo kakeibo = new Kakeibo();
 
-		// 現在の日時を取得(削除日時)
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
 		// 値をセット
 		deletedKakeibo.setKakeiboId(id);
-		deletedKakeibo.setDeleteAt(timestamp);
 
 		// 削除フラグをtrueにする
 		kakeibo.setId(id);
 		kakeibo.setDeleted(true);
-		kakeiboService.updateIsDelete(kakeibo);
 
-		// 論理削除
+		// 論理削除の実行
 		kakeiboService.delete(deletedKakeibo);
+		kakeiboService.updateIsDelete(kakeibo);
 
 		return "redirect:/kakeibo/list";
 	}

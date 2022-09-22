@@ -122,9 +122,9 @@
  	</update>
  	<insert id="delete">
  		INSERT INTO kakeibo_delete_at
- 			(kakeibo_id, delete_at)
+ 			(kakeibo_id)
  		VALUES
- 			(#{kakeiboId}, #{deleteAt})
+ 			(#{kakeiboId})
  	</insert>
  	
  	
