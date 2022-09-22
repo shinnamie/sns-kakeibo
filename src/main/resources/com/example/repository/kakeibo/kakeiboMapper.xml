@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="com.example.repository.KakeiboMapper">
+ <mapper namespace="com.example.repository.kakeibo.KakeiboMapper">
  	
  	<!-- 家計簿一覧表示 -->
  	<select id="findAll" resultMap="kakeiboResultMap">
@@ -67,7 +67,7 @@
  	</select>
  	
  	<!-- 家計簿情報取得用のresultMap -->
- 	<resultMap id="kakeiboResultMap" type="com.example.domain.Kakeibo">
+ 	<resultMap id="kakeiboResultMap" type="com.example.domain.kakeibo.Kakeibo">
  		<id property="id" column="id"/>
  		<result property="userId" column="user_id"/>
  		<result property="settlementDate" column="settlement_date"/>
@@ -84,12 +84,12 @@
  		<association property="settlement" resultMap="settlementResultMap"/>
  	</resultMap>
  	
- 	<resultMap id="expenseItemResultMap" type="com.example.domain.ExpenseItem">
+ 	<resultMap id="expenseItemResultMap" type="com.example.domain.kakeibo.ExpenseItem">
  		<result property="id" column="id"/>
  		<result property="expenseItemName" column="expense_item_name"/>
  	</resultMap>
  	
- 	<resultMap id="settlementResultMap" type="com.example.domain.Settlement">
+ 	<resultMap id="settlementResultMap" type="com.example.domain.kakeibo.Settlement">
  		<result property="id" column="id"/>
  		<result property="settlementName" column="settlement_name"/>
  	</resultMap>
@@ -173,7 +173,7 @@
 			and TO_CHAR(settlement_date, 'YYYY-MM') LIKE '${year}-%${month}%'
  	</select>
  	
- 	<resultMap id="BalanceCalculationResultMap" type="com.example.domain.MonthlyBalanceCalculationResult">
+ 	<resultMap id="BalanceCalculationResultMap" type="com.example.domain.kakeibo.MonthlyBalanceCalculationResult">
  		<result property="TotalIncomeAmount" column="total_income_amount"/>
  		<result property="TotalExpenditureAmount" column="total_expenditure_amount"/>
  		<result property="BalanceCalculationResult" column="balance_calculation_result"/>
