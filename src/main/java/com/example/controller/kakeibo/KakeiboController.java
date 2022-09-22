@@ -192,6 +192,7 @@ public class KakeiboController {
 	 */
 	@RequestMapping(value = "/aggregated-year-or-month", method = RequestMethod.POST)
 	public String aggregatedByMonth(String year, String month, Model model) {
+
 		// 年月のパラメーターを元に検索、結果を取得
 		List<Kakeibo> kakeiboMonthList = kakeiboService.findByYearAndMonth(year, month);
 
