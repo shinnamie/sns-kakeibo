@@ -3,40 +3,32 @@ package com.example.domain.kakeibo;
 public class MonthlyBalanceCalculationResult {
 
 	/** 収入合計 */
-	private Integer TotalIncomeAmount;
+	private Integer totalIncomeAmount;
 	/** 支出合計 */
-	private Integer TotalExpenditureAmount;
+	private Integer totalExpenditureAmount;
 	/** 収支計算結果 */
-	private Integer BalanceCalculationResult;
-
+	private Integer balanceCalculationResult;
 	public Integer getTotalIncomeAmount() {
-		return TotalIncomeAmount;
+		return totalIncomeAmount;
 	}
-
 	public void setTotalIncomeAmount(Integer totalIncomeAmount) {
-		TotalIncomeAmount = totalIncomeAmount;
+		this.totalIncomeAmount = totalIncomeAmount;
 	}
-
 	public Integer getTotalExpenditureAmount() {
-		return TotalExpenditureAmount;
+		return totalExpenditureAmount;
 	}
-
 	public void setTotalExpenditureAmount(Integer totalExpenditureAmount) {
-		TotalExpenditureAmount = totalExpenditureAmount;
+		this.totalExpenditureAmount = totalExpenditureAmount;
 	}
-
 	public Integer getBalanceCalculationResult() {
-		return BalanceCalculationResult;
+		return balanceCalculationResult;
 	}
-
 	public void setBalanceCalculationResult(Integer balanceCalculationResult) {
-		BalanceCalculationResult = balanceCalculationResult;
+		this.balanceCalculationResult = balanceCalculationResult;
 	}
-
 	@Override
 	public String toString() {
-		return "BalanceCalculationResult [TotalIncomeAmount=" + TotalIncomeAmount + ", TotalExpenditureAmount="
-				+ TotalExpenditureAmount + ", BalanceCalculationResult=" + BalanceCalculationResult + "]";
+		return "MonthlyBalanceCalculationResult [totalIncomeAmount=" + totalIncomeAmount + ", totalExpenditureAmount="
+				+ totalExpenditureAmount + ", balanceCalculationResult=" + balanceCalculationResult + "]";
 	}
-
 }

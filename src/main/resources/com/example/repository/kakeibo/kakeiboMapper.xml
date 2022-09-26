@@ -136,7 +136,7 @@
 			SUM(k.expenditure_amount) AS total_by_expense_item,
 			ROUND((100.0 * SUM(k.expenditure_amount) / (
 				SELECT
-					SUM(expenditure_amount) AS total_by_expense_item
+					SUM(expenditure_amount) AS total_expenditure_amount
 				FROM kakeibo
 				WHERE
 					is_deleted = false
@@ -221,8 +221,8 @@
  	</select>
  	
  	<resultMap id="BalanceCalculationResultMap" type="com.example.domain.kakeibo.MonthlyBalanceCalculationResult">
- 		<result property="TotalIncomeAmount" column="total_income_amount"/>
- 		<result property="TotalExpenditureAmount" column="total_expenditure_amount"/>
- 		<result property="BalanceCalculationResult" column="balance_calculation_result"/>
+ 		<result property="totalIncomeAmount" column="total_income_amount"/>
+ 		<result property="totalExpenditureAmount" column="total_expenditure_amount"/>
+ 		<result property="balanceCalculationResult" column="balance_calculation_result"/>
  	</resultMap>
  </mapper>
