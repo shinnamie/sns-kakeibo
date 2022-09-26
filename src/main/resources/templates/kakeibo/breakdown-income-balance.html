@@ -6,9 +6,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 <link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
-<link rel="stylesheet" th:href="@{/css//common/example.css}">
-<link rel="stylesheet" th:href="@{/css/kakeibo/input.css}">
-<link rel="stylesheet" th:href="@{/css/kakeibo/aggregate.css}">
+<link rel="stylesheet" th:href="@{/css/common/example.css}">
+<link rel="stylesheet" th:href="@{/css/kakeibo/income-and-expenditure-balance.css}">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
 </head>
 <body>
@@ -28,19 +27,19 @@
                 <div th:if="${totalByIncomeAndExpenditureBreakdownList}">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                         <div class="table-responsive">
-                            <table class="table-striped table-sm">
+                            <table class="table-striped table-sm balance-table">
                                 <thead>
                                     <tr>
-                                        <th>費目名</th>
-                                        <th>費目ごとの合計支出金額</th>
-                                        <th>費目ごとの支出率</th>
+                                        <th>項目</th>
+                                        <th>金額</th>
+                                        <th>割合</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="breakdown : ${totalByIncomeAndExpenditureBreakdownList}" class="align-middle">
                                         <td th:text="${breakdown.expenseItem.expenseItemName}"></td>
-                                        <td th:text="${breakdown.totalByExpenseItem}"></td>
-                                        <td th:text="${breakdown.incomeAndExpenditureBreakedownRate}"></td>
+                                        <td th:text="${#numbers.formatInteger(breakdown.totalByExpenseItem, 3, 'COMMA')} + '円'"></td>
+                                        <td th:text="${breakdown.incomeAndExpenditureBreakedownRate} + '%'"></td>
                                     </tr>
                                 </tbody>
                             </table>

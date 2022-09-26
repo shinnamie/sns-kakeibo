@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+.balance-table{
+border: 2px #aaa solid;
+width: 500px;
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+}
