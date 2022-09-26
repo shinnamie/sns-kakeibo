@@ -2,6 +2,10 @@ package com.example.domain.kakeibo;
 
 public class IncomeAndExpenditureBreakdown {
 
+	/** 費目Id */
+	private Integer expenseItemId;
+	/** 費目名 */
+	private String expenseItemName;
 	/** 食費合計 */
 	private Integer foodExpenses;
 	/** 食費の割合 */
@@ -69,273 +73,223 @@ public class IncomeAndExpenditureBreakdown {
 	/** 支出合計 */
 	private Integer totalExpenditureAmount;
 
+	public Integer getExpenseItemId() {
+		return expenseItemId;
+	}
+
+	public void setExpenseItemId(Integer expenseItemId) {
+		this.expenseItemId = expenseItemId;
+	}
+
+	public String getExpenseItemName() {
+		return expenseItemName;
+	}
+
+	public void setExpenseItemName(String expenseItemName) {
+		this.expenseItemName = expenseItemName;
+	}
 	public Integer getFoodExpenses() {
 		return foodExpenses;
 	}
-
 	public void setFoodExpenses(Integer foodExpenses) {
 		this.foodExpenses = foodExpenses;
 	}
-
 	public double getFoodExpenseRate() {
 		return foodExpenseRate;
 	}
-
 	public void setFoodExpenseRate(double foodExpenseRate) {
 		this.foodExpenseRate = foodExpenseRate;
 	}
-
 	public Integer getDailyNecessitiesExpenses() {
 		return dailyNecessitiesExpenses;
 	}
-
 	public void setDailyNecessitiesExpenses(Integer dailyNecessitiesExpenses) {
 		this.dailyNecessitiesExpenses = dailyNecessitiesExpenses;
 	}
-
 	public double getDailyNecessitiesExpenseRate() {
 		return dailyNecessitiesExpenseRate;
 	}
-
 	public void setDailyNecessitiesExpenseRate(double dailyNecessitiesExpenseRate) {
 		this.dailyNecessitiesExpenseRate = dailyNecessitiesExpenseRate;
 	}
-
 	public Integer getHobbyExpenses() {
 		return hobbyExpenses;
 	}
-
 	public void setHobbyExpenses(Integer hobbyExpenses) {
 		this.hobbyExpenses = hobbyExpenses;
 	}
-
 	public double getHobbyExpenseRate() {
 		return hobbyExpenseRate;
 	}
-
 	public void setHobbyExpenseRate(double hobbyExpenseRate) {
 		this.hobbyExpenseRate = hobbyExpenseRate;
 	}
-
 	public Integer getEntertainmentExpenses() {
 		return entertainmentExpenses;
 	}
-
 	public void setEntertainmentExpenses(Integer entertainmentExpenses) {
 		this.entertainmentExpenses = entertainmentExpenses;
 	}
-
 	public double getEntertainmentExpensesRate() {
 		return entertainmentExpensesRate;
 	}
-
 	public void setEntertainmentExpensesRate(double entertainmentExpensesRate) {
 		this.entertainmentExpensesRate = entertainmentExpensesRate;
 	}
-
 	public Integer getTransportationExpenses() {
 		return transportationExpenses;
 	}
-
 	public void setTransportationExpenses(Integer transportationExpenses) {
 		this.transportationExpenses = transportationExpenses;
 	}
-
 	public double getTransportationExpensesRate() {
 		return transportationExpensesRate;
 	}
-
 	public void setTransportationExpensesRate(double transportationExpensesRate) {
 		this.transportationExpensesRate = transportationExpensesRate;
 	}
-
 	public Integer getClothingExpenses() {
 		return clothingExpenses;
 	}
-
 	public void setClothingExpenses(Integer clothingExpenses) {
 		this.clothingExpenses = clothingExpenses;
 	}
-
 	public double getClothingExpensesRate() {
 		return clothingExpensesRate;
 	}
-
 	public void setClothingExpensesRate(double clothingExpensesRate) {
 		this.clothingExpensesRate = clothingExpensesRate;
 	}
-
 	public Integer getBeautyExpenses() {
 		return beautyExpenses;
 	}
-
 	public void setBeautyExpenses(Integer beautyExpenses) {
 		this.beautyExpenses = beautyExpenses;
 	}
-
 	public double getBeautyExpensesRate() {
 		return beautyExpensesRate;
 	}
-
 	public void setBeautyExpensesRate(double beautyExpensesRate) {
 		this.beautyExpensesRate = beautyExpensesRate;
 	}
-
 	public Integer getHealthAndMedicalCareExpenses() {
 		return healthAndMedicalCareExpenses;
 	}
-
 	public void setHealthAndMedicalCareExpenses(Integer healthAndMedicalCareExpenses) {
 		this.healthAndMedicalCareExpenses = healthAndMedicalCareExpenses;
 	}
-
 	public double getHealthAndMedicalCareExpensesRate() {
 		return healthAndMedicalCareExpensesRate;
 	}
-
 	public void setHealthAndMedicalCareExpensesRate(double healthAndMedicalCareExpensesRate) {
 		this.healthAndMedicalCareExpensesRate = healthAndMedicalCareExpensesRate;
 	}
-
 	public Integer getCarExpenses() {
 		return carExpenses;
 	}
-
 	public void setCarExpenses(Integer carExpenses) {
 		this.carExpenses = carExpenses;
 	}
-
 	public double getCarExpensesRate() {
 		return carExpensesRate;
 	}
-
 	public void setCarExpensesRate(double carExpensesRate) {
 		this.carExpensesRate = carExpensesRate;
 	}
-
 	public Integer getEducationalExpenses() {
 		return educationalExpenses;
 	}
-
 	public void setEducationalExpenses(Integer educationalExpenses) {
 		this.educationalExpenses = educationalExpenses;
 	}
-
 	public double getEducationalExpensesRate() {
 		return educationalExpensesRate;
 	}
-
 	public void setEducationalExpensesRate(double educationalExpensesRate) {
 		this.educationalExpensesRate = educationalExpensesRate;
 	}
-
 	public Integer getUtilityExpenses() {
 		return utilityExpenses;
 	}
-
 	public void setUtilityExpenses(Integer utilityExpenses) {
 		this.utilityExpenses = utilityExpenses;
 	}
-
 	public double getUtilityExpensesRate() {
 		return utilityExpensesRate;
 	}
-
 	public void setUtilityExpensesRate(double utilityExpensesRate) {
 		this.utilityExpensesRate = utilityExpensesRate;
 	}
-
 	public Integer getCommunicationExpenses() {
 		return communicationExpenses;
 	}
-
 	public void setCommunicationExpenses(Integer communicationExpenses) {
 		this.communicationExpenses = communicationExpenses;
 	}
-
 	public double getCommunicationExpensesRate() {
 		return communicationExpensesRate;
 	}
-
 	public void setCommunicationExpensesRate(double communicationExpensesRate) {
 		this.communicationExpensesRate = communicationExpensesRate;
 	}
-
 	public Integer getHousingExpenses() {
 		return housingExpenses;
 	}
-
 	public void setHousingExpenses(Integer housingExpenses) {
 		this.housingExpenses = housingExpenses;
 	}
-
 	public double getHousingExpensesRate() {
 		return housingExpensesRate;
 	}
-
 	public void setHousingExpensesRate(double housingExpensesRate) {
 		this.housingExpensesRate = housingExpensesRate;
 	}
-
 	public Integer getTaxAndSocialSecurityExpenses() {
 		return taxAndSocialSecurityExpenses;
 	}
-
 	public void setTaxAndSocialSecurityExpenses(Integer taxAndSocialSecurityExpenses) {
 		this.taxAndSocialSecurityExpenses = taxAndSocialSecurityExpenses;
 	}
-
 	public double getTaxAndSocialSecurityExpensesRate() {
 		return taxAndSocialSecurityExpensesRate;
 	}
-
 	public void setTaxAndSocialSecurityExpensesRate(double taxAndSocialSecurityExpensesRate) {
 		this.taxAndSocialSecurityExpensesRate = taxAndSocialSecurityExpensesRate;
 	}
-
 	public Integer getInsuranceExpenses() {
 		return insuranceExpenses;
 	}
-
 	public void setInsuranceExpenses(Integer insuranceExpenses) {
 		this.insuranceExpenses = insuranceExpenses;
 	}
-
 	public double getInsuranceExpensesRate() {
 		return insuranceExpensesRate;
 	}
-
 	public void setInsuranceExpensesRate(double insuranceExpensesRate) {
 		this.insuranceExpensesRate = insuranceExpensesRate;
 	}
-
 	public Integer getOthersExpenses() {
 		return othersExpenses;
 	}
-
 	public void setOthersExpenses(Integer othersExpenses) {
 		this.othersExpenses = othersExpenses;
 	}
-
 	public double getOthersExpensesRate() {
 		return othersExpensesRate;
 	}
-
 	public void setOthersExpensesRate(double othersExpensesRate) {
 		this.othersExpensesRate = othersExpensesRate;
 	}
-
 	public Integer getTotalExpenditureAmount() {
 		return totalExpenditureAmount;
 	}
-
 	public void setTotalExpenditureAmount(Integer totalExpenditureAmount) {
 		this.totalExpenditureAmount = totalExpenditureAmount;
 	}
-
 	@Override
 	public String toString() {
-		return "IncomeAndExpenditureBreakdown [foodExpenses=" + foodExpenses + ", foodExpenseRate=" + foodExpenseRate
+		return "IncomeAndExpenditureBreakdown [expenseItemId=" + expenseItemId + ", expenseItemName=" + expenseItemName
+				+ ", foodExpenses=" + foodExpenses + ", foodExpenseRate=" + foodExpenseRate
 				+ ", dailyNecessitiesExpenses=" + dailyNecessitiesExpenses + ", dailyNecessitiesExpenseRate="
 				+ dailyNecessitiesExpenseRate + ", hobbyExpenses=" + hobbyExpenses + ", hobbyExpenseRate="
 				+ hobbyExpenseRate + ", entertainmentExpenses=" + entertainmentExpenses + ", entertainmentExpensesRate="
@@ -356,5 +310,6 @@ public class IncomeAndExpenditureBreakdown {
 				+ ", othersExpensesRate=" + othersExpensesRate + ", totalExpenditureAmount=" + totalExpenditureAmount
 				+ "]";
 	}
+
 
 }
