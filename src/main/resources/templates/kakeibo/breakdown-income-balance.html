@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 <link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
 <link rel="stylesheet" th:href="@{/css/common/example.css}">
+<link rel="stylesheet" th:href="@{/css/kakeibo/aggregate.css}">
 <link rel="stylesheet" th:href="@{/css/kakeibo/income-and-expenditure-balance.css}">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
 </head>
@@ -27,6 +28,31 @@
                 <div th:if="${totalByIncomeAndExpenditureBreakdownList}">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                         <div class="table-responsive">
+                            <!-- 収支計算ボックス -->
+                            <table class="table-striped table-sm calculated-box">
+                                <tr>
+                                    <th>収入金額</th>
+                                    <th></th>
+                                    <th>支出金額</th>
+                                    <th></th>
+                                    <th>収支</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalIncomeAmount, '3', 'COMMA') + '円'}"></div>
+                                    </td>
+                                    <td>ー</td>
+                                    <td>
+                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalExpenditureAmount, '3', 'COMMA') + '円'}"></div>
+                                    </td>
+                                    <td>＝</td>
+                                    <td>
+                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.balanceCalculationResult, '3', 'COMMA') + '円'}"></div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- 収支内訳テーブル -->
                             <table class="table-striped table-sm balance-table">
                                 <thead>
                                     <tr>

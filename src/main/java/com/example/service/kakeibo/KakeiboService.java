@@ -104,4 +104,13 @@ public class KakeiboService {
 		return kakeiboMapper.monthlyBalanceCalculate(year, month);
 	}
 
+	/**
+	 * 月別の収支計算結果(収支内訳画面用)
+	 * 
+	 * @return
+	 */
+	public MonthlyBalanceCalculationResult monthlyBalanceCalculateOfBreakdown(String yearAndMonth) {
+		return kakeiboMapper.monthlyBalanceCalculateOfBreakdown(yearAndMonth);
+	}
+
 }

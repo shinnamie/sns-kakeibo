@@ -55,15 +55,15 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.TotalIncomeAmount, '3', 'COMMA') + '円'}"></div>
+                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalIncomeAmount, '3', 'COMMA') + '円'}"></div>
                                     </td>
                                     <td>ー</td>
                                     <td>
-                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.TotalExpenditureAmount, '3', 'COMMA') + '円'}"></div>
+                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalExpenditureAmount, '3', 'COMMA') + '円'}"></div>
                                     </td>
                                     <td>＝</td>
                                     <td>
-                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.BalanceCalculationResult, '3', 'COMMA') + '円'}"></div>
+                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.balanceCalculationResult, '3', 'COMMA') + '円'}"></div>
                                     </td>
                                 </tr>
                             </table>

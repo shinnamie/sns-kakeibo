@@ -212,8 +212,14 @@ public class KakeiboController {
 		List<TotalByIncomeAndExpenditureBreakdown> totalByIncomeAndExpenditureBreakdownList = kakeiboService
 				.totalByIncomeAndExpenditureBreakdown(yearAndMonth);
 
-		// スコープに格納
+		// 収支計算結果の取得
+		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
+				.monthlyBalanceCalculateOfBreakdown(yearAndMonth);
+
+		// それぞれをスコープに格納
 		model.addAttribute("totalByIncomeAndExpenditureBreakdownList", totalByIncomeAndExpenditureBreakdownList);
+		model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
+		System.out.println(monthlyBalanceCalculationResult);
 
 		return "kakeibo/breakdown-income-balance";
 	}
