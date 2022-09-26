@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
+import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 
 @Mapper
 public interface KakeiboMapper {
@@ -52,6 +53,15 @@ public interface KakeiboMapper {
 	 * @param deletedKakeibo 家計簿論理削除データ
 	 */
 	void delete(DeletedKakeibo deletedKakeibo);
+
+	/**
+	 * 本月の収支内訳を算出する
+	 * 
+	 * @param year  年
+	 * @param month 月
+	 * @return 収支内訳
+	 */
+	List<TotalByIncomeAndExpenditureBreakdown> totalIncomeAndExpenditureBreakdown(String yearAndMonth);
 
 	/**
 	 * 月別集計

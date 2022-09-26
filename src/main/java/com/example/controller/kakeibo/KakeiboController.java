@@ -1,6 +1,7 @@
 package com.example.controller.kakeibo;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
+import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 import com.example.form.kakeibo.AddKakeiboForm;
 import com.example.form.kakeibo.EditKakeiboForm;
 import com.example.service.kakeibo.KakeiboService;
@@ -83,6 +85,21 @@ public class KakeiboController {
 		return "kakeibo/edit";
 	}
 
+	/**
+	 * 収支内訳画面を表示する
+	 * 
+	 * @return
+	 */
+	@GetMapping(value = "/breakdown-income-balance")
+	public String breakdownIncomeBalance() {
+		return "breakdown-income-balance";
+	}
+
+	/**
+	 * 年別・月別集計画面を表示する
+	 * 
+	 * @return
+	 */
 	@GetMapping(value = "/yearly-or-monthly-aggregation")
 	public String monthlyAggregation() {
 		return "kakeibo/year-and-month";
@@ -175,6 +192,30 @@ public class KakeiboController {
 		kakeiboService.updateIsDelete(kakeibo);
 
 		return "redirect:/kakeibo/list";
+	}
+
+	/**
+	 * 収支内訳を算出する
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/breakdown", method = RequestMethod.GET)
+	public String incomeAndExpenditureBalance(Model model) {
+		// 本日の年月を取得
+		LocalDate now = LocalDate.now();
+
+		// 年と月をString型で取得
+		String yearAndMonth = now.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+
+		// 上記の値を送り収支内訳結果を取得する
+		List<TotalByIncomeAndExpenditureBreakdown> totalByIncomeAndExpenditureBreakdownList = kakeiboService
+				.totalByIncomeAndExpenditureBreakdown(yearAndMonth);
+
+		// スコープに格納
+		model.addAttribute("totalByIncomeAndExpenditureBreakdownList", totalByIncomeAndExpenditureBreakdownList);
+
+		return "kakeibo/breakdown-income-balance";
 	}
 
 	/**

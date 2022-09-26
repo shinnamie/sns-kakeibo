@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
+import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 import com.example.repository.kakeibo.KakeiboMapper;
 
 @Service
@@ -70,6 +71,17 @@ public class KakeiboService {
 	 */
 	public void delete(DeletedKakeibo deletedKakeibo) {
 		kakeiboMapper.delete(deletedKakeibo);
+	}
+
+	/**
+	 * 本月の収支内訳を算出する
+	 * 
+	 * @param year  年
+	 * @param month 月
+	 * @return 収支内訳
+	 */
+	public List<TotalByIncomeAndExpenditureBreakdown> totalByIncomeAndExpenditureBreakdown(String yearAndMonth) {
+		return kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
 	}
 
 	/**
