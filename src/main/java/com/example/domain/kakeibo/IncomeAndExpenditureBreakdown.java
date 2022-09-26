@@ -4,8 +4,6 @@ public class IncomeAndExpenditureBreakdown {
 
 	/** 費目Id */
 	private Integer expenseItemId;
-	/** 費目名 */
-	private String expenseItemName;
 	/** 食費合計 */
 	private Integer foodExpenses;
 	/** 食費の割合 */
@@ -72,21 +70,13 @@ public class IncomeAndExpenditureBreakdown {
 	private double othersExpensesRate;
 	/** 支出合計 */
 	private Integer totalExpenditureAmount;
-
+	/** 費目 */
+	private ExpenseItem expenseItem;
 	public Integer getExpenseItemId() {
 		return expenseItemId;
 	}
-
 	public void setExpenseItemId(Integer expenseItemId) {
 		this.expenseItemId = expenseItemId;
-	}
-
-	public String getExpenseItemName() {
-		return expenseItemName;
-	}
-
-	public void setExpenseItemName(String expenseItemName) {
-		this.expenseItemName = expenseItemName;
 	}
 	public Integer getFoodExpenses() {
 		return foodExpenses;
@@ -286,30 +276,38 @@ public class IncomeAndExpenditureBreakdown {
 	public void setTotalExpenditureAmount(Integer totalExpenditureAmount) {
 		this.totalExpenditureAmount = totalExpenditureAmount;
 	}
+
+	public ExpenseItem getExpenseItem() {
+		return expenseItem;
+	}
+
+	public void setExpenseItem(ExpenseItem expenseItem) {
+		this.expenseItem = expenseItem;
+	}
 	@Override
 	public String toString() {
-		return "IncomeAndExpenditureBreakdown [expenseItemId=" + expenseItemId + ", expenseItemName=" + expenseItemName
-				+ ", foodExpenses=" + foodExpenses + ", foodExpenseRate=" + foodExpenseRate
-				+ ", dailyNecessitiesExpenses=" + dailyNecessitiesExpenses + ", dailyNecessitiesExpenseRate="
-				+ dailyNecessitiesExpenseRate + ", hobbyExpenses=" + hobbyExpenses + ", hobbyExpenseRate="
-				+ hobbyExpenseRate + ", entertainmentExpenses=" + entertainmentExpenses + ", entertainmentExpensesRate="
-				+ entertainmentExpensesRate + ", transportationExpenses=" + transportationExpenses
-				+ ", transportationExpensesRate=" + transportationExpensesRate + ", clothingExpenses="
-				+ clothingExpenses + ", clothingExpensesRate=" + clothingExpensesRate + ", beautyExpenses="
-				+ beautyExpenses + ", beautyExpensesRate=" + beautyExpensesRate + ", healthAndMedicalCareExpenses="
-				+ healthAndMedicalCareExpenses + ", healthAndMedicalCareExpensesRate="
-				+ healthAndMedicalCareExpensesRate + ", carExpenses=" + carExpenses + ", carExpensesRate="
-				+ carExpensesRate + ", educationalExpenses=" + educationalExpenses + ", educationalExpensesRate="
-				+ educationalExpensesRate + ", utilityExpenses=" + utilityExpenses + ", utilityExpensesRate="
-				+ utilityExpensesRate + ", communicationExpenses=" + communicationExpenses
+		return "IncomeAndExpenditureBreakdown [expenseItemId=" + expenseItemId + ", foodExpenses=" + foodExpenses
+				+ ", foodExpenseRate=" + foodExpenseRate + ", dailyNecessitiesExpenses=" + dailyNecessitiesExpenses
+				+ ", dailyNecessitiesExpenseRate=" + dailyNecessitiesExpenseRate + ", hobbyExpenses=" + hobbyExpenses
+				+ ", hobbyExpenseRate=" + hobbyExpenseRate + ", entertainmentExpenses=" + entertainmentExpenses
+				+ ", entertainmentExpensesRate=" + entertainmentExpensesRate + ", transportationExpenses="
+				+ transportationExpenses + ", transportationExpensesRate=" + transportationExpensesRate
+				+ ", clothingExpenses=" + clothingExpenses + ", clothingExpensesRate=" + clothingExpensesRate
+				+ ", beautyExpenses=" + beautyExpenses + ", beautyExpensesRate=" + beautyExpensesRate
+				+ ", healthAndMedicalCareExpenses=" + healthAndMedicalCareExpenses
+				+ ", healthAndMedicalCareExpensesRate=" + healthAndMedicalCareExpensesRate + ", carExpenses="
+				+ carExpenses + ", carExpensesRate=" + carExpensesRate + ", educationalExpenses=" + educationalExpenses
+				+ ", educationalExpensesRate=" + educationalExpensesRate + ", utilityExpenses=" + utilityExpenses
+				+ ", utilityExpensesRate=" + utilityExpensesRate + ", communicationExpenses=" + communicationExpenses
 				+ ", communicationExpensesRate=" + communicationExpensesRate + ", housingExpenses=" + housingExpenses
 				+ ", housingExpensesRate=" + housingExpensesRate + ", taxAndSocialSecurityExpenses="
 				+ taxAndSocialSecurityExpenses + ", taxAndSocialSecurityExpensesRate="
 				+ taxAndSocialSecurityExpensesRate + ", insuranceExpenses=" + insuranceExpenses
 				+ ", insuranceExpensesRate=" + insuranceExpensesRate + ", othersExpenses=" + othersExpenses
 				+ ", othersExpensesRate=" + othersExpensesRate + ", totalExpenditureAmount=" + totalExpenditureAmount
-				+ "]";
+				+ ", expenseItem=" + expenseItem + "]";
 	}
+
 
 
 }

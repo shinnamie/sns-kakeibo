@@ -128,6 +128,9 @@
  	</insert>
  	
  	
+ 	<!-- 収支内訳算出 -->
+ 	
+ 	
  	<!-- 月別集計検索 -->
  	<select id="findByYearAndMonth" resultMap="kakeiboResultMap">
  		SELECT
