@@ -71,9 +71,9 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="breakdown : ${totalByIncomeAndExpenditureBreakdownList}" class="align-middle">
-                                            <td th:text="${breakdown.expenseItem.expenseItemName}"></td>
-                                            <td th:text="${#numbers.formatInteger(breakdown.totalByExpenseItem, 3, 'COMMA')} + '円'"></td>
-                                            <td th:text="${breakdown.incomeAndExpenditureBreakedownRate} + '%'"></td>
+                                            <td class="expenseItemNameList" th:text="${breakdown.expenseItem.expenseItemName}"></td>
+                                            <td class="totalByExpenseItemList" th:text="${#numbers.formatInteger(breakdown.totalByExpenseItem, 3, 'COMMA')} + '円'"></td>
+                                            <td class="rateList" th:text="${breakdown.incomeAndExpenditureBreakedownRate}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
