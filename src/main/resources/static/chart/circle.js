@@ -9,13 +9,13 @@ window.onload = function () {
 	let rates = document.getElementsByClassName('rateList');
 	
 	// 本月で集計された「費目名」を新しい配列を作成し格納する
-	let newNames = [];
+	let newNames = []; // 新しい配列
 	for (let expenseItemName of expenseItemNames) {
 		newNames.push(expenseItemName.innerText);
 	}
 	
 	// 本月で集計された費目名ごとの「割合」を新しい配列を作成し格納する
-	let newRates = [];
+	let newRates = []; // 新しい配列
 	for (let rate of rates) {
 		newRates.push(rate.innerText);
 	}
@@ -104,14 +104,29 @@ window.onload = function () {
           	data: newRates
         }]
       },
+      // 円グラフのオプション設定
       options: {
+		// 円グラフのタイトル
+		title: {
+        	display: true,
+        	text: '収支内訳の割合'
+      	},
         responsive: false,
-        plugins: {
-　			legend: {
+        	legend: {
 				// 凡例(ラベル)の非表示
 　　				display: false,
-　			}
-		}
+　			},
+		plugins: {
+			// 円グラフ内のラベルの表示設定
+        	labels: {
+				// パーセンテージ表示
+          		render: 'percentage',
+          		// 文字の色
+          		fontColor: 'black',
+          		// 文字の大きさ
+          		fontSize: 20
+        	}
+      	}
       }
     });
 }
