@@ -1,3 +1,5 @@
+"use strict";
+
 window.onload = function () {
 	let context = document.querySelector("#balance_circle").getContext('2d')
     new Chart(context, {
@@ -11,6 +13,11 @@ window.onload = function () {
       },
       options: {
         responsive: false,
+        plugins: {
+　			legend: {
+　　				display: false,
+　			}
+		}
       }
     });
 }
