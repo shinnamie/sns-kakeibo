@@ -14,11 +14,17 @@ margin-right: auto;
 }
 
 .parent-flex{
-	display: flex;
+display: flex;
 }
 
 .date-box{
 font-size: 20px;
 text-align: center;
 margin-bottom: 20px;
+}
+
+.non-monthlyBalance-message{
+font-size: 20px;
+text-align: center;
+margin-top: 20px;
 }

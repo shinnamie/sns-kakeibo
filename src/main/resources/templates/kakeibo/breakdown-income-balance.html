@@ -92,12 +92,14 @@
                 </div>
 
                 <!-- データがない場合、日付選択だけできる -->
-                <div class="date-box" th:unless="${monthlyBalanceCalculationResult}">
+                <div th:unless="${monthlyBalanceCalculationResult}">
                     <!-- 日付表示 -->
-                    <a th:href="@{'/kakeibo/' + ${date.minusMonths(1)}}">&lt; 前月</a>
-                    <span th:text="${firstDateAndLastDate}"></span>
-                    <a th:href="@{'/kakeibo/' + ${date.plusMonths(1)}}">翌月 &gt;</a>
-                    <div th:text="${message}"></div>
+                    <div class="date-box">
+                        <a th:href="@{'/kakeibo/' + ${date.minusMonths(1)}}">&lt; 前月</a>
+                        <span th:text="${firstDateAndLastDate}"></span>
+                        <a th:href="@{'/kakeibo/' + ${date.plusMonths(1)}}">翌月 &gt;</a>
+                    </div>
+                    <div class="non-monthlyBalance-message" th:text="${message}"></div>
                 </div>
             </main>
         </div>
