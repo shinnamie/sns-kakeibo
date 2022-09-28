@@ -111,27 +111,7 @@ window.onload = function () {
       },
       // 円グラフのオプション設定
       options: {
-		// 円グラフのタイトル
-		title: {
-        	display: true,
-        	text: '収支内訳の割合'
-      	},
-        responsive: false,
-        	legend: {
-				// 凡例(ラベル)の非表示
-　　				display: false,
-　			},
-		plugins: {
-			// 円グラフ内のラベルの表示設定
-        	labels: {
-				// ラベル表示
-          		render: 'label',
-          		// 文字の色
-          		fontColor: 'black',
-          		// 文字の大きさ
-          		fontSize: 15
-        	}
-      	}
+        responsive: false
       }
     });
 }
