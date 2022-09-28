@@ -4,7 +4,7 @@ window.onload = function () {
 	// 費目の配列データ
 	let expenseItemNames = document.getElementsByClassName('expenseItemNameList');
 	// 費目ごとの合計金額の配列データ
-	let totalByExpenseItems = document.getElementsByClassName('totalByExpenseItemList');
+	// let totalByExpenseItems = document.getElementsByClassName('totalByExpenseItemList');
 	// 費目の割合の配列データ
 	let rates = document.getElementsByClassName('rateList');
 	
@@ -121,8 +121,8 @@ window.onload = function () {
 		plugins: {
 			// 円グラフ内のラベルの表示設定
         	labels: {
-				// パーセンテージ表示
-          		render: 'percentage',
+				// ラベル表示
+          		render: 'label',
           		// 文字の色
           		fontColor: 'black',
           		// 文字の大きさ
