@@ -5,7 +5,7 @@ window.onload = function () {
 	let expenseItemNames = document.getElementsByClassName('expenseItemNameList');
 	// 費目ごとの合計金額の配列データ
 	let totalByExpenseItems = document.getElementsByClassName('totalByExpenseItemList');
-	// 割合の配列データ
+	// 費目の割合の配列データ
 	let rates = document.getElementsByClassName('rateList');
 	
 	// 本月で集計された「費目名」を新しい配列を作成し格納する
@@ -17,7 +17,9 @@ window.onload = function () {
 	// 本月で集計された費目名ごとの「割合」を新しい配列を作成し格納する
 	let newRates = []; // 新しい配列
 	for (let rate of rates) {
-		newRates.push(rate.innerText);
+		// 取り出した値のテキストから%を排除
+		rate = rate.innerText.replace("%", "");
+		newRates.push(rate);
 	}
 	
 	// グラフの色を判定し新しい配列に格納する関数
