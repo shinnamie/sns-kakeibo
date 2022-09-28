@@ -129,7 +129,7 @@ window.onload = function () {
           		// 文字の色
           		fontColor: 'black',
           		// 文字の大きさ
-          		fontSize: 20
+          		fontSize: 15
         	}
       	}
       }

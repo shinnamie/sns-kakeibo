@@ -25,12 +25,14 @@
                 </div>
 
                 <!-- テーブル表示 -->
-                <div th:if="${totalByIncomeAndExpenditureBreakdownList}">
+                <div th:if="${monthlyBalanceCalculationResult}">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                         <div class="table-responsive">
                             <!-- 日付表示 -->
                             <div class="date-box">
+                                <a th:href="@{'/kakeibo/' + ${date.minusMonths(1)}}">&lt; 前月</a>
                                 <span th:text="${firstDateAndLastDate}"></span>
+                                <a th:href="@{'/kakeibo/' + ${date.plusMonths(1)}}">翌月 &gt;</a>
                             </div>
                             <!-- 収支計算ボックス -->
                             <table class="table-striped table-sm calculated-box">
@@ -58,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <div th:if="${totalByIncomeAndExpenditureBreakdownList}">
+                <div th:if="${monthlyBalanceCalculationResult}">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                         <div class="table-responsive">
                             <div class="parent-flex">
@@ -84,6 +86,15 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <!-- データがない場合、日付選択だけできる -->
+                <div class="date-box" th:unless="${monthlyBalanceCalculationResult}">
+                    <!-- 日付表示 -->
+                    <a th:href="@{'/kakeibo/' + ${date.minusMonths(1)}}">&lt; 前月</a>
+                    <span th:text="${firstDateAndLastDate}"></span>
+                    <a th:href="@{'/kakeibo/' + ${date.plusMonths(1)}}">翌月 &gt;</a>
+                    <div th:text="${message}"></div>
                 </div>
             </main>
         </div>

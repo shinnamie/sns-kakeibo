@@ -120,10 +120,7 @@ public class KakeiboService {
 	 * 
 	 * @return
 	 */
-	public String getFirstDayAndLastDay() {
-		// 本日の年月を取得
-		LocalDate now = LocalDate.now();
-
+	public String getFirstDayAndLastDay(LocalDate now) {
 		// 月初日と月末日を取得
 		LocalDate ldFirstDate = now.withDayOfMonth(1);// 月初
 		String firstDate = ldFirstDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
@@ -132,21 +129,6 @@ public class KakeiboService {
 		String lastDate = ldLastDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
 		return firstDate + " - " + lastDate;
-	}
-
-	/**
-	 * 本日の年月を取得する
-	 * 
-	 * @return
-	 */
-	public String getYearAndMonth() {
-		// 本日の年月を取得
-		LocalDate now = LocalDate.now();
-
-		// 年と月をString型で取得
-		String yearAndMonth = now.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-
-		return yearAndMonth;
 	}
 
 }
