@@ -28,6 +28,10 @@
                 <div th:if="${totalByIncomeAndExpenditureBreakdownList}">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                         <div class="table-responsive">
+                            <!-- 日付表示 -->
+                            <div class="date-box">
+                                <span th:text="${firstDateAndLastDate}"></span>
+                            </div>
                             <!-- 収支計算ボックス -->
                             <table class="table-striped table-sm calculated-box">
                                 <tr>

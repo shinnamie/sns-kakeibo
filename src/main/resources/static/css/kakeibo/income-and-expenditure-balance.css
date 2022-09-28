@@ -16,3 +16,9 @@ margin-right: auto;
 .parent-flex{
 	display: flex;
 }
+
+.date-box{
+font-size: 20px;
+text-align: center;
+margin-bottom: 20px;
+}

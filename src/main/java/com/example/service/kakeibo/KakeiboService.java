@@ -1,5 +1,7 @@
 package com.example.service.kakeibo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +113,40 @@ public class KakeiboService {
 	 */
 	public MonthlyBalanceCalculationResult monthlyBalanceCalculateOfBreakdown(String yearAndMonth) {
 		return kakeiboMapper.monthlyBalanceCalculateOfBreakdown(yearAndMonth);
+	}
+
+	/**
+	 * 月初日と月末日を取得する
+	 * 
+	 * @return
+	 */
+	public String getFirstDayAndLastDay() {
+		// 本日の年月を取得
+		LocalDate now = LocalDate.now();
+
+		// 月初日と月末日を取得
+		LocalDate ldFirstDate = now.withDayOfMonth(1);// 月初
+		String firstDate = ldFirstDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+		int length = now.lengthOfMonth();
+		LocalDate ldLastDate = now.withDayOfMonth(length);// 月末
+		String lastDate = ldLastDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+
+		return firstDate + " - " + lastDate;
+	}
+
+	/**
+	 * 本日の年月を取得する
+	 * 
+	 * @return
+	 */
+	public String getYearAndMonth() {
+		// 本日の年月を取得
+		LocalDate now = LocalDate.now();
+
+		// 年と月をString型で取得
+		String yearAndMonth = now.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+
+		return yearAndMonth;
 	}
 
 }

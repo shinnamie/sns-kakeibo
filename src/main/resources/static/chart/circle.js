@@ -96,13 +96,16 @@ window.onload = function () {
 	// 円グラフの情報取得
 	let context = document.querySelector("#balance_circle").getContext('2d')
     new Chart(context, {
-	  // データの種類
+	  // グラフのフォーマット設定
       type: 'pie',
       // データの設定
       data: {
+		// 費目名の配列
         labels: newNames,
         datasets: [{
+			// 色の配列
          	backgroundColor: newColor,
+         	// データの配列
           	data: newRates
         }]
       },
