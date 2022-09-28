@@ -94,7 +94,7 @@ public class KakeiboController {
 	 */
 	@GetMapping(value = "/breakdown-income-balance")
 	public String breakdownIncomeBalance() {
-		return "breakdown-income-balance";
+		return "kakeibo/breakdown-income-balance";
 	}
 
 	/**
@@ -228,7 +228,7 @@ public class KakeiboController {
 		model.addAttribute("totalByIncomeAndExpenditureBreakdownList", totalByIncomeAndExpenditureBreakdownList);
 		model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
 
-		return "kakeibo/breakdown-income-balance";
+		return breakdownIncomeBalance();
 	}
 
 	/**

@@ -45,11 +45,13 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalIncomeAmount, '3', 'COMMA') + '円'}"></div>
+                                        <div th:if="${monthlyBalanceCalculationResult.totalIncomeAmount} >= 1000" th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalIncomeAmount, '3', 'COMMA') + '円'}"></div>
+                                        <div th:unless="${monthlyBalanceCalculationResult.totalIncomeAmount} >= 1000" th:text="${monthlyBalanceCalculationResult.totalIncomeAmount + '円'}"></div>
                                     </td>
                                     <td>ー</td>
                                     <td>
-                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalExpenditureAmount, '3', 'COMMA') + '円'}"></div>
+                                        <div th:if="${monthlyBalanceCalculationResult.totalExpenditureAmount} >= 1000"  th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalExpenditureAmount, '3', 'COMMA') + '円'}"></div>
+                                        <div th:unless="${monthlyBalanceCalculationResult.totalExpenditureAmount} >= 1000"  th:text="${monthlyBalanceCalculationResult.totalExpenditureAmount + '円'}"></div>
                                     </td>
                                     <td>＝</td>
                                     <td>
@@ -78,7 +80,8 @@
                                     <tbody>
                                         <tr th:each="breakdown : ${totalByIncomeAndExpenditureBreakdownList}" class="align-middle">
                                             <td class="expenseItemNameList" th:text="${breakdown.expenseItem.expenseItemName}"></td>
-                                            <td class="totalByExpenseItemList" th:text="${#numbers.formatInteger(breakdown.totalByExpenseItem, 3, 'COMMA')} + '円'"></td>
+                                            <td class="totalByExpenseItemList" th:if="${breakdown.totalByExpenseItem} >= 1000" th:text="${#numbers.formatInteger(breakdown.totalByExpenseItem, 3, 'COMMA')} + '円'"></td>
+                                            <td class="totalByExpenseItemList" th:unless="${breakdown.totalByExpenseItem} >= 1000" th:text="${breakdown.totalByExpenseItem} + '円'"></td>
                                             <td class="rateList" th:text="${breakdown.incomeAndExpenditureBreakedownRate} + '%'"></td>
                                         </tr>
                                     </tbody>
@@ -87,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- データがない場合、日付選択だけできる -->
                 <div class="date-box" th:unless="${monthlyBalanceCalculationResult}">
                     <!-- 日付表示 -->
