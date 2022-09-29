@@ -115,6 +115,16 @@ public class KakeiboController {
 	}
 
 	/**
+	 * 家計簿の推移グラフ画面を表示する
+	 * 
+	 * @return
+	 */
+	@GetMapping(value = "/transition")
+	public String transition() {
+		return "kakeibo/transition";
+	}
+
+	/**
 	 * 家計簿の新規登録処理
 	 * 
 	 * @param addKakeiboForm
