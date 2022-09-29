@@ -107,6 +107,15 @@ public class KakeiboService {
 	}
 
 	/**
+	 * 月別の収支計算結果を複数件(List)受け取る
+	 * 
+	 * @return
+	 */
+	public List<MonthlyBalanceCalculationResult> monthlyBalanceCalculateList(String year, String month) {
+		return kakeiboMapper.monthlyBalanceCalculateList(year, month);
+	}
+
+	/**
 	 * 月初日と月末日を取得する
 	 * 
 	 * @return

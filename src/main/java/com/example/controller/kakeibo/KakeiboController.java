@@ -122,6 +122,16 @@ public class KakeiboController {
 	 */
 	@GetMapping(value = "/transition")
 	public String transition() {
+		// 本日の年月を取得
+		LocalDate date = LocalDate.now();
+
+		// 年と月をString型で取得
+		String year = String.valueOf(date.getYear());
+		String month = String.valueOf(date.getMonthValue());
+
+		List<MonthlyBalanceCalculationResult> monthlyBalanceCalculationResultList = kakeiboService
+				.monthlyBalanceCalculateList(year, null);
+
 		return "kakeibo/transition";
 	}
 

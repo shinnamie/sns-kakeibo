@@ -39,6 +39,7 @@
  	</resultMap>
  	
  	<resultMap id="BalanceCalculationResultMap" type="com.example.domain.kakeibo.MonthlyBalanceCalculationResult">
+ 		<result property="date" column="date"/>
  		<result property="totalIncomeAmount" column="total_income_amount"/>
  		<result property="totalExpenditureAmount" column="total_expenditure_amount"/>
  		<result property="balanceCalculationResult" column="balance_calculation_result"/>
@@ -194,5 +195,27 @@
 				and TO_CHAR(settlement_date, 'YYYY-MM') LIKE '${year}-%${month}%'
 			</if>
 		</where>
+ 	</select>
+ 	
+ 	
+ 	<!-- 月別収支計算(List) -->
+ 	<select id="monthlyBalanceCalculateList" resultMap="BalanceCalculationResultMap">
+ 		SELECT
+ 			to_char(settlement_date, 'YYYY/MM') as date,
+			SUM(income_amount) AS total_income_amount,
+			SUM(expenditure_amount) AS total_expenditure_amount,
+			(SUM(income_amount) - SUM(expenditure_amount)) AS balance_calculation_result
+		FROM kakeibo
+		<where>
+			is_deleted = false
+			<if test="year != null">
+				and TO_CHAR(settlement_date, 'YYYY') LIKE '${year}'
+			</if>
+			<if test="year != null and month != null">
+				and TO_CHAR(settlement_date, 'YYYY-MM') LIKE '${year}-%${month}%'
+			</if>
+		</where>
+		GROUP BY
+			date;
  	</select>
  </mapper>

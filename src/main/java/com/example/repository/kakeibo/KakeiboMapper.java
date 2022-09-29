@@ -72,4 +72,11 @@ public interface KakeiboMapper {
 	 */
 	MonthlyBalanceCalculationResult monthlyBalanceCalculate(String year, String month);
 
+	/**
+	 * 月別の収支計算結果(Listで受け取る)
+	 * 
+	 * @return
+	 */
+	List<MonthlyBalanceCalculationResult> monthlyBalanceCalculateList(String year, String month);
+
 }
