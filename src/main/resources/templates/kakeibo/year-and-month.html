@@ -105,7 +105,7 @@
                                         <td th:text="${kakeibo.remarks}">テストテスト</td>
                                         <td th:text="${#dates.format(kakeibo.insertAt, 'yyyy月MM月dd日')}">2022-09-01</td>
                                         <td>
-                                            <form th:action="@{/kakeibo/update}">
+                                            <form th:action="@{/kakeibo/edit}">
                                                 <input name="id" type="hidden" th:value="${kakeibo.id}">
                                                 <button type="submit"><i class="fa-solid fa-pen"></i></button>
                                             </form>

@@ -42,6 +42,9 @@ public class KakeiboController {
 		return new AddKakeiboForm("0", "0");
 	}
 
+	/**
+	 * @return 家計簿編集用フォーム
+	 */
 	@ModelAttribute
 	private EditKakeiboForm editKakeiboForm() {
 		return new EditKakeiboForm();
@@ -61,7 +64,7 @@ public class KakeiboController {
 	}
 	
 	/**
-	 * 家計簿登録画面を表示(元のデータをデフォルト表示)
+	 * 家計簿新規登録画面を表示
 	 * 
 	 * @return
 	 */
@@ -70,7 +73,12 @@ public class KakeiboController {
 		return "kakeibo/add";
 	}
 
-	@GetMapping(value = "/update")
+	/**
+	 * 家計簿編集画面を表示(元のデータをデフォルト表示)
+	 * 
+	 * @return
+	 */
+	@GetMapping(value = "/edit")
 	public String update(Integer id, EditKakeiboForm editKakeiboForm) {
 		// idから家計簿情報を1件取得する
 		Kakeibo kakeibo = kakeiboService.findByKakeiboId(id);
