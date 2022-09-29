@@ -94,7 +94,7 @@ window.onload = function () {
 	}
 	
 	// 円グラフの情報取得
-	let context = document.querySelector("#balance_circle").getContext('2d')
+	let context = document.querySelector("#balance-circle").getContext('2d')
     new Chart(context, {
 	  // グラフのフォーマット設定
       type: 'pie',
