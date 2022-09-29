@@ -1,7 +1,6 @@
 package com.example.controller.kakeibo;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -218,11 +217,12 @@ public class KakeiboController {
 		model.addAttribute("firstDateAndLastDate", firstDateAndLastDate);
 
 		// 年と月をString型で取得
-		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+		String year = String.valueOf(date.getYear());
+		String month = String.valueOf(date.getMonthValue());
 
 		// 収支計算結果の取得
 		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
-				.monthlyBalanceCalculateOfBreakdown(yearAndMonth);
+				.monthlyBalanceCalculate(year, month);
 		if (monthlyBalanceCalculationResult == null) { // データが存在しない場合
 			model.addAttribute("message", "該当月のデータが存在しません。");
 			return "kakeibo/breakdown-income-balance";
@@ -230,7 +230,7 @@ public class KakeiboController {
 
 		// 年月の値を送り収支内訳結果を取得する
 		List<TotalByIncomeAndExpenditureBreakdown> totalByIncomeAndExpenditureBreakdownList = kakeiboService
-				.totalByIncomeAndExpenditureBreakdown(yearAndMonth);
+				.totalByIncomeAndExpenditureBreakdown(year, month);
 
 		// それぞれをスコープに格納
 		model.addAttribute("totalByIncomeAndExpenditureBreakdownList", totalByIncomeAndExpenditureBreakdownList);

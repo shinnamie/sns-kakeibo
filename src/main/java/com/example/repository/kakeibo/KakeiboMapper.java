@@ -61,7 +61,7 @@ public interface KakeiboMapper {
 	 * @param month 月
 	 * @return 収支内訳
 	 */
-	List<TotalByIncomeAndExpenditureBreakdown> totalIncomeAndExpenditureBreakdown(String yearAndMonth);
+	List<TotalByIncomeAndExpenditureBreakdown> totalIncomeAndExpenditureBreakdown(String year, String month);
 
 	/**
 	 * 月別集計
@@ -78,12 +78,5 @@ public interface KakeiboMapper {
 	 * @return
 	 */
 	MonthlyBalanceCalculationResult monthlyBalanceCalculate(String year, String month);
-
-	/**
-	 * 月別の収支計算結果(収支内訳画面用)
-	 * 
-	 * @return
-	 */
-	MonthlyBalanceCalculationResult monthlyBalanceCalculateOfBreakdown(String yearAndMonth);
 
 }

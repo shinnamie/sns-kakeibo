@@ -82,8 +82,8 @@ public class KakeiboService {
 	 * @param month 月
 	 * @return 収支内訳
 	 */
-	public List<TotalByIncomeAndExpenditureBreakdown> totalByIncomeAndExpenditureBreakdown(String yearAndMonth) {
-		return kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
+	public List<TotalByIncomeAndExpenditureBreakdown> totalByIncomeAndExpenditureBreakdown(String year, String month) {
+		return kakeiboMapper.totalIncomeAndExpenditureBreakdown(year, month);
 	}
 
 	/**
@@ -104,15 +104,6 @@ public class KakeiboService {
 	 */
 	public MonthlyBalanceCalculationResult monthlyBalanceCalculate(String year, String month) {
 		return kakeiboMapper.monthlyBalanceCalculate(year, month);
-	}
-
-	/**
-	 * 月別の収支計算結果(収支内訳画面用)
-	 * 
-	 * @return
-	 */
-	public MonthlyBalanceCalculationResult monthlyBalanceCalculateOfBreakdown(String yearAndMonth) {
-		return kakeiboMapper.monthlyBalanceCalculateOfBreakdown(yearAndMonth);
 	}
 
 	/**
