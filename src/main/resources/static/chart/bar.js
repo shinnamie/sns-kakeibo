@@ -4,10 +4,10 @@ window.onload = function () {
 	var ctx = document.getElementById('bar-chart');
 	
 	var data = {
-		labels: ["平成26年", "平成27年", "平成28年", "平成29年", "平成30年"],
+		labels: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
     	datasets: [{
         label: '得点',
-        data: [880, 740, 900, 520, 930],
+        data: [880, 740, 900, 520, 930, 880, 740, 900, 520, 930, 880, 740],
         backgroundColor: 'rgba(255, 100, 100, 1)'
     	}]
 	};
