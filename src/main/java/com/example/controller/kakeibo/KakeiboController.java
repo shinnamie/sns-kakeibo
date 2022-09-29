@@ -57,7 +57,8 @@ public class KakeiboController {
 	 */
 	@GetMapping(value = "/list")
 	public String list(Model model) {
-		List<Kakeibo> kakeiboList = kakeiboService.kakeiboList();
+		// 家計簿全件取得(yearとmonthは指定しないのでnull)
+		List<Kakeibo> kakeiboList = kakeiboService.kakeiboList(null, null);
 		model.addAttribute("kakeiboList", kakeiboList);
 		return "kakeibo/kakeiboList";
 	}

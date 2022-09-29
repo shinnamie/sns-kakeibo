@@ -13,11 +13,13 @@ import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 public interface KakeiboMapper {
 	
 	/**
-	 * 家計簿情報の全件取得
+	 * 家計簿リスト全件取得 & 年月指定の月別集計
 	 * 
-	 * @return 検索結果
+	 * @param year  集計年
+	 * @param month 集計月
+	 * @return 集計結果
 	 */
-	List<Kakeibo> findAll();
+	List<Kakeibo> searchKakeibo(String year, String month);
 
 	/**
 	 * 家計簿idから家計簿情報を取得
@@ -62,15 +64,6 @@ public interface KakeiboMapper {
 	 * @return 収支内訳
 	 */
 	List<TotalByIncomeAndExpenditureBreakdown> totalIncomeAndExpenditureBreakdown(String year, String month);
-
-	/**
-	 * 月別集計
-	 * 
-	 * @param year  集計年
-	 * @param month 集計月
-	 * @return 集計結果
-	 */
-	List<Kakeibo> findByYearAndMonth(String year, String month);
 
 	/**
 	 * 月別の収支計算結果

@@ -19,10 +19,10 @@
             <!-- サイドバー/インクルード化しているので、編集する際はsidebar.htmlから -->
             <div th:insert="common/sidebar :: frag_menu"></div>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <!-- 家計簿推移棒グラフ -->
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h2>家計簿推移</h2>
+                    <h2>支出・収入推移</h2>
                 </div>
+                <!-- 支出・収入推移グラフ -->
                 <canvas class="my-4 w-100" id="bar-chart" width="900" height="380"></canvas>
             </main>
         </div>
