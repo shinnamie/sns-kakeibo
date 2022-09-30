@@ -56,6 +56,23 @@
                             <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.balanceCalculationResult, '3', 'COMMA') + '円'}"></div>
                         </td>
                     </tr>
+                    <tr th:each="monthlyBalance : ${monthlyBalanceCalculationResult}">
+                        <td>年内収支</td>
+                        <td></td>
+                        <td>
+                            <div th:if="${monthlyBalance.totalIncomeAmount} >= 1000" th:text="${#numbers.formatInteger(monthlyBalance.totalIncomeAmount, '3', 'COMMA') + '円'}"></div>
+                            <div th:unless="${monthlyBalance.totalIncomeAmount} >= 1000" th:text="${monthlyBalance.totalIncomeAmount + '円'}"></div>
+                        </td>
+                        <td>ー</td>
+                        <td>
+                            <div th:if="${monthlyBalance.totalExpenditureAmount} >= 1000"  th:text="${#numbers.formatInteger(monthlyBalance.totalExpenditureAmount, '3', 'COMMA') + '円'}"></div>
+                            <div th:unless="${monthlyBalance.totalExpenditureAmount} >= 1000"  th:text="${monthlyBalance.totalExpenditureAmount + '円'}"></div>
+                        </td>
+                        <td>＝</td>
+                        <td>
+                            <div th:text="${#numbers.formatInteger(monthlyBalance.balanceCalculationResult, '3', 'COMMA') + '円'}"></div>
+                        </td>
+                    </tr>
                 </table>
             </main>
         </div>

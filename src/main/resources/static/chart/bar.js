@@ -11,9 +11,9 @@ window.onload = function () {
 	// 月毎の合計収入を配列で取得
 	let totalIncomes = document.getElementsByClassName('totalIncomeAmountList');
 	
-	// 年の取得
+	// 年('yyyy'の部分)の取得
 	let year = dates[0].innerText.substr(0, 4);
-	// 年月の配列を準備
+	// 年月('yyyy/MM')の配列を準備
 	let monthsOfYear = [];
 	for (let i = 1; i <= 12; i++) {
 		let month;
@@ -74,7 +74,6 @@ window.onload = function () {
 			totalExpenditureDatum.push(data);	
 		}
 	}
-	console.log(totalExpenditureDatum);
 	
 	// 棒グラフに用いる新たな合計収入のデータ群
 	let totalIntcomeDatum = [];
@@ -87,11 +86,9 @@ window.onload = function () {
 			totalIntcomeDatum.push(data);	
 		}
 	}
-	console.log(totalIntcomeDatum);
-
 	
 	
-	// データ情報
+	// 棒グラフのデータ情報
 	var data = {
 		labels: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
     	datasets: [{

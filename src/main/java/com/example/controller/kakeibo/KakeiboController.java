@@ -129,10 +129,17 @@ public class KakeiboController {
 		String year = String.valueOf(date.getYear());
 		String month = String.valueOf(date.getMonthValue());
 
+		// 月毎の収支計算結果をListで取得
 		List<MonthlyBalanceCalculationResult> monthlyBalanceCalculationResultList = kakeiboService
 				.monthlyBalanceCalculateList(year, null);
 
+		// 年内の収支計算結果を取得
+		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService.monthlyBalanceCalculate(year,
+				null);
+
+		// スコープに値をセット
 		model.addAttribute("monthlyBalanceCalculationResultList", monthlyBalanceCalculationResultList);
+		model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
 
 		return "kakeibo/transition";
 	}
