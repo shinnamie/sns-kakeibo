@@ -121,7 +121,7 @@ public class KakeiboController {
 	 * @return
 	 */
 	@GetMapping(value = "/transition")
-	public String transition() {
+	public String transition(Model model) {
 		// 本日の年月を取得
 		LocalDate date = LocalDate.now();
 
@@ -131,6 +131,8 @@ public class KakeiboController {
 
 		List<MonthlyBalanceCalculationResult> monthlyBalanceCalculationResultList = kakeiboService
 				.monthlyBalanceCalculateList(year, null);
+
+		model.addAttribute("monthlyBalanceCalculationResultList", monthlyBalanceCalculationResultList);
 
 		return "kakeibo/transition";
 	}

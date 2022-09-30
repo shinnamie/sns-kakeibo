@@ -7,7 +7,8 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 <link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
 <link rel="stylesheet" th:href="@{/css/common/example.css}">
-<link rel="stylesheet" th:href="@{/css/common/transition.css}">
+<link rel="stylesheet" th:href="@{/css/kakeibo/transition.css}">
+<link rel="stylesheet" th:href="@{/css/kakeibo/aggregate.css}">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
 </head>
 <body>
@@ -24,6 +25,38 @@
                 </div>
                 <!-- 支出・収入推移グラフ -->
                 <canvas class="my-4 w-100" id="bar-chart" width="900" height="380"></canvas>
+
+                <!-- 収支計算ボックス -->
+                <table class="table-striped table-sm calculated-box">
+                    <tr>
+                        <th>日付</th>
+                        <th></th>
+                        <th>収入金額</th>
+                        <th></th>
+                        <th>支出金額</th>
+                        <th></th>
+                        <th>収支</th>
+                    </tr>
+                    <tr th:each="monthlyBalanceCalculationResult : ${monthlyBalanceCalculationResultList}">
+                        <td>
+                            <div class="date" th:text="${monthlyBalanceCalculationResult.date}"></div>
+                        </td>
+                        <td></td>
+                        <td>
+                            <div class="totalIncomeAmountList" th:if="${monthlyBalanceCalculationResult.totalIncomeAmount} >= 1000" th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalIncomeAmount, '3', 'COMMA') + '円'}"></div>
+                            <div class="totalIncomeAmountList" th:unless="${monthlyBalanceCalculationResult.totalIncomeAmount} >= 1000" th:text="${monthlyBalanceCalculationResult.totalIncomeAmount + '円'}"></div>
+                        </td>
+                        <td>ー</td>
+                        <td>
+                            <div class="totalExpenditureAmountList" th:if="${monthlyBalanceCalculationResult.totalExpenditureAmount} >= 1000"  th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalExpenditureAmount, '3', 'COMMA') + '円'}"></div>
+                            <div class="totalExpenditureAmountList" th:unless="${monthlyBalanceCalculationResult.totalExpenditureAmount} >= 1000"  th:text="${monthlyBalanceCalculationResult.totalExpenditureAmount + '円'}"></div>
+                        </td>
+                        <td>＝</td>
+                        <td>
+                            <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.balanceCalculationResult, '3', 'COMMA') + '円'}"></div>
+                        </td>
+                    </tr>
+                </table>
             </main>
         </div>
     </div>
