@@ -11,6 +11,7 @@ import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
 import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
+import com.example.form.kakeibo.AggregatedYearOrMonthForm;
 import com.example.repository.kakeibo.KakeiboMapper;
 
 @Service
@@ -24,8 +25,8 @@ public class KakeiboService {
 	 * 
 	 * @return 検索結果
 	 */
-	public List<Kakeibo> kakeiboList(String year, String month, Integer expenseItemId) {
-		return kakeiboMapper.searchKakeibo(year, month, expenseItemId);
+	public List<Kakeibo> kakeiboList() {
+		return kakeiboMapper.findAll();
 	}
 
 
@@ -93,8 +94,8 @@ public class KakeiboService {
 	 * @param month 集計月
 	 * @return 集計結果
 	 */
-	public List<Kakeibo> findByYearAndMonth(String year, String month, Integer expenseItemId) {
-		return kakeiboMapper.searchKakeibo(year, month, expenseItemId);
+	public List<Kakeibo> findByYearAndMonth(AggregatedYearOrMonthForm aggregatedYearOrMonthForm) {
+		return kakeiboMapper.searchKakeibo(aggregatedYearOrMonthForm);
 	}
 
 	/**

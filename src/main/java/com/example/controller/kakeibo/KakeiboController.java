@@ -21,6 +21,7 @@ import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
 import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 import com.example.form.kakeibo.AddKakeiboForm;
+import com.example.form.kakeibo.AggregatedYearOrMonthForm;
 import com.example.form.kakeibo.EditKakeiboForm;
 import com.example.service.kakeibo.KakeiboService;
 
@@ -50,6 +51,14 @@ public class KakeiboController {
 	}
 
 	/**
+	 * @return 年別・月別集計用のフォーム
+	 */
+	@ModelAttribute
+	private AggregatedYearOrMonthForm aggregatedYearOrMonthForm() {
+		return new AggregatedYearOrMonthForm();
+	}
+
+	/**
 	 * 家計簿一覧画面を表示
 	 * 
 	 * @param model
@@ -58,7 +67,7 @@ public class KakeiboController {
 	@GetMapping(value = "/list")
 	public String list(Model model) {
 		// 家計簿全件取得(year、month、expenseItemIdは指定しないのでnull)
-		List<Kakeibo> kakeiboList = kakeiboService.kakeiboList(null, null, null);
+		List<Kakeibo> kakeiboList = kakeiboService.kakeiboList();
 		model.addAttribute("kakeiboList", kakeiboList);
 		return "kakeibo/kakeiboList";
 	}
@@ -293,25 +302,20 @@ public class KakeiboController {
 	 * @return
 	 */
 	@RequestMapping(value = "/aggregated-year-or-month", method = RequestMethod.POST)
-	public String aggregatedByMonth(String year, String month, Integer expenseItemId, Model model) {
+	public String aggregatedByMonth(AggregatedYearOrMonthForm aggregatedYearOrMonthForm, Model model) {
 		// expenseItemId=0(全項目)だった場合、nullを代入
-		if (expenseItemId == 0) {
-			expenseItemId = null;
+		if (aggregatedYearOrMonthForm.getExpenseItemId() == 0) {
+			aggregatedYearOrMonthForm.setExpenseItemId(null);
 		}
 
 		// 年月のパラメーターを元に検索、結果を取得
-		List<Kakeibo> kakeiboMonthList = kakeiboService.findByYearAndMonth(year, month, expenseItemId);
-
-		// 収支計算結果の取得
-		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
-				.monthlyBalanceCalculate(year, month);
+		List<Kakeibo> kakeiboMonthList = kakeiboService.findByYearAndMonth(aggregatedYearOrMonthForm);
 
 		// それぞれの結果をスコープに格納
 		if (kakeiboMonthList == null || kakeiboMonthList.size() == 0) {
 			model.addAttribute("message", "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
 		} else {
 			model.addAttribute("kakeiboMonthList", kakeiboMonthList);
-			model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
 		}
 
 		return "kakeibo/year-and-month";

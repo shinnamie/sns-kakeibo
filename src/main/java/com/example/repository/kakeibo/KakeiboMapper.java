@@ -8,18 +8,17 @@ import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
 import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
+import com.example.form.kakeibo.AggregatedYearOrMonthForm;
 
 @Mapper
 public interface KakeiboMapper {
 	
 	/**
-	 * 家計簿リスト全件取得 & 年月指定の月別集計
+	 * 家計簿リスト全件取得
 	 * 
-	 * @param year  集計年
-	 * @param month 集計月
 	 * @return 集計結果
 	 */
-	List<Kakeibo> searchKakeibo(String year, String month, Integer expenseItemId);
+	List<Kakeibo> findAll();
 
 	/**
 	 * 家計簿idから家計簿情報を取得
@@ -78,5 +77,7 @@ public interface KakeiboMapper {
 	 * @return
 	 */
 	List<MonthlyBalanceCalculationResult> monthlyBalanceCalculateList(String year, String month);
+
+	List<Kakeibo> searchKakeibo(AggregatedYearOrMonthForm aggregatedYearOrMonthForm);
 
 }

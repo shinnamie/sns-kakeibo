@@ -46,7 +46,7 @@
  	</resultMap>
  	
  	<!-- 家計簿一覧表示 -->
- 	<select id="searchKakeibo" resultMap="kakeiboResultMap">
+ 	<select id="findAll" resultMap="kakeiboResultMap">
  		SELECT
 			k.id,
 			k.user_id,
@@ -71,17 +71,8 @@
 			settlement as s
 		ON
 			k.settlement_id = s.id
-		<where>
+		WHERE
 			k.is_deleted = false
-			<if test="year != null and expenseItemId != null">
-				and TO_CHAR(k.settlement_date, 'YYYY') LIKE '${year}'
-				and k.expense_item_id = ${expenseItemId}
-			</if>
-			<if test="year != null and month != null and expenseItemId != null">
-				and TO_CHAR(k.settlement_date, 'YYYY-MM') LIKE '${year}-%${month}%'
-				and k.expense_item_id = ${expenseItemId}
-			</if>
-		</where>
 		ORDER BY
 			k.settlement_date DESC,
 			k.update_at DESC;
@@ -219,5 +210,49 @@
 		</where>
 		GROUP BY
 			date;
+ 	</select>
+ 	
+ 	
+ 	<!-- 年別・月別集計 -->
+ 	<select id="searchKakeibo" resultMap="kakeiboResultMap">
+ 		SELECT
+			k.id,
+			k.user_id,
+			k.settlement_date,
+			k.expense_item_id,
+			ei.expense_item_name,
+			k.expenditure_amount,
+			k.income_amount,
+			k.settlement_id,
+			s.settlement_name,
+			k.used_store,
+			k.remarks,
+			k.insert_at,
+			k.update_at,
+			k.is_deleted
+		FROM kakeibo AS k
+		INNER JOIN
+			expense_item as ei
+		ON
+			k.expense_item_id = ei.id
+		LEFT JOIN
+			settlement as s
+		ON
+			k.settlement_id = s.id
+		<where>
+			k.is_deleted = false
+			<if test="year != null">
+				and TO_CHAR(k.settlement_date, 'YYYY') LIKE '${year}'
+			</if>
+			<if test="year != null and month != null">
+				and TO_CHAR(k.settlement_date, 'YYYY-MM') LIKE '${year}-%${month}%'
+			</if>
+			<if test="expenseItemId != null">
+				and k.expense_item_id = ${expenseItemId}
+			</if>
+		</where>
+		ORDER BY
+			k.settlement_date DESC,
+			k.update_at DESC;
  	</select>
  </mapper>
