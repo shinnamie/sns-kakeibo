@@ -73,11 +73,13 @@
 			k.settlement_id = s.id
 		<where>
 			k.is_deleted = false
-			<if test="year != null">
+			<if test="year != null and expenseItemId != null">
 				and TO_CHAR(k.settlement_date, 'YYYY') LIKE '${year}'
+				and k.expense_item_id = ${expenseItemId}
 			</if>
-			<if test="year != null and month != null">
+			<if test="year != null and month != null and expenseItemId != null">
 				and TO_CHAR(k.settlement_date, 'YYYY-MM') LIKE '${year}-%${month}%'
+				and k.expense_item_id = ${expenseItemId}
 			</if>
 		</where>
 		ORDER BY

@@ -33,6 +33,32 @@
                         <label class="label">集計したい月</label>
                         <input class="input_form" type="text" name="month">月
                     </div>
+                    <!-- 費目 -->
+                    <div class="inputs">
+                        <label class="label">費目</label>
+                        <select name="expenseItemId" id="">
+                        <option value="0">全項目</option>
+                        <option value="1">給料</option>
+                        <option value="2">雑収入</option>
+                        <option value="3">振替・振込</option>
+                        <option value="4">食費</option>
+                        <option value="5">日用品</option>
+                        <option value="6">趣味・娯楽</option>
+                        <option value="7">交際費</option>
+                        <option value="8">交通費</option>
+                        <option value="9">衣服</option>
+                        <option value="10">美容</option>
+                        <option value="11">健康・医療</option>
+                        <option value="12">自動車</option>
+                        <option value="13">教養・教育</option>
+                        <option value="14">水道・光熱費</option>
+                        <option value="15">通信費</option>
+                        <option value="16">住宅</option>
+                        <option value="17">税・社会保障</option>
+                        <option value="18">保険</option>
+                        <option value="19">その他</option>
+                        </select>
+                    </div>
                     <div class="btn-area">
                         <input type="submit" class="btn btn-sm btn-outline-secondary" value="検索">
                     </div>
@@ -40,38 +66,6 @@
 
                 <!-- データが存在しない場合のメッセージ -->
                 <div th:if="${message}" th:text="${message}" style="color: red;"></div>
-
-                <!-- 収支計算ボックス -->
-                <div th:if="${monthlyBalanceCalculationResult}">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-                        <div class="table-responsive">
-                            <table class="table-striped table-sm calculated-box">
-                                <tr>
-                                    <th>収入金額</th>
-                                    <th></th>
-                                    <th>支出金額</th>
-                                    <th></th>
-                                    <th>収支</th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div th:if="${monthlyBalanceCalculationResult.totalIncomeAmount} >= 1000" th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalIncomeAmount, '3', 'COMMA') + '円'}"></div>
-                                        <div th:unless="${monthlyBalanceCalculationResult.totalIncomeAmount} >= 1000" th:text="${monthlyBalanceCalculationResult.totalIncomeAmount + '円'}"></div>
-                                    </td>
-                                    <td>ー</td>
-                                    <td>
-                                        <div th:if="${monthlyBalanceCalculationResult.totalExpenditureAmount} >= 1000"  th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalExpenditureAmount, '3', 'COMMA') + '円'}"></div>
-                                        <div th:unless="${monthlyBalanceCalculationResult.totalExpenditureAmount} >= 1000"  th:text="${monthlyBalanceCalculationResult.totalExpenditureAmount + '円'}"></div>
-                                    </td>
-                                    <td>＝</td>
-                                    <td>
-                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.balanceCalculationResult, '3', 'COMMA') + '円'}"></div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- テーブル表示 -->
                 <div th:if="${kakeiboMonthList}">

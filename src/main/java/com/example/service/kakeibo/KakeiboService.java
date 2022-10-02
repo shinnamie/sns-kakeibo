@@ -24,8 +24,8 @@ public class KakeiboService {
 	 * 
 	 * @return 検索結果
 	 */
-	public List<Kakeibo> kakeiboList(String year, String month) {
-		return kakeiboMapper.searchKakeibo(year, month);
+	public List<Kakeibo> kakeiboList(String year, String month, Integer expenseItemId) {
+		return kakeiboMapper.searchKakeibo(year, month, expenseItemId);
 	}
 
 
@@ -93,8 +93,8 @@ public class KakeiboService {
 	 * @param month 集計月
 	 * @return 集計結果
 	 */
-	public List<Kakeibo> findByYearAndMonth(String year, String month) {
-		return kakeiboMapper.searchKakeibo(year, month);
+	public List<Kakeibo> findByYearAndMonth(String year, String month, Integer expenseItemId) {
+		return kakeiboMapper.searchKakeibo(year, month, expenseItemId);
 	}
 
 	/**

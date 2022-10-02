@@ -19,7 +19,7 @@ public interface KakeiboMapper {
 	 * @param month 集計月
 	 * @return 集計結果
 	 */
-	List<Kakeibo> searchKakeibo(String year, String month);
+	List<Kakeibo> searchKakeibo(String year, String month, Integer expenseItemId);
 
 	/**
 	 * 家計簿idから家計簿情報を取得
