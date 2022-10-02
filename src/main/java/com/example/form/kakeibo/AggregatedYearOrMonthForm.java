@@ -1,8 +1,11 @@
 package com.example.form.kakeibo;
 
+import javax.validation.constraints.Pattern;
+
 public class AggregatedYearOrMonthForm {
 
 	/** 集計年 */
+	@Pattern(regexp = "^[0-9]{4}$", message = "集計年を半角数字(4桁)で指定してください")
 	private String year;
 	/** 集計月 */
 	private String month;

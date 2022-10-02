@@ -302,7 +302,12 @@ public class KakeiboController {
 	 * @return
 	 */
 	@RequestMapping(value = "/aggregated-year-or-month", method = RequestMethod.POST)
-	public String aggregatedByMonth(AggregatedYearOrMonthForm aggregatedYearOrMonthForm, Model model) {
+	public String aggregatedByMonth(@Validated AggregatedYearOrMonthForm aggregatedYearOrMonthForm,
+			BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return monthlyAggregation();
+		}
+
 		// expenseItemId=0(全項目)だった場合、nullを代入
 		if (aggregatedYearOrMonthForm.getExpenseItemId() == 0) {
 			aggregatedYearOrMonthForm.setExpenseItemId(null);
@@ -313,7 +318,7 @@ public class KakeiboController {
 
 		// それぞれの結果をスコープに格納
 		if (kakeiboMonthList == null || kakeiboMonthList.size() == 0) {
-			model.addAttribute("message", "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
+			model.addAttribute("message", "ご入力頂いた年月のデータは存在しません");
 		} else {
 			model.addAttribute("kakeiboMonthList", kakeiboMonthList);
 		}

@@ -247,6 +247,9 @@
 			<if test="year != null and month != null">
 				and TO_CHAR(k.settlement_date, 'YYYY-MM') LIKE '${year}-%${month}%'
 			</if>
+			<if test="year != null and month == 1">
+				and TO_CHAR(k.settlement_date, 'YYYY-MM') LIKE '${year}-0${month}'
+			</if>
 			<if test="expenseItemId != null">
 				and k.expense_item_id = ${expenseItemId}
 			</if>

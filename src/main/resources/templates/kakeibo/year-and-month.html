@@ -23,20 +23,22 @@
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h2>年別・月別集計</h2>
                 </div>
-                <form th:action="@{/kakeibo/aggregated-year-or-month}" method="post">
-                    <!-- 月別集計 -->
+                <form th:action="@{/kakeibo/aggregated-year-or-month}" method="post" th:object="${aggregatedYearOrMonthForm}">
+                    <!-- 年集計 -->
+                    <div th:errors="*{year}" style="color: red;"></div>
                     <div class="inputs">
                         <label class="label">集計したい年</label>
-                        <input class="input_form" type="text" name="year">年
+                        <input class="input_form" type="text" name="year" th:field="*{year}">年
                     </div>
+                    <!-- 月集計 -->
                     <div class="inputs">
                         <label class="label">集計したい月</label>
-                        <input class="input_form" type="text" name="month">月
+                        <input class="input_form" type="text" name="month" th:field="*{month}">月
                     </div>
                     <!-- 費目 -->
                     <div class="inputs">
                         <label class="label">費目</label>
-                        <select name="expenseItemId" id="">
+                        <select name="expenseItemId" id="" th:field="*{expenseItemId}">
                         <option value="0">全項目</option>
                         <option value="1">給料</option>
                         <option value="2">雑収入</option>
