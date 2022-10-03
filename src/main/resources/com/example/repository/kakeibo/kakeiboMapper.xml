@@ -199,15 +199,9 @@
 			SUM(expenditure_amount) AS total_expenditure_amount,
 			(SUM(income_amount) - SUM(expenditure_amount)) AS balance_calculation_result
 		FROM kakeibo
-		<where>
+		WHERE
 			is_deleted = false
-			<if test="year != null">
-				and TO_CHAR(settlement_date, 'YYYY') LIKE '${year}'
-			</if>
-			<if test="year != null and month != null">
-				and TO_CHAR(settlement_date, 'YYYY-MM') LIKE '${year}-%${month}%'
-			</if>
-		</where>
+			and TO_CHAR(settlement_date, 'YYYY') LIKE '${year}'
 		GROUP BY
 			date;
  	</select>

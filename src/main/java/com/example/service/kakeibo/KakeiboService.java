@@ -88,17 +88,6 @@ public class KakeiboService {
 	}
 
 	/**
-	 * 月別集計時に使用
-	 * 
-	 * @param year  集計年
-	 * @param month 集計月
-	 * @return 集計結果
-	 */
-	public List<Kakeibo> findByYearAndMonth(AggregatedYearOrMonthForm aggregatedYearOrMonthForm) {
-		return kakeiboMapper.searchKakeibo(aggregatedYearOrMonthForm);
-	}
-
-	/**
 	 * 月別の収支計算結果
 	 * 
 	 * @return
@@ -112,8 +101,19 @@ public class KakeiboService {
 	 * 
 	 * @return
 	 */
-	public List<MonthlyBalanceCalculationResult> monthlyBalanceCalculateList(String year, String month) {
-		return kakeiboMapper.monthlyBalanceCalculateList(year, month);
+	public List<MonthlyBalanceCalculationResult> monthlyBalanceCalculateList(String year) {
+		return kakeiboMapper.monthlyBalanceCalculateList(year);
+	}
+
+	/**
+	 * 月別集計時に使用
+	 * 
+	 * @param year  集計年
+	 * @param month 集計月
+	 * @return 集計結果
+	 */
+	public List<Kakeibo> findByYearAndMonth(AggregatedYearOrMonthForm aggregatedYearOrMonthForm) {
+		return kakeiboMapper.searchKakeibo(aggregatedYearOrMonthForm);
 	}
 
 	/**

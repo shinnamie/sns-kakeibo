@@ -76,8 +76,14 @@ public interface KakeiboMapper {
 	 * 
 	 * @return
 	 */
-	List<MonthlyBalanceCalculationResult> monthlyBalanceCalculateList(String year, String month);
+	List<MonthlyBalanceCalculationResult> monthlyBalanceCalculateList(String year);
 
+	/**
+	 * 年別・月別集計用
+	 * 
+	 * @param aggregatedYearOrMonthForm
+	 * @return
+	 */
 	List<Kakeibo> searchKakeibo(AggregatedYearOrMonthForm aggregatedYearOrMonthForm);
 
 }

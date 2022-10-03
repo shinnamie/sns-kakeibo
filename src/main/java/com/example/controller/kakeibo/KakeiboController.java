@@ -124,34 +124,6 @@ public class KakeiboController {
 		return "kakeibo/year-and-month";
 	}
 
-	/**
-	 * 家計簿の推移グラフ画面を表示する
-	 * 
-	 * @return
-	 */
-	@GetMapping(value = "/transition")
-	public String transition(Model model) {
-		// 本日の年月を取得
-		LocalDate date = LocalDate.now();
-
-		// 年と月をString型で取得
-		String year = String.valueOf(date.getYear());
-		String month = String.valueOf(date.getMonthValue());
-
-		// 月毎の収支計算結果をListで取得
-		List<MonthlyBalanceCalculationResult> monthlyBalanceCalculationResultList = kakeiboService
-				.monthlyBalanceCalculateList(year, null);
-
-		// 年内の収支計算結果を取得
-		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService.monthlyBalanceCalculate(year,
-				null);
-
-		// スコープに値をセット
-		model.addAttribute("monthlyBalanceCalculationResultList", monthlyBalanceCalculationResultList);
-		model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
-
-		return "kakeibo/transition";
-	}
 
 	/**
 	 * 家計簿の新規登録処理
@@ -291,6 +263,34 @@ public class KakeiboController {
 		model.addAttribute("date", date);
 
 		return incomeAndExpenditureBalance(date, model);
+	}
+
+	/**
+	 * 家計簿の推移グラフ画面を表示する
+	 * 
+	 * @return
+	 */
+	@GetMapping(value = "/transition")
+	public String transition(Model model) {
+		// 本日の年月を取得
+		LocalDate date = LocalDate.now();
+
+		// 年と月をString型で取得
+		String year = String.valueOf(date.getYear());
+
+		// 月毎の収支計算結果をListで取得
+		List<MonthlyBalanceCalculationResult> monthlyBalanceCalculationResultList = kakeiboService
+				.monthlyBalanceCalculateList(year);
+
+		// 年内の収支計算結果を取得(収支内訳画面で利用しているものと同じ)
+		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService.monthlyBalanceCalculate(year,
+				null);
+
+		// スコープに値をセット
+		model.addAttribute("monthlyBalanceCalculationResultList", monthlyBalanceCalculationResultList);
+		model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
+
+		return "kakeibo/transition";
 	}
 
 	/**
