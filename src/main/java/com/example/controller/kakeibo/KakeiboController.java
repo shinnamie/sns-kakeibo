@@ -124,6 +124,11 @@ public class KakeiboController {
 		return "kakeibo/year-and-month";
 	}
 
+	@GetMapping(value = "/kakeibo-calendar")
+	public String calendar(Model model) {
+		return "kakeibo/calendar";
+	}
+
 
 	/**
 	 * 家計簿の新規登録処理
