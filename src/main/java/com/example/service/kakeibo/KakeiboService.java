@@ -41,6 +41,15 @@ public class KakeiboService {
 	}
 
 	/**
+	 * カレンダーイベント用
+	 * 
+	 * @return
+	 */
+	public List<MonthlyBalanceCalculationResult> monthlyBalanceCalculationResultList() {
+		return kakeiboMapper.monthlyBalanceCalculateByCalendarList();
+	}
+
+	/**
 	 * 家計簿の新規登録
 	 * 
 	 * @param kakeibo

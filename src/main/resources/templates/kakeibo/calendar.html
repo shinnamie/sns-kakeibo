@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 <link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
 <link rel="stylesheet" th:href="@{/css/common/example.css}">
+<link rel="stylesheet" th:href="@{/css/kakeibo/fullCalendar.css}">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
 </head>
@@ -19,7 +20,7 @@
             <!-- サイドバー/インクルード化しているので、編集する際はsidebar.htmlから -->
             <div th:insert="common/sidebar :: frag_menu"></div>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <div class="calendar" id='calendar'></div>
+                <div class="calendar" id="calendar"></div>
             </main>
         </div>
     </div>

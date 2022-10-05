@@ -207,6 +207,24 @@
  	</select>
  	
  	
+ 	<!-- カレンダー用月別収支計算(通年) -->
+ 	<select id="monthlyBalanceCalculateByCalendarList" resultMap="BalanceCalculationResultMap">
+ 		SELECT
+			to_char(settlement_date, 'YYYY-MM-DD') as date,
+			SUM(income_amount) AS total_income_amount,
+			SUM(expenditure_amount) AS total_expenditure_amount,
+			(SUM(income_amount) - SUM(expenditure_amount)) AS balance_calculation_result
+		FROM kakeibo
+		WHERE
+			is_deleted = false
+		GROUP BY
+			date,
+			settlement_date
+		ORDER BY
+			settlement_date
+ 	</select>
+ 	
+ 	
  	<!-- 年別・月別集計 -->
  	<select id="searchKakeibo" resultMap="kakeiboResultMap">
  		SELECT

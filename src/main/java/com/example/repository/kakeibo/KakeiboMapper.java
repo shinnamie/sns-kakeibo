@@ -28,6 +28,13 @@ public interface KakeiboMapper {
 	Kakeibo findByKakeiboId(Integer id);
 
 	/**
+	 * カレンダーイベント用
+	 * 
+	 * @return
+	 */
+	List<MonthlyBalanceCalculationResult> monthlyBalanceCalculateByCalendarList();
+
+	/**
 	 * 家計簿の新規登録
 	 * 
 	 * @param kakeibo

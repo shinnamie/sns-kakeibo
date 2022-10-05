@@ -124,6 +124,12 @@ public class KakeiboController {
 		return "kakeibo/year-and-month";
 	}
 
+	/**
+	 * カレンダー表示用
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping(value = "/kakeibo-calendar")
 	public String calendar(Model model) {
 		return "kakeibo/calendar";
