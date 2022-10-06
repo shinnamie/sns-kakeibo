@@ -30,18 +30,18 @@ public class RestWebController {
 			// イベント格納用のListを準備
 			List<CalendarEvent> events = new ArrayList<>();
 			
-			// 年月をもとに集計結果を取得
+			// 通年の集計結果を取得
 			List<MonthlyBalanceCalculationResult> monthlyBalanceCalculationResultList = kakeiboService
 					.monthlyBalanceCalculationResultList();
 			
-			// 支出用と収入用のリストにそれぞれ集める
-			List<MonthlyBalanceCalculationResult> incomeAmountResultList = new ArrayList<>();
-			List<MonthlyBalanceCalculationResult> expenseAmountResultList = new ArrayList<>();
+			// 支出用と収入用のリストにそれぞれ集約
+			List<MonthlyBalanceCalculationResult> incomeAmountResultList = new ArrayList<>(); // 収入用リスト
+			List<MonthlyBalanceCalculationResult> expenseAmountResultList = new ArrayList<>(); // 支出用リスト
 			// 収入
 			for (MonthlyBalanceCalculationResult result : monthlyBalanceCalculationResultList) {
 				MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = new MonthlyBalanceCalculationResult();
 				Integer totalIncome = result.getTotalIncomeAmount();
-				if (totalIncome != 0) {
+				if (totalIncome != 0) {// 収入金額が0以外のものをListに集約する(0円のものは排除)
 					monthlyBalanceCalculationResult.setTotalIncomeAmount(totalIncome);
 					monthlyBalanceCalculationResult.setDate(result.getDate());
 				}
@@ -51,7 +51,7 @@ public class RestWebController {
 			for (MonthlyBalanceCalculationResult result : monthlyBalanceCalculationResultList) {
 				MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = new MonthlyBalanceCalculationResult();
 				Integer totalExpenditure = result.getTotalExpenditureAmount();
-				if (totalExpenditure != 0) {
+				if (totalExpenditure != 0) {// 支出金額が0以外のものをListに集約する(0円のものは排除)
 					monthlyBalanceCalculationResult.setTotalExpenditureAmount(totalExpenditure);
 					monthlyBalanceCalculationResult.setDate(result.getDate());
 				}
@@ -59,24 +59,22 @@ public class RestWebController {
 			}
 			
 			// 支出と収入で場合分けをしてeventにセット
-			// 収入
-			for (MonthlyBalanceCalculationResult income : incomeAmountResultList) {
+			for (MonthlyBalanceCalculationResult income : incomeAmountResultList) {// 収入
 				CalendarEvent event = new CalendarEvent();
 				String date = income.getDate();
-				event.setStart(date);
-				String title = "収入  " + income.getTotalIncomeAmount() + "円";
-				event.setTitle(title);
-				events.add(event);
+				event.setStart(date); // カレンダー日付にセット
+				String title = "収入  " + income.getTotalIncomeAmount() + "円"; // 「支出 + 合計収入金額」がタイトル
+				event.setTitle(title); // タイトルをセット
+				events.add(event); // リストに追加(eventsにadd)
 			}
-			// 支出
-			for (MonthlyBalanceCalculationResult expenditure : expenseAmountResultList) {
+
+			for (MonthlyBalanceCalculationResult expenditure : expenseAmountResultList) {// 支出
 				CalendarEvent event = new CalendarEvent();
 				String date = expenditure.getDate();
-				event.setStart(date);
-				String title = "支出  " + expenditure.getTotalExpenditureAmount() + "円";
-				event.setTitle(title);
-
-				events.add(event);
+				event.setStart(date); // カレンダー日付にセット
+				String title = "支出  " + expenditure.getTotalExpenditureAmount() + "円"; // 「支出 + 合計支出金額」がタイトル
+				event.setTitle(title); // タイトルをセット
+				events.add(event); // リストに追加(eventsにadd)
 			}
 
 			// FullCalendarにエンコード済み文字列を渡す
