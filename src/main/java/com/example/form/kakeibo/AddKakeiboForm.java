@@ -1,17 +1,16 @@
-package com.example.form;
+package com.example.form.kakeibo;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.example.domain.ExpenseItem;
-import com.example.domain.Settlement;
+import com.example.domain.kakeibo.ExpenseItem;
+import com.example.domain.kakeibo.Settlement;
 
 public class AddKakeiboForm {
 
@@ -27,13 +26,11 @@ public class AddKakeiboForm {
 	@NotNull(message = "費目を選択してください")
 	private Integer expenseItemId;
 	/** 支出金額 */
-	@PositiveOrZero(message = "数値を0か整数で入力してください")
-	@Range(min = 0, max = 99999999, message = "数値は8桁(0~99999999)まで入力できます")
+	@Range(min = 0, max = 99999999, message = "数値は整数で8桁(0~99999999)で入力してください")
 	@Digits(integer = 8, fraction = 0, message = "小数点以下は入力できません")
 	private String expenditureAmount;
 	/** 収入金額 */
-	@PositiveOrZero(message = "数値を0か整数で入力してください")
-	@Range(min = 0, max = 99999999, message = "数値は8桁(0~99999999)まで入力できます")
+	@Range(min = 0, max = 99999999, message = "数値は整数で8桁(0~99999999)で入力してください")
 	@Digits(integer = 8, fraction = 0, message = "小数点以下は入力できません")
 	private String incomeAmount;
 	/** 決済Id */

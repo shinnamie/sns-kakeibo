@@ -2,8 +2,9 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" th:href="@{/css/dashboard.css}">
-<link rel="stylesheet" th:href="@{/css/example.css}">
+<link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
+<link rel="stylesheet" th:href="@{/css/common/example.css}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
 </head>
 <body>
     <div th:fragment="frag_menu">
@@ -14,6 +15,7 @@
                     <ul class="nav flex-column">
                         <li class="nav-item">
                           <a class="nav-link" th:href="@{/kakeibo/list}">
+                            <i class="fa-solid fa-table-list"></i>
                             <span data-feather="bar-chart-2"></span>
                             <!-- 家計簿一覧 -->
                             家計簿一覧
@@ -21,9 +23,27 @@
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" th:href="@{/kakeibo/addKakeibo}">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <span data-feather="layers">
+                              <!-- 家計簿新規登録 -->
+                              新規登録
+                            </span>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" th:href="@{/kakeibo/breakdown}">
+                            <i class="fa-solid fa-chart-pie"></i>
                             <span data-feather="layers"></span>
-                            <!-- 家計簿新規登録 -->
-                            新規登録
+                            <!-- 収支内訳 -->
+                            収支内訳
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" th:href="@{/kakeibo/yearly-or-monthly-aggregation}">
+                            <i class="fa-solid fa-chart-simple"></i>
+                            <span data-feather="layers"></span>
+                            <!-- 年別・月別集計 -->
+                            年別・月別集計
                           </a>
                         </li>
                     </ul>    

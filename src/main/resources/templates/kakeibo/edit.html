@@ -8,7 +8,6 @@
 <link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
 <link rel="stylesheet" th:href="@{/css/common/example.css}">
 <link rel="stylesheet" th:href="@{/css/kakeibo/input.css}">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
 </head>
 <body>
     <!-- ヘッド/インクルード化しているので、編集する際はheader.htmlから -->
@@ -16,15 +15,15 @@
     
     <div class="container-fluid">
         <div class="row">
-            <!-- メニューバー/インクルード化しているので、編集する際はheader.htmlから -->
+            <!-- サイドバー/インクルード化しているので、編集する際はsidebar.htmlから -->
             <div th:insert="common/sidebar :: frag_menu"></div>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h2>家計簿新規登録</h2>
+                    <h2>家計簿編集</h2>
                 </div>
-                <form  th:action="@{/kakeibo/create}" th:object="${addKakeiboForm}" method="post">
-                    <!-- ユーザーID(とりあえずダミーを使用(ID=1)) -->
-                    <input type="hidden" value="1" name="userId">
+                <form th:action="@{/kakeibo/update}" th:object="${editKakeiboForm}" method="post">
+                    <!-- 家計簿Id -->
+                    <input type="hidden" name="id" th:value="*{id}">
                     <!-- 決済日時 -->
                     <div th:errors="*{settlementDate}" style="color: red;"></div>
                     <div class="inputs">
@@ -95,8 +94,9 @@
                         <input class="input_form" type="text" name="remarks" th:field="*{remarks}"><br>
                     </div>
                     <div class="btn-area">
+                        <input type="button" class="btn btn-sm btn-outline-secondary" onclick="history.back()" value="戻る">
                         <input type="reset" class="btn btn-sm btn-outline-secondary" value="リセット">
-                        <input type="submit" class="btn btn-sm btn-outline-secondary" value="登録">
+                        <input type="submit" class="btn btn-sm btn-outline-secondary" value="更新">
                     </div>
                 </form>
             </main>
