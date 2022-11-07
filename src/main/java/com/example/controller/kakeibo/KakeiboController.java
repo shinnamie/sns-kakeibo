@@ -57,6 +57,7 @@ public class KakeiboController {
 	public String list(Model model) {
 		List<Kakeibo> kakeiboList = kakeiboService.kakeiboList();
 		model.addAttribute("kakeiboList", kakeiboList);
+		System.out.println(kakeiboList);
 		return "kakeibo/kakeiboList";
 	}
 	
@@ -255,6 +256,8 @@ public class KakeiboController {
 	 * @return
 	 */
 	@RequestMapping(value = "/aggregated-year-or-month", method = RequestMethod.POST)
+	//※パス名がaggregatedのみで良い
+	//メソッド名に「getAggregated」
 	public String aggregatedByMonth(String year, String month, Model model) {
 
 		// 年月のパラメーターを元に検索、結果を取得
