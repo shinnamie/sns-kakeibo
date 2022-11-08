@@ -181,7 +181,7 @@
 
  	
  	<!-- 月別集計検索 -->
- 	<select id="findKakeiboByYearAndMonth" resultMap="kakeiboResultMap">
+ 	<select id="findByYearAndMonth" resultMap="kakeiboResultMap">
  		SELECT
 			k.id,
 			k.user_id,

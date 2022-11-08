@@ -93,8 +93,8 @@ public class KakeiboService {
 	 * @param month 集計月
 	 * @return 集計結果
 	 */
-	public List<Kakeibo> findByYearAndMonth(String year, String month) {
-		return kakeiboMapper.findByYearAndMonth(year, month);
+	public List<Kakeibo> findKakeiboByYearAndMonth(String year, String month) {
+		return kakeiboMapper.findKakeiboByYearAndMonth(year, month);
 	}
 
 	/**

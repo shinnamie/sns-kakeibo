@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -102,9 +103,9 @@ public class KakeiboController {
 	 * 
 	 * @return
 	 */
-	@GetMapping(value = "/yearly-or-monthly-aggregation")
-	public String monthlyAggregation() {
-		return "kakeibo/year-and-month";
+	@GetMapping(value = "/kakeiboByYearAndMonth")
+	public String getKakeiboByYearAndMonth() {
+		return "kakeibo/kakeiboByYearAndMonth";
 	}
 
 	/**
@@ -254,11 +255,11 @@ public class KakeiboController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/aggregated-year-or-month", method = RequestMethod.POST)
-	public String aggregatedByMonth(String year, String month, Model model) {
+	@PostMapping(value = "/kakeiboByYearAndMonth")
+	public String postKakeiboByYearAndMonth(String year, String month, Model model) {
 
 		// 年月のパラメーターを元に検索、結果を取得
-		List<Kakeibo> kakeiboMonthList = kakeiboService.findByYearAndMonth(year, month);
+		List<Kakeibo> kakeiboMonthList = kakeiboService.findKakeiboByYearAndMonth(year, month);
 
 		// 収支計算結果の取得
 		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
@@ -272,6 +273,6 @@ public class KakeiboController {
 			model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
 		}
 
-		return "kakeibo/year-and-month";
+		return "kakeibo/kakeiboByYearAndMonth";
 	}
 }

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>家計簿一覧</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
+<link rel="stylesheet" th:href="@{/css/common/example.css}">
+<link rel="stylesheet" th:href="@{/css/kakeibo/input.css}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
+</head>
+<body>
+    <!-- ヘッド/インクルード化しているので、編集する際はheader.htmlから -->
+    <div th:insert="common/head :: frag_head"></div>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <!-- メニューバー/インクルード化しているので、編集する際はheader.htmlから -->
+            <div th:insert="common/sidebar :: frag_menu"></div>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h2>家計簿新規登録</h2>
+                </div>
+                <form  th:action="@{/kakeibo/create}" th:object="${addKakeiboForm}" method="post">
+                    <!-- ユーザーID(とりあえずダミーを使用(ID=1)) -->
+                    <input type="hidden" value="1" name="userId">
+                    <!-- 決済日時 -->
+                    <div th:errors="*{settlementDate}" style="color: red;"></div>
+                    <div class="inputs">
+                        <label class="label">決済日時</label>
+                        <input class="input_form" type="date" name="settlementDate" th:field="*{settlementDate}">
+                    </div>
+                    <!-- 費目 -->
+                    <div th:errors="*{expenseItemId}" style="color: red;"></div>
+                    <div class="inputs">
+                        <label class="label">費目</label>
+                        <select name="expenseItemId" id="" th:field="*{expenseItemId}">
+                        <option value="">---</option>
+                        <option value="1">給料</option>
+                        <option value="2">雑収入</option>
+                        <option value="3">振替・振込</option>
+                        <option value="4">食費</option>
+                        <option value="5">日用品</option>
+                        <option value="6">趣味・娯楽</option>
+                        <option value="7">交際費</option>
+                        <option value="8">交通費</option>
+                        <option value="9">衣服</option>
+                        <option value="10">美容</option>
+                        <option value="11">健康・医療</option>
+                        <option value="12">自動車</option>
+                        <option value="13">教養・教育</option>
+                        <option value="14">水道・光熱費</option>
+                        <option value="15">通信費</option>
+                        <option value="16">住宅</option>
+                        <option value="17">税・社会保障</option>
+                        <option value="18">保険</option>
+                        <option value="19">その他</option>
+                        </select>
+                    </div>
+                    <!-- 支出金額 -->
+                    <div th:errors="*{expenditureAmount}" style="color: red;"></div>
+                    <div class="inputs">
+                        <label class="label">支出金額</label>
+                        <input class="input_form" type="text" name="expenditureAmount" th:field="*{expenditureAmount}">
+                    </div>
+                    <!-- 収入金額 -->
+                    <div th:errors="*{incomeAmount}" style="color: red;"></div>
+                    <div class="inputs">
+                        <label class="label">収入金額</label>
+                        <input class="input_form" type="text" name="incomeAmount" th:field="*{incomeAmount}">
+                    </div>
+                    <!-- 決済方法 -->
+                    <div class="inputs">
+                        <label class="label">決済方法</label>
+                        <select class="input_form" name="settlementId" id="" th:field="*{settlementId}">
+                            <option value="">---</option>
+                            <option value="1">銀行</option>
+                            <option value="2">現金</option>
+                            <option value="3">クレジットカード</option>
+                            <option value="4">IC</option>
+                            <option value="5">WAON</option>
+                            <option value="6">PayPay</option>
+                            <option value="7">ポイント</option>
+                        </select>
+                    </div>
+                    <!-- 利用店舗 -->
+                    <div class="inputs">
+                        <label class="label">利用店舗</label>
+                        <input class="input_form" type="text" name="usedStore" th:field="*{usedStore}"><br>
+                    </div>
+                    <!-- 備考 -->
+                    <div class="inputs">
+                        <label class="label">備考</label>
+                        <input class="input_form" type="text" name="remarks" th:field="*{remarks}"><br>
+                    </div>
+                    <div class="btn-area">
+                        <input type="reset" class="btn btn-sm btn-outline-secondary" value="リセット">
+                        <input type="submit" class="btn btn-sm btn-outline-secondary" value="登録">
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

@@ -70,7 +70,7 @@ public interface KakeiboMapper {
 	 * @param month 集計月
 	 * @return 集計結果
 	 */
-	List<Kakeibo> findByYearAndMonth(String year, String month);
+	List<Kakeibo> findKakeiboByYearAndMonth(String year, String month);
 
 	/**
 	 * 月別の収支計算結果
