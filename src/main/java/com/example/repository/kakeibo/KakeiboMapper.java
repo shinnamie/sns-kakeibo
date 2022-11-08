@@ -31,7 +31,7 @@ public interface KakeiboMapper {
 	 * 
 	 * @param kakeibo
 	 */
-	void saveKakeibo(Kakeibo kakeibo);
+	boolean saveKakeibo(Kakeibo kakeibo);
 
 	/**
 	 * 家計簿の編集
