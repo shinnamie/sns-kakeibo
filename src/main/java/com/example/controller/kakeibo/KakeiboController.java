@@ -53,11 +53,10 @@ public class KakeiboController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping(value = "/list")
-	public String list(Model model) {
-		List<Kakeibo> kakeiboList = kakeiboService.kakeiboList();
-		model.addAttribute("kakeiboList", kakeiboList);
-		return "kakeibo/kakeiboList";
+	@GetMapping("/list")
+	public String getList(Model model) {
+		model.addAttribute("kakeiboList", kakeiboService.findKakeiboList());
+		return "kakeibo/list";
 	}
 	
 	/**
