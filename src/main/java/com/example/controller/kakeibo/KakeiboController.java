@@ -99,7 +99,7 @@ public class KakeiboController {
 	public String saveKakeibo(@ModelAttribute @Validated AddKakeiboForm form, BindingResult result, Model model) {
 		// 入力値チェック
 		if (result.hasErrors()) {
-			return "kakeibo/register";
+			return getRegisterKakeibo(form);
 		}
 
 		// フォームの値をドメインにコピー
@@ -109,7 +109,7 @@ public class KakeiboController {
 		// 新規登録処理 (登録失敗した場合は登録画面に戻る)
 		if (!kakeiboService.saveKakeibo(kakeibo)) {
 			model.addAttribute("errorMessage", "登録が失敗しました");
-			return "kakeibo/register";
+			return getRegisterKakeibo(form);
 		}
 
 		return "redirect:/kakeibo/list";
