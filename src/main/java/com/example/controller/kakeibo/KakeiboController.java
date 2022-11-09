@@ -105,16 +105,6 @@ public class KakeiboController {
 	}
 
 	/**
-	 * 年別・月別集計画面を表示する
-	 * 
-	 * @return
-	 */
-	@GetMapping(value = "/kakeiboByYearAndMonth")
-	public String getKakeiboByYearAndMonth() {
-		return "kakeibo/kakeiboByYearAndMonth";
-	}
-
-	/**
 	 * 家計簿の新規登録処理
 	 * 
 	 * @param addKakeiboForm
@@ -252,34 +242,42 @@ public class KakeiboController {
 
 		return incomeAndExpenditureBalance(date, model);
 	}
+	
+	/**
+	 * 年別・月別集計画面を表示する
+	 * 
+	 * @return
+	 */
+	@GetMapping("/kakeiboByYearAndMonth")
+	public String getKakeiboByYearAndMonth() {
+		return "kakeibo/kakeiboByYearAndMonth";
+	}
 
 	/**
-	 * 月別集計結果を取得する
-	 * 
-	 * @param year
-	 * @param month
+	 * 年別・月別集計結果を取得する
+	 * @param searchKakeiboForm
+	 * @param result
 	 * @param model
 	 * @return
 	 */
-	@PostMapping(value = "/kakeiboByYearAndMonth")
+	@PostMapping("/kakeiboByYearAndMonth")
 	public String postKakeiboByYearAndMonth(@Validated SearchKakeiboForm searchKakeiboForm, BindingResult result, Model model) {
+		
+		// 入力値エラーの際は集計ページを表示する
 		if (result.hasErrors()) {
 			return "kakeibo/kakeiboByYearAndMonth";
 		}
 
 		// 年月のパラメーターを元に検索、結果を取得
-		List<Kakeibo> kakeiboMonthList = kakeiboService.findKakeiboByYearAndMonth(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth());
-
-		// 収支計算結果の取得
-		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
-				.monthlyBalanceCalculate(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth());
+		List<Kakeibo> kakeiboList = kakeiboService.findKakeiboByYearAndMonth(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth());
 
 		// それぞれの結果をスコープに格納
-		if (kakeiboMonthList == null || kakeiboMonthList.size() == 0) {
+		if (kakeiboList == null || kakeiboList.size() == 0) {
 			model.addAttribute("message", "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
 		} else {
-			model.addAttribute("kakeiboMonthList", kakeiboMonthList);
-			model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
+			model.addAttribute("kakeiboList", kakeiboList);
+			// 収支計算結果の取得
+			model.addAttribute("result", kakeiboService.monthlyBalanceCalculate(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
 		}
 
 		return "kakeibo/kakeiboByYearAndMonth";
