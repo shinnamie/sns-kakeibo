@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>家計簿一覧</title>
+    <title th:text=#{register.title}></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
@@ -25,19 +25,21 @@
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h2>家計簿新規登録</h2>
                 </div>
+                <!-- 登録が失敗した場合、エラーメッセージを表示する -->
+                <div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
                 <form th:action="@{/kakeibo/saveKakeibo}" th:object="${addKakeiboForm}" method="post">
                     <!-- ユーザーID(とりあえずダミーを使用(ID=1)) -->
                     <input type="hidden" value="1" name="userId">
                     <!-- 決済日時 -->
                     <div th:errors="*{paymentDate}" style="color: red;"></div>
                     <div class="inputs">
-                        <label class="label">決済日時</label>
+                        <label class="label" th:text="#{paymentDate}"></label>
                         <input class="input_form" type="date" name="paymentDate" th:field="*{paymentDate}">
                     </div>
                     <!-- 費目 -->
                     <div th:errors="*{expenseItemId}" style="color: red;"></div>
                     <div class="inputs">
-                        <label class="label">費目</label>
+                        <label class="label" th:text="#{expenseItemId}"></label>
                         <select name="expenseItemId" id="" th:field="*{expenseItemId}">
                             <option value="">---</option>
                             <option value="1">給料</option>
@@ -64,13 +66,13 @@
                     <!-- 支出金額 -->
                     <div th:errors="*{expenditureAmount}" style="color: red;"></div>
                     <div class="inputs">
-                        <label class="label">支出金額</label>
+                        <label class="label" th:text="#{expenditureAmount}"></label>
                         <input class="input_form" type="text" name="expenditureAmount" th:field="*{expenditureAmount}">
                     </div>
                     <!-- 収入金額 -->
                     <div th:errors="*{incomeAmount}" style="color: red;"></div>
                     <div class="inputs">
-                        <label class="label">収入金額</label>
+                        <label class="label" th:text="#{incomeAmount}"></label>
                         <input class="input_form" type="text" name="incomeAmount" th:field="*{incomeAmount}">
                     </div>
                     <!-- 決済方法 -->
