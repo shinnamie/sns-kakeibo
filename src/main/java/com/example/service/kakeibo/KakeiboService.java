@@ -94,7 +94,11 @@ public class KakeiboService {
 	 * @return 集計結果
 	 */
 	public List<Kakeibo> findKakeiboByYearAndMonth(String year, String month) {
-		return kakeiboMapper.findKakeiboByYearAndMonth(year, month);
+		List<Kakeibo> kakeiboList = kakeiboMapper.findKakeiboByYearAndMonth(year, month);
+		if (kakeiboList == null || kakeiboList.size() == 0) {
+			return null;
+		}
+		return kakeiboList;
 	}
 
 	/**

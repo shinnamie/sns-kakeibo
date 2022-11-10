@@ -268,17 +268,13 @@ public class KakeiboController {
 			return "kakeibo/kakeiboByYearAndMonth";
 		}
 
-		// 年月のパラメーターを元に検索、結果を取得
-		List<Kakeibo> kakeiboList = kakeiboService.findKakeiboByYearAndMonth(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth());
+		// リストが返ってきた時、kakeiboListに格納
+		model.addAttribute("kakeiboList", kakeiboService.findKakeiboByYearAndMonth(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
+		// リストがnullの時、messageに格納
+		model.addAttribute("message", "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
+		// 収支計算結果の取得
+		model.addAttribute("result", kakeiboService.monthlyBalanceCalculate(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
 
-		// それぞれの結果をスコープに格納
-		if (kakeiboList == null || kakeiboList.size() == 0) {
-			model.addAttribute("message", "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
-		} else {
-			model.addAttribute("kakeiboList", kakeiboList);
-			// 収支計算結果の取得
-			model.addAttribute("result", kakeiboService.monthlyBalanceCalculate(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
-		}
 
 		return "kakeibo/kakeiboByYearAndMonth";
 	}

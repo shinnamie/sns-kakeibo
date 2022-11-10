@@ -54,7 +54,7 @@
                 </form>
 
                 <!-- データが存在しない場合のメッセージ -->
-                <div th:if="${message}" th:text="${message}" style="color: red;"></div>
+                <div th:unless="${kakeiboList}" th:text="${message}" style="color: red;"></div>
 
                 <!-- 収支計算ボックス -->
                 <div th:if="${result}">
