@@ -112,21 +112,14 @@
  		id = #{id}
  	</update>
  	
- 	
- 	<!-- 家計簿論理削除 -->
- 	<update id="updateIsDelete">
- 		UPDATE kakeibo SET 
- 			is_deleted = #{isDeleted}
- 		WHERE 
- 			id = #{id}
- 	</update>
- 	<insert id="delete">
- 		INSERT INTO kakeibo_delete_at
- 			(kakeibo_id)
- 		VALUES
- 			(#{kakeiboId})
- 	</insert>
- 	
+ 	 	
+ 	<!-- 家計簿削除 -->
+	<delete id="delete">
+		DELETE 
+		FROM kakeibo
+		WHERE
+		id = #{id}
+	</delete>
  	
  	<!-- 収支内訳算出 -->
  	<select id="totalIncomeAndExpenditureBreakdown" resultMap="totalIncomeAndExpenditureBreakdownResultMap">
