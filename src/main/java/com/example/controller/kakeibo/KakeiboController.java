@@ -57,6 +57,7 @@ public class KakeiboController {
 	public String list(Model model) {
 		List<Kakeibo> kakeiboList = kakeiboService.kakeiboList();
 		model.addAttribute("kakeiboList", kakeiboList);
+		System.out.println(kakeiboService.findBreakdown(kakeiboService.totalByIncomeAndExpenditureBreakdown("2022-08")));
 		return "kakeibo/kakeiboList";
 	}
 	

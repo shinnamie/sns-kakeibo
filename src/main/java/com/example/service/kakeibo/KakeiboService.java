@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+import java.util.HashMap;
 import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
@@ -76,18 +78,6 @@ public class KakeiboService {
 	}
 
 	/**
-	 * 本月の費目別の支出・収入を算出する
-	 * 
-	 * @param year  年
-	 * @param month 月
-	 * @return Kakeibo 収支内訳(費目ID・費目別支出・費目別収入・費目名)
-	 */
-	public List<Kakeibo> totalByIncomeAndExpenditureBreakdown(String yearAndMonth) {
-		System.out.println(kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth));
-		return kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
-	}
-
-	/**
 	 * 月別集計
 	 * 
 	 * @param year  集計年
@@ -133,9 +123,53 @@ public class KakeiboService {
 	}
 	
 	/**
+	 * 本月の費目別の支出・収入を算出する
 	 * 
+	 * @param year  年
+	 * @param month 月
+	 * @return Kakeibo 収支内訳(費目ID・費目別支出・費目別収入・費目名)
+	 */
+	public List<Kakeibo> totalByIncomeAndExpenditureBreakdown(String yearAndMonth) {
+		List<Kakeibo> kakeiboItemList = kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
+		System.out.println(kakeiboItemList);
+		return kakeiboItemList;
+	}
+	
+	/**
+	 * 月別の費目別の収入・支出を計算
 	 * 
-	 * @return 
+	 * @param totalByIncomeAndExpenditureBreakdown(String yearAndMonth)
+	 * @return Map<String, Integer>
 	 * */
+	public Map<String,Integer> findBreakdown(List<Kakeibo> kakeiboItemList){
+		
+		//Mapを生成
+		Map<String,Integer> kakeiboItemMap = new HashMap<>();
+		
+		//総収入・総支出・収支を初期設定
+		Integer totalExpenditureAmount = 0;
+		Integer totalIncomeAmount = 0;
+		Integer incomeAndExpenditure = 0;
+		
+		//ListからMapへ移し替え
+		for(Kakeibo kakeiboItem : kakeiboItemList) {
+			//費目が支出か収入かで条件分岐
+			if(kakeiboItem.getExpenditureAmount() != null) {
+				kakeiboItemMap.put(kakeiboItem.getExpenseItem().getExpenseItemName(), kakeiboItem.getExpenditureAmount());
+				totalExpenditureAmount += kakeiboItem.getExpenditureAmount();
+			}else {
+				kakeiboItemMap.put(kakeiboItem.getExpenseItem().getExpenseItemName(), kakeiboItem.getIncomeAmount());
+				totalIncomeAmount += kakeiboItem.getIncomeAmount();
+			}
+		}
+		
+		//総収入・総支出・収支をMapに格納
+		kakeiboItemMap.put("totalExpenditureAmount", totalExpenditureAmount);
+		kakeiboItemMap.put("totalIncomeAmount", totalIncomeAmount);
+		incomeAndExpenditure = totalIncomeAmount - totalExpenditureAmount;
+		kakeiboItemMap.put("IncomeAndExpenditure", incomeAndExpenditure);
+		
+		return kakeiboItemMap;
+	}
 
 }
