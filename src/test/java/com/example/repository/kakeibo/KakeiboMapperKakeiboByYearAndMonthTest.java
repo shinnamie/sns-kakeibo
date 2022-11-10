@@ -16,7 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.example.domain.kakeibo.Kakeibo;
 
 @SpringBootTest
-class KakeiboMapperPostKakeiboByYearAndMonthTest {
+class KakeiboMapperKakeiboByYearAndMonthTest {
 	
 	@Autowired
 	private KakeiboMapper kakeiboMapper;
