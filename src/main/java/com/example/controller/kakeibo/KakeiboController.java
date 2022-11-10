@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -175,9 +176,9 @@ public class KakeiboController {
 	 * @param id 家計簿id
 	 * @return
 	 */
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(Integer id) {
-		kakeiboService.delete(id);
+	@PostMapping("/delete")
+	public String deleteKakeibo(Integer id) {
+		kakeiboService.deleteKakeibo(id);
 		
 		return "redirect:/kakeibo/list";
 	}

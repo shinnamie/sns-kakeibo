@@ -62,7 +62,7 @@ public class KakeiboService {
 	 * 
 	 * @param id 
 	 */
-	public void delete(Integer id) {
+	public void deleteKakeibo(Integer id) {
 		kakeiboMapper.delete(id);
 	}
 
