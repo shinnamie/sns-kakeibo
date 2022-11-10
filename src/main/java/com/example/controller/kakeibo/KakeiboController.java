@@ -221,7 +221,7 @@ public class KakeiboController {
 		}
 
 		// 年月の値を送り収支内訳結果を取得する
-		List<TotalByIncomeAndExpenditureBreakdown> totalByIncomeAndExpenditureBreakdownList = kakeiboService
+		List<Kakeibo> totalByIncomeAndExpenditureBreakdownList = kakeiboService
 				.totalByIncomeAndExpenditureBreakdown(yearAndMonth);
 
 		// それぞれをスコープに格納

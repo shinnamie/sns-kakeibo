@@ -76,13 +76,14 @@ public class KakeiboService {
 	}
 
 	/**
-	 * 本月の収支内訳を算出する
+	 * 本月の費目別の支出・収入を算出する
 	 * 
 	 * @param year  年
 	 * @param month 月
-	 * @return 収支内訳
+	 * @return Kakeibo 収支内訳(費目ID・費目別支出・費目別収入・費目名)
 	 */
-	public List<TotalByIncomeAndExpenditureBreakdown> totalByIncomeAndExpenditureBreakdown(String yearAndMonth) {
+	public List<Kakeibo> totalByIncomeAndExpenditureBreakdown(String yearAndMonth) {
+		System.out.println(kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth));
 		return kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
 	}
 
@@ -130,5 +131,11 @@ public class KakeiboService {
 
 		return firstDate + " - " + lastDate;
 	}
+	
+	/**
+	 * 
+	 * 
+	 * @return 
+	 * */
 
 }
