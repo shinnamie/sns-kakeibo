@@ -42,7 +42,7 @@
  		SELECT
 			k.id,
 			k.user_id,
-			k.settlement_date,
+			k.payment_date,
 			k.expense_item_id,
 			ei.expense_item_name,
 			k.expenditure_amount,
@@ -70,7 +70,7 @@
  	<resultMap id="kakeiboResultMap" type="com.example.domain.kakeibo.Kakeibo">
  		<id property="id" column="id"/>
  		<result property="userId" column="user_id"/>
- 		<result property="settlementDate" column="settlement_date"/>
+ 		<result property="paymentDate" column="payment_date"/>
  		<result property="expenseItemId" column="expense_item_id"/>
  		<result property="expenditureAmount" column="expenditure_amount"/>
  		<result property="incomeAmount" column="income_amount"/>
@@ -79,7 +79,6 @@
  		<result property="remarks" column="remarks"/>
  		<result property="insertAt" column="insert_at"/>
  		<result property="updateAt" column="update_at"/>
- 		<result property="isDeleted" column="is_deleted"/>
  		<association property="expenseItem" resultMap="expenseItemResultMap"/>
  		<association property="settlement" resultMap="settlementResultMap"/>
  	</resultMap>
@@ -107,7 +106,7 @@
  	<!-- 家計簿編集用 -->
  	<update id="update">
  	UPDATE kakeibo SET
- 		settlement_date = #{settlementDate}, expense_item_id = #{expenseItemId}, expenditure_amount = #{expenditureAmount}, income_amount = #{incomeAmount}, settlement_id = #{settlementId}, used_store = #{usedStore}, remarks = #{remarks}
+ 		payment_date = #{paymentDate}, expense_item_id = #{expenseItemId}, expenditure_amount = #{expenditureAmount}, income_amount = #{incomeAmount}, settlement_id = #{settlementId}, used_store = #{usedStore}, remarks = #{remarks}
  	WHERE
  		id = #{id}
  	</update>

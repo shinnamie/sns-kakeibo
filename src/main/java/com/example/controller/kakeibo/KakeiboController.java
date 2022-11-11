@@ -77,8 +77,15 @@ public class KakeiboController {
 		return "kakeibo/add";
 	}
 
-	@GetMapping(value = "/update")
-	public String update(Integer id, EditKakeiboForm editKakeiboForm) {
+	/**
+	 * 編集画面表示(初期値に登録済みデータ表示)
+	 * 
+	 * @param id
+	 * @param editKakeiboForm
+	 * @return
+	 */
+	@GetMapping("/edit")
+	public String editKakeibo(Long id, EditKakeiboForm editKakeiboForm) {
 		// idから家計簿情報を1件取得する
 		Kakeibo kakeibo = kakeiboService.findByKakeiboId(id);
 
@@ -86,12 +93,40 @@ public class KakeiboController {
 		BeanUtils.copyProperties(kakeibo, editKakeiboForm);
 
 		// 収入金額と支出金額に関してはdomainと型が異なるため手動でセット
-		String expenditureAmount = kakeibo.getExpenditureAmount().toString();
-		String incomeAmount = kakeibo.getIncomeAmount().toString();
-		editKakeiboForm.setExpenditureAmount(expenditureAmount);
-		editKakeiboForm.setIncomeAmount(incomeAmount);
+		editKakeiboForm.setExpenditureAmount(kakeibo.getExpenditureAmount().toString());
+		editKakeiboForm.setIncomeAmount(kakeibo.getIncomeAmount().toString());
 
 		return "kakeibo/edit";
+	}
+	
+	/**
+	 * 家計簿の更新処理
+	 * 
+	 * @param editKakeiboForm
+	 * @param result
+	 * @return
+	 */
+	@PostMapping("/update")
+	public String update(@Validated EditKakeiboForm editKakeiboForm, BindingResult result) {
+		
+		// 入力値エラーの際は編集画面を表示する
+		if (result.hasErrors()) {
+			return "kakeibo/edit";
+		}
+
+		Kakeibo kakeibo = new Kakeibo();
+
+		// 値をdomainにコピー
+		BeanUtils.copyProperties(editKakeiboForm, kakeibo);
+
+		// 支出金額と収入金額を変換してセット
+		kakeibo.setExpenditureAmount(Integer.parseInt(editKakeiboForm.getExpenditureAmount()));
+		kakeibo.setIncomeAmount(Integer.parseInt(editKakeiboForm.getIncomeAmount()));
+
+		// 更新処理の実行
+		kakeiboService.update(kakeibo);
+
+		return "redirect:/kakeibo/list";
 	}
 
 	/**
@@ -121,7 +156,7 @@ public class KakeiboController {
 
 		// 決済日時を変換・セット(LocalDate型)
 		LocalDate settlementDate = addKakeiboForm.getSettlementDate();
-		kakeibo.setSettlementDate(settlementDate);
+		kakeibo.setPaymentDate(settlementDate);
 
 		// フォームの値をドメインにコピー
 		BeanUtils.copyProperties(addKakeiboForm, kakeibo);
@@ -134,36 +169,6 @@ public class KakeiboController {
 
 		// 新規登録処理
 		kakeiboService.save(kakeibo);
-
-		return "redirect:/kakeibo/list";
-	}
-
-	/**
-	 * 家計簿の更新処理
-	 * 
-	 * @param editKakeiboForm
-	 * @param result
-	 * @return
-	 */
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(@Validated EditKakeiboForm editKakeiboForm, BindingResult result) {
-		if (result.hasErrors()) {
-			return "kakeibo/edit";
-		}
-
-		Kakeibo kakeibo = new Kakeibo();
-
-		// 値をdomainにコピー
-		BeanUtils.copyProperties(editKakeiboForm, kakeibo);
-
-		// 支出金額と収入金額を変換してセット
-		Integer expenditureAmount = Integer.parseInt(editKakeiboForm.getExpenditureAmount());
-		Integer incomeAmount = Integer.parseInt(editKakeiboForm.getIncomeAmount());
-		kakeibo.setExpenditureAmount(expenditureAmount);
-		kakeibo.setIncomeAmount(incomeAmount);
-
-		// 更新処理の実装
-		kakeiboService.update(kakeibo);
 
 		return "redirect:/kakeibo/list";
 	}
@@ -184,7 +189,6 @@ public class KakeiboController {
 
 		// 削除フラグをtrueにする
 		kakeibo.setId(id);
-		kakeibo.setDeleted(true);
 
 		// 論理削除の実行
 		kakeiboService.delete(deletedKakeibo);
