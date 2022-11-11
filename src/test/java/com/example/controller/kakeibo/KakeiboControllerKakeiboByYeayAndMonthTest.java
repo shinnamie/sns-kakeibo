@@ -82,7 +82,7 @@ class KakeiboControllerKakeiboByYeayAndMonthTest {
 		List<Kakeibo> kakeiboMonthList = new ArrayList<>();
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
-		kakeibo.setSettlementDate(LocalDate.parse("2022-11-04"));
+		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
 		kakeibo.setExpenseItemId(2);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);
@@ -119,7 +119,7 @@ class KakeiboControllerKakeiboByYeayAndMonthTest {
 		List<Kakeibo> kakeiboList = new ArrayList<>();
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
-		kakeibo.setSettlementDate(LocalDate.parse("2022-11-04"));
+		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
 		kakeibo.setExpenseItemId(2);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);
@@ -155,7 +155,7 @@ class KakeiboControllerKakeiboByYeayAndMonthTest {
 		List<Kakeibo> kakeiboList = new ArrayList<>();
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
-		kakeibo.setSettlementDate(LocalDate.parse("2022-11-04"));
+		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
 		kakeibo.setExpenseItemId(2);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);
@@ -192,7 +192,7 @@ class KakeiboControllerKakeiboByYeayAndMonthTest {
 		List<Kakeibo> kakeiboList = new ArrayList<>();
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
-		kakeibo.setSettlementDate(LocalDate.parse("2022-11-04"));
+		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
 		kakeibo.setExpenseItemId(2);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);
@@ -238,6 +238,7 @@ class KakeiboControllerKakeiboByYeayAndMonthTest {
 		SearchKakeiboForm searchKakeiboForm = new SearchKakeiboForm();
 		searchKakeiboForm.setYear(null);
 		
+		// 検証&実行
 		mockMvc.perform(post("/kakeibo/kakeiboByYearAndMonth")
 				.flashAttr("searchKakeiboForm", searchKakeiboForm))
 		.andExpect(model().hasErrors())
@@ -251,6 +252,7 @@ class KakeiboControllerKakeiboByYeayAndMonthTest {
 		SearchKakeiboForm searchKakeiboForm = new SearchKakeiboForm();
 		searchKakeiboForm.setMonth("11");
 		
+		// 検証&実行
 		mockMvc.perform(post("/kakeibo/kakeiboByYearAndMonth")
 				.flashAttr("searchKakeiboForm", searchKakeiboForm))
 		.andExpect(model().hasErrors())
@@ -267,6 +269,7 @@ class KakeiboControllerKakeiboByYeayAndMonthTest {
 		searchKakeiboForm.setYear("2022");
 		searchKakeiboForm.setMonth("11");
 		
+		// 検証&実行
 		mockMvc.perform(post("/kakeibo/kakeiboByYearAndMonth")
 				.flashAttr("searchKakeiboForm", searchKakeiboForm))
 		.andExpect(model().hasNoErrors())
@@ -280,6 +283,7 @@ class KakeiboControllerKakeiboByYeayAndMonthTest {
 		searchKakeiboForm.setYear("2022");
 		searchKakeiboForm.setMonth(null);
 		
+		// 検証&実行
 		mockMvc.perform(post("/kakeibo/kakeiboByYearAndMonth")
 				.flashAttr("searchKakeiboForm", searchKakeiboForm))
 		.andExpect(model().hasNoErrors())

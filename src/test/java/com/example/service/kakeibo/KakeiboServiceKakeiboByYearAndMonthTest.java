@@ -58,7 +58,7 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 		List<Kakeibo> kakeiboList = new ArrayList<>();
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
-		kakeibo.setSettlementDate(LocalDate.parse("2022-11-04"));
+		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
 		kakeibo.setExpenseItemId(2);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);
@@ -74,6 +74,7 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 		
 		when(kakeiboMapper.findKakeiboByYearAndMonth(anyString(), anyString())).thenReturn(null);
 		// 検証
+		// year:2022 , month:12 を渡す
 		assertNull(kakeiboService.findKakeiboByYearAndMonth("2022", "12"), "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
 	}
 	
@@ -86,7 +87,7 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 		List<Kakeibo> kakeiboList = new ArrayList<>();
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
-		kakeibo.setSettlementDate(LocalDate.parse("2022-11-04"));
+		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
 		kakeibo.setExpenseItemId(2);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);
@@ -114,7 +115,7 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 		List<Kakeibo> kakeiboList = new ArrayList<>();
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
-		kakeibo.setSettlementDate(LocalDate.parse("2022-11-04"));
+		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
 		kakeibo.setExpenseItemId(2);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);
@@ -142,7 +143,7 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 		List<Kakeibo> kakeiboList = new ArrayList<>();
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
-		kakeibo.setSettlementDate(LocalDate.parse("2022-11-04"));
+		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
 		kakeibo.setExpenseItemId(2);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);
