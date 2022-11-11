@@ -122,8 +122,8 @@ public class KakeiboController {
 		Kakeibo kakeibo = new Kakeibo();
 
 		// 決済日時を変換・セット(LocalDate型)
-		LocalDate settlementDate = addKakeiboForm.getSettlementDate();
-		kakeibo.setSettlementDate(settlementDate);
+		LocalDate paymentDate = addKakeiboForm.getPaymentDate();
+		kakeibo.setPaymentDate(paymentDate);
 
 		// フォームの値をドメインにコピー
 		BeanUtils.copyProperties(addKakeiboForm, kakeibo);
