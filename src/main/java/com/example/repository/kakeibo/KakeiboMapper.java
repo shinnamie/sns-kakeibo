@@ -23,7 +23,7 @@ public interface KakeiboMapper {
 	 * 
 	 * @return 検索結果(1件)
 	 */
-	Kakeibo findByKakeiboId(Integer id);
+	Kakeibo findByKakeiboId(long id);
 
 	/**
 	 * 家計簿の新規登録
@@ -46,7 +46,7 @@ public interface KakeiboMapper {
 	 * 
 	 * @param id 
 	 */
-	void delete(Integer id);
+	void delete(long id);
 
 	/**
 	 * 本月の収支内訳を算出する
