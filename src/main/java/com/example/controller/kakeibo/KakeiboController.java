@@ -3,6 +3,7 @@ package com.example.controller.kakeibo;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +58,6 @@ public class KakeiboController {
 	public String list(Model model) {
 		List<Kakeibo> kakeiboList = kakeiboService.kakeiboList();
 		model.addAttribute("kakeiboList", kakeiboList);
-//		System.out.println(kakeiboService.findBreakdown(kakeiboService.totalByIncomeAndExpenditureBreakdown("2022-08")));
-		System.out.println(kakeiboService.culcRate(kakeiboService.strToDouble(
-				kakeiboService.findBreakdown(kakeiboService.totalByIncomeAndExpenditureBreakdown("2022-08")
-						))));
 		return "kakeibo/kakeiboList";
 	}
 	
@@ -89,16 +86,6 @@ public class KakeiboController {
 		editKakeiboForm.setIncomeAmount(incomeAmount);
 
 		return "kakeibo/edit";
-	}
-
-	/**
-	 * 収支内訳画面を表示する
-	 * 
-	 * @return
-	 */
-	@GetMapping(value = "/breakdown-income-balance")
-	public String breakdownIncomeBalance() {
-		return "kakeibo/breakdown-income-balance";
 	}
 
 	/**
@@ -199,42 +186,7 @@ public class KakeiboController {
 
 		return "redirect:/kakeibo/list";
 	}
-
-	/**
-	 * 収支内訳を算出する
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(path = "{date}", method = RequestMethod.GET)
-	public String incomeAndExpenditureBalance(
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, Model model) {
-		// 月初日と月末日を取得する
-		String firstDateAndLastDate = kakeiboService.getFirstDayAndLastDay(date);
-		model.addAttribute("firstDateAndLastDate", firstDateAndLastDate);
-
-		// 年と月をString型で取得
-		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-
-		// 収支計算結果の取得
-		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
-				.monthlyBalanceCalculateOfBreakdown(yearAndMonth);
-		if (monthlyBalanceCalculationResult == null) { // データが存在しない場合
-			model.addAttribute("message", "該当月のデータが存在しません。");
-			return "kakeibo/breakdown-income-balance";
-		}
-
-		// 年月の値を送り収支内訳結果を取得する
-		List<Kakeibo> totalByIncomeAndExpenditureBreakdownList = kakeiboService
-				.totalByIncomeAndExpenditureBreakdown(yearAndMonth);
-
-		// それぞれをスコープに格納
-		model.addAttribute("totalByIncomeAndExpenditureBreakdownList", totalByIncomeAndExpenditureBreakdownList);
-		model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
-
-		return breakdownIncomeBalance();
-	}
-
+	
 	/**
 	 * 日付を取得するためのメソッド
 	 * 
@@ -247,8 +199,94 @@ public class KakeiboController {
 		LocalDate date = LocalDate.now();
 		model.addAttribute("date", date);
 
-		return incomeAndExpenditureBalance(date, model);
+		return getBreakDown(date, model);
 	}
+
+//	/**
+//	 * 収支内訳を算出する
+//	 * 
+//	 * @param model
+//	 * @return
+//	 */
+//	@RequestMapping(path = "{date}", method = RequestMethod.GET)
+//	public String incomeAndExpenditureBalance(
+//			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, Model model) {
+//		// 月初日と月末日を取得する
+//		String firstDateAndLastDate = kakeiboService.getFirstDayAndLastDay(date);
+//		model.addAttribute("firstDateAndLastDate", firstDateAndLastDate);
+//
+//		// 年と月をString型で取得
+//		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+//
+//		// 収支計算結果の取得
+//		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
+//				.monthlyBalanceCalculateOfBreakdown(yearAndMonth);
+//		if (monthlyBalanceCalculationResult == null) { // データが存在しない場合
+//			model.addAttribute("message", "該当月のデータが存在しません。");
+//			return "kakeibo/breakdown-income-balance";
+//		}
+//
+//		// 年月の値を送り収支内訳結果を取得する
+//		List<Kakeibo> totalByIncomeAndExpenditureBreakdownList = kakeiboService
+//				.totalByIncomeAndExpenditureBreakdown(yearAndMonth);
+//
+//		// それぞれをスコープに格納
+//		model.addAttribute("totalByIncomeAndExpenditureBreakdownList", totalByIncomeAndExpenditureBreakdownList);
+//		model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
+//
+//		return breakdownIncomeBalance();
+//	}
+	
+	/**
+	 * 収支内訳を算出する
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(path = "{date}", method = RequestMethod.GET)
+	public String getBreakDown(
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, Model model) {
+		
+		// 月初日と月末日を取得する
+		String firstDateAndLastDate = kakeiboService.getFirstDayAndLastDay(date);
+		model.addAttribute("firstDateAndLastDate", firstDateAndLastDate);
+
+		// 年と月をString型で取得
+		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+		
+		//選択されている年月の費目別の支出・収入を算出する
+		List<Kakeibo> kakeiboList = kakeiboService.totalByIncomeAndExpenditureBreakdown(yearAndMonth);
+		
+		//総収入・総支出・収支のMapを取得
+		Map<String,Integer> totalAmountMap = kakeiboService.totalAmountMap(kakeiboService.findBreakdown(kakeiboList));
+		
+		//選択されている年月の費目別の収入・支出を計算
+		Map<String,Double> kakeiboItemMap = kakeiboService.strToDouble(kakeiboService.findBreakdown(kakeiboList));
+		
+		//Map内の費目別の割合を計算し、Map<費目名,割合>を返す
+		Map<String, Double> rateMap = kakeiboService.culcRate(kakeiboItemMap);
+		
+		//費目の総支出を格納したMapを呼び出す
+		Map<String,Integer> itemExpenceMap = kakeiboService.itemExpenceMap(kakeiboService.findBreakdown(kakeiboList));
+
+		// スコープに格納
+		model.addAttribute("totalAmountMap", totalAmountMap);
+		model.addAttribute("itemExpenceMap", itemExpenceMap);
+		model.addAttribute("rateItemMap", rateMap); 
+		
+		return breakdownIncomeBalance();
+	}
+	
+	/**
+	 * 収支内訳画面を表示する
+	 * 
+	 * @return
+	 */
+	@GetMapping(value = "/breakdown-income-balance")
+	public String breakdownIncomeBalance() {
+		return "kakeibo/breakdown-income-balance";
+	}
+
 
 	/**
 	 * 月別集計結果を取得する

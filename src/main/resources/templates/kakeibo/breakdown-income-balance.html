@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>家計簿一覧</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
-<link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
-<link rel="stylesheet" th:href="@{/css/common/example.css}">
-<link rel="stylesheet" th:href="@{/css/kakeibo/aggregate.css}">
-<link rel="stylesheet" th:href="@{/css/kakeibo/income-and-expenditure-balance.css}">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
+    <meta charset="UTF-8">
+    <title>家計簿一覧</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/common/example.css}">
+    <link rel="stylesheet" th:href="@{/css/kakeibo/aggregate.css}">
+    <link rel="stylesheet" th:href="@{/css/kakeibo/income-and-expenditure-balance.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
 </head>
 <body>
     <!-- ヘッド/インクルード化しているので、編集する際はheader.htmlから -->
     <div th:insert="common/head :: frag_head"></div>
-    
+
     <div class="container-fluid">
         <div class="row">
             <!-- サイドバー/インクルード化しているので、編集する際はsidebar.htmlから -->
@@ -25,7 +25,7 @@
                 </div>
 
                 <!-- テーブル表示 -->
-                <div th:if="${monthlyBalanceCalculationResult}">
+                <div th:if="${totalAmountMap}">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                         <div class="table-responsive">
                             <!-- 日付表示 -->
@@ -45,24 +45,24 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div th:if="${monthlyBalanceCalculationResult.totalIncomeAmount} >= 1000" th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalIncomeAmount, '3', 'COMMA') + '円'}"></div>
-                                        <div th:unless="${monthlyBalanceCalculationResult.totalIncomeAmount} >= 1000" th:text="${monthlyBalanceCalculationResult.totalIncomeAmount + '円'}"></div>
+                                        <div th:if="${totalAmountMap.get('総収入')} >= 1000" th:text="${#numbers.formatInteger(totalAmountMap.get('総収入'), '3', 'COMMA') + '円'}"></div>
+                                        <div th:unless="${totalAmountMap.get('総収入')} >= 1000" th:text="${totalAmountMap.get('総収入') + '円'}"></div>
                                     </td>
                                     <td>ー</td>
                                     <td>
-                                        <div th:if="${monthlyBalanceCalculationResult.totalExpenditureAmount} >= 1000"  th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.totalExpenditureAmount, '3', 'COMMA') + '円'}"></div>
-                                        <div th:unless="${monthlyBalanceCalculationResult.totalExpenditureAmount} >= 1000"  th:text="${monthlyBalanceCalculationResult.totalExpenditureAmount + '円'}"></div>
+                                        <div th:if="${totalAmountMap.get('総支出')} >= 1000" th:text="${#numbers.formatInteger(totalAmountMap.get('総支出'), '3', 'COMMA') + '円'}"></div>
+                                        <div th:unless="${totalAmountMap.get('総支出')} >= 1000" th:text="${totalAmountMap.get('総支出') + '円'}"></div>
                                     </td>
                                     <td>＝</td>
                                     <td>
-                                        <div th:text="${#numbers.formatInteger(monthlyBalanceCalculationResult.balanceCalculationResult, '3', 'COMMA') + '円'}"></div>
+                                        <div th:text="${#numbers.formatInteger(totalAmountMap.get('収支'), '3', 'COMMA') + '円'}"></div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div th:if="${monthlyBalanceCalculationResult}">
+                <div th:if="${rateItemMap}">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                         <div class="table-responsive">
                             <div class="parent-flex">
@@ -78,11 +78,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="breakdown : ${totalByIncomeAndExpenditureBreakdownList}" class="align-middle">
-                                            <td class="expenseItemNameList" th:text="${breakdown.expenseItem.expenseItemName}"></td>
-                                            <td class="totalByExpenseItemList" th:if="${breakdown.totalByExpenseItem} >= 1000" th:text="${#numbers.formatInteger(breakdown.totalByExpenseItem, 3, 'COMMA')} + '円'"></td>
-                                            <td class="totalByExpenseItemList" th:unless="${breakdown.totalByExpenseItem} >= 1000" th:text="${breakdown.totalByExpenseItem} + '円'"></td>
-                                            <td class="rateList" th:text="${breakdown.incomeAndExpenditureBreakedownRate} + '%'"></td>
+                                        <tr th:each="item : ${rateItemMap}" class="align-middle">
+                                            <td class="expenseItemNameList" th:text="${item.key}"></td>
+                                            <td class="totalByExpenseItemList" th:if="${itemExpenceMap.get(item.key)} >= 1000" th:text="${#numbers.formatInteger(itemExpenceMap.get(item.key), 3, 'COMMA')} + '円'"></td>
+                                            <td class="totalByExpenseItemList" th:unless="${itemExpenceMap.get(item.key)} >= 1000" th:text="${itemExpenceMap.get(item.key) + '円'"></td>
+                                            <td class="rateList" th:text="${item.value} + '%'"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -92,7 +92,7 @@
                 </div>
 
                 <!-- データがない場合、日付選択だけできる -->
-                <div th:unless="${monthlyBalanceCalculationResult}">
+                <div th:unless="${totalAmountMap}">
                     <!-- 日付表示 -->
                     <div class="date-box">
                         <a th:href="@{'/kakeibo/' + ${date.minusMonths(1)}}">&lt; 前月</a>
@@ -104,8 +104,8 @@
             </main>
         </div>
     </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-<script th:src="@{/chart/chartjs-plugin-labels.js}"></script>
-<script th:src="@{/chart/circle.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <script th:src="@{/chart/chartjs-plugin-labels.js}"></script>
+    <script th:src="@{/chart/circle.js}"></script>
 </body>
 </html>

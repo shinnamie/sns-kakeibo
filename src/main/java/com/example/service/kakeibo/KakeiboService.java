@@ -133,7 +133,6 @@ public class KakeiboService {
 	 */
 	public List<Kakeibo> totalByIncomeAndExpenditureBreakdown(String yearAndMonth) {
 		List<Kakeibo> kakeiboItemList = kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
-		System.out.println(kakeiboItemList);
 		return kakeiboItemList;
 	}
 
@@ -167,11 +166,37 @@ public class KakeiboService {
 		}
 
 		// 総収入・総支出・収支をMapに格納
-		kakeiboItemMap.put("totalExpenditureAmount", totalExpenditureAmount);
-		kakeiboItemMap.put("totalIncomeAmount", totalIncomeAmount);
+		kakeiboItemMap.put("総収入", totalExpenditureAmount);
+		kakeiboItemMap.put("総支出", totalIncomeAmount);
 		incomeAndExpenditure = totalIncomeAmount - totalExpenditureAmount;
-		kakeiboItemMap.put("IncomeAndExpenditure", incomeAndExpenditure);
+		kakeiboItemMap.put("収支", incomeAndExpenditure);
 
+		return kakeiboItemMap;
+	}
+	
+	/**
+	 * 総収入・総支出・収支だけ取り出す
+	 * 
+	 * 
+	 * */ 
+	public Map<String,Integer> totalAmountMap(Map<String,Integer> kakeiboItemMap){
+		//Mapを生成
+		Map<String,Integer> totalAmountMap = new HashMap<>();
+		totalAmountMap.put("総収入",kakeiboItemMap.get("総収入"));
+		totalAmountMap.put("総支出",kakeiboItemMap.get("総支出"));
+		totalAmountMap.put("収支",kakeiboItemMap.get("収支"));
+		return totalAmountMap;
+	}
+	
+	/**
+	 * 費目だけ取り出す
+	 * 
+	 * 
+	 * */ 
+	public Map<String,Integer> itemExpenceMap(Map<String,Integer> kakeiboItemMap){
+		kakeiboItemMap.remove("総収入");
+		kakeiboItemMap.remove("総支出");
+		kakeiboItemMap.remove("収支");
 		return kakeiboItemMap;
 	}
 
@@ -193,7 +218,7 @@ public class KakeiboService {
 	public Map<String, Double> culcRate(Map<String, Double> doubleMap) {
 
 		// 総支出を変数に格納
-		Double totalExpenditureAmount = doubleMap.get("totalExpenditureAmount");
+		Double totalExpenditureAmount = doubleMap.get("総支出");
 
 		// 費目別の割合を格納するMapを生成
 		Map<String, Double> rateMap = new HashMap<>();
