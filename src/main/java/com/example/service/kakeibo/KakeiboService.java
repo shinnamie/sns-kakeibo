@@ -166,11 +166,12 @@ public class KakeiboService {
 		}
 
 		// 総収入・総支出・収支をMapに格納
-		kakeiboItemMap.put("総収入", totalExpenditureAmount);
-		kakeiboItemMap.put("総支出", totalIncomeAmount);
+		kakeiboItemMap.put("総支出", totalExpenditureAmount);
+		kakeiboItemMap.put("総収入", totalIncomeAmount);
 		incomeAndExpenditure = totalIncomeAmount - totalExpenditureAmount;
 		kakeiboItemMap.put("収支", incomeAndExpenditure);
 
+	System.out.println(kakeiboItemMap);
 		return kakeiboItemMap;
 	}
 	
@@ -219,6 +220,7 @@ public class KakeiboService {
 
 		// 総支出を変数に格納
 		Double totalExpenditureAmount = doubleMap.get("総支出");
+		System.out.println(totalExpenditureAmount);
 
 		// 費目別の割合を格納するMapを生成
 		Map<String, Double> rateMap = new HashMap<>();
