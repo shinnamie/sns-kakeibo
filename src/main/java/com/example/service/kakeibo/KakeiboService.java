@@ -190,7 +190,7 @@ public class KakeiboService {
 	 * 
 	 * 
 	 * */ 
-	public Map<String, Double> toridasu(Map<String, Double> doubleMap) {
+	public Map<String, Double> culcRate(Map<String, Double> doubleMap) {
 
 		// 総支出を変数に格納
 		Double totalExpenditureAmount = doubleMap.get("totalExpenditureAmount");
