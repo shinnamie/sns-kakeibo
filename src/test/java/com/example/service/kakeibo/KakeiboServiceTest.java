@@ -119,29 +119,63 @@ class KakeiboServiceTest {
 		Map<String, Integer> expectedKakeiboItemMap = new HashMap<>();
 		expectedKakeiboItemMap.put("食費", 5000);
 		expectedKakeiboItemMap.put("総収入", 0);
-		expectedKakeiboItemMap.put("総支出",5000);
+		expectedKakeiboItemMap.put("総支出", 5000);
 		expectedKakeiboItemMap.put("収支", -5000);
-		
-		//serviceクラスのメソッドを通したMapを取得
+
+		// serviceクラスのメソッドを通したMapを取得
 		Map<String, Integer> kakeiboItemMap = service.findBreakdown(kakeiboList);
 
-		// 正常処理
+		// null処理
 		assertEquals(expectedKakeiboItemMap.getClass(), kakeiboItemMap.getClass());
 
 	}
-	
+
 	@Test
 	@DisplayName("異常系：受け取った月別の家計簿(List)から費目別の支出・収入をMapで返す")
 	void testFindBreakdownNull() throws Exception {
 
 		// 何も持たないList
 		List<Kakeibo> kakeiboList = new ArrayList<>();
-		
-		//serviceクラスのメソッドを通したMapを取得
+
+		// serviceクラスのメソッドを通したMapを取得
 		Map<String, Integer> kakeiboItemMap = service.findBreakdown(kakeiboList);
 
 		// 正常処理
 		assertNull(kakeiboItemMap);
+
+	}
+
+	@Test
+	@DisplayName("正常系：受け取ったMapから総収入・総支出・収支だけ取り出す")
+	void testTotalAmountMap() throws Exception {
+
+		// 期待するMapを生成
+		Map<String, Integer> expectedTotalAmountMap = new HashMap<>();
+		expectedTotalAmountMap.put("総収入", 0);
+		expectedTotalAmountMap.put("総支出", 5000);
+		expectedTotalAmountMap.put("収支", -5000);
+		expectedTotalAmountMap.put("食費", 5000); //このメソッドでは取り除かれるはずの”食費”も追加
+
+		// serviceクラスのメソッドを通したMapを取得
+		Map<String, Integer> totalAmountMap = service.totalAmountMap(expectedTotalAmountMap);
+
+		// 正常処理
+		assertEquals(expectedTotalAmountMap.getClass(), totalAmountMap.getClass());
+
+	}
+	
+	@Test
+	@DisplayName("異常系：受け取ったMapから総収入・総支出・収支だけ取り出す")
+	void testTotalAmountMapNull() throws Exception {
+
+		// 期待するMapを生成
+		Map<String, Integer> expectedTotalAmountMap = new HashMap<>();
+
+		// serviceクラスのメソッドを通したMapを取得
+		Map<String, Integer> totalAmountMap = service.totalAmountMap(expectedTotalAmountMap);
+
+		// null処理
+		assertNull(totalAmountMap);
 
 	}
 

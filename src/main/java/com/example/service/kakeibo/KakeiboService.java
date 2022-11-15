@@ -190,7 +190,7 @@ public class KakeiboService {
 	 * 
 	 */
 	public Map<String, Integer> totalAmountMap(Map<String, Integer> kakeiboItemMap) {
-		if(kakeiboItemMap == null) {
+		if(kakeiboItemMap.isEmpty()) {
 			return null;
 		}
 		// Mapを生成
