@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -131,12 +132,13 @@ public class KakeiboService {
 	 * @param month 月
 	 * @return Kakeibo 収支内訳(費目ID・費目別支出・費目別収入・費目名)
 	 */
+	@Transactional(readOnly = true)
 	public List<Kakeibo> totalByIncomeAndExpenditureBreakdown(String yearAndMonth) {
+		List<Kakeibo> kakeiboItemList = kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
 		
 		if(kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth) == null || kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth).size() == 0) {
 			return null;
 		}
-		List<Kakeibo> kakeiboItemList = kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
 		return kakeiboItemList;
 	}
 
