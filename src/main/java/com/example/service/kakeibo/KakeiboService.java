@@ -222,7 +222,7 @@ public class KakeiboService {
 	 * 
 	 */
 	public Map<String, Double> integerToDouble(Map<String, Integer> kakeiboItemMap) {
-		if(kakeiboItemMap == null) {
+		if(kakeiboItemMap.isEmpty()) {
 			return null;
 		}
 		return kakeiboItemMap.entrySet().stream()

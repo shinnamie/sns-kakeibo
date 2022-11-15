@@ -154,7 +154,7 @@ class KakeiboServiceTest {
 		expectedTotalAmountMap.put("総収入", 0);
 		expectedTotalAmountMap.put("総支出", 5000);
 		expectedTotalAmountMap.put("収支", -5000);
-		expectedTotalAmountMap.put("食費", 5000); //このメソッドでは取り除かれるはずの”食費”も追加
+		expectedTotalAmountMap.put("食費", 5000); // このメソッドでは取り除かれるはずの”食費”も追加
 
 		// serviceクラスのメソッドを通したMapを取得
 		Map<String, Integer> totalAmountMap = service.totalAmountMap(expectedTotalAmountMap);
@@ -163,7 +163,7 @@ class KakeiboServiceTest {
 		assertEquals(expectedTotalAmountMap.getClass(), totalAmountMap.getClass());
 
 	}
-	
+
 	@Test
 	@DisplayName("異常系：受け取ったMapから総収入・総支出・収支だけ取り出す")
 	void testTotalAmountMapNull() throws Exception {
@@ -178,7 +178,7 @@ class KakeiboServiceTest {
 		assertNull(totalAmountMap);
 
 	}
-	
+
 	@Test
 	@DisplayName("正常系：受け取ったMapから費目だけ取り出す")
 	void testItemExpenseMap() throws Exception {
@@ -188,7 +188,7 @@ class KakeiboServiceTest {
 		expectedItemExpenseMap.put("総収入", 0);
 		expectedItemExpenseMap.put("総支出", 5000);
 		expectedItemExpenseMap.put("収支", -5000);
-		expectedItemExpenseMap.put("食費", 5000); 
+		expectedItemExpenseMap.put("食費", 5000);
 		expectedItemExpenseMap.put("税・社会保障費", 10000);
 
 		// serviceクラスのメソッドを通したMapを取得
@@ -198,7 +198,7 @@ class KakeiboServiceTest {
 		assertEquals(expectedItemExpenseMap.getClass(), itemExpenseMap.getClass());
 
 	}
-	
+
 	@Test
 	@DisplayName("異常系：受け取ったMapから費目だけ取り出す")
 	void testItemExpenceMapNull() throws Exception {
@@ -208,6 +208,43 @@ class KakeiboServiceTest {
 
 		// serviceクラスのメソッドを通したMapを取得
 		Map<String, Integer> itemExpenseMap = service.totalAmountMap(expectedItemExpenseMap);
+
+		// null処理
+		assertNull(itemExpenseMap);
+
+	}
+
+	@Test
+	@DisplayName("正常系：受け取ったMapを<String,Integer> → <String,Double>に変換する")
+	void testIntegerToDouble() throws Exception {
+
+		// 期待するMapを生成
+		Map<String, Double> integerToDoubleMap = new HashMap<>();
+		integerToDoubleMap.put("食費", 5000.0);
+		integerToDoubleMap.put("税・社会保障費", 10000.0);
+
+		// サービスクラスに渡すMapを生成
+		Map<String, Integer> integerMap = new HashMap<>();
+		integerMap.put("食費", 5000);
+		integerMap.put("税・社会保障費", 10000);
+
+		// serviceクラスのメソッドを通したMapを取得
+		Map<String, Integer> stillIntegerMap = service.totalAmountMap(integerMap);
+
+		// 正常処理
+		assertEquals(stillIntegerMap.getClass(), integerToDoubleMap.getClass());
+
+	}
+
+	@Test
+	@DisplayName("異常系：受け取ったMapを<String,Integer> → <String,Double>に変換する")
+	void testIntegerToDoubleNull() throws Exception {
+
+		// サービスクラスに渡すMapを生成
+		Map<String, Integer> integerMap = new HashMap<>();
+
+		// serviceクラスのメソッドを通したMapを取得
+		Map<String, Integer> itemExpenseMap = service.totalAmountMap(integerMap);
 
 		// null処理
 		assertNull(itemExpenseMap);
