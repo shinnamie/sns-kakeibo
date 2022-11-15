@@ -256,11 +256,11 @@ public class KakeiboController {
 		
 		//選択されている年月の費目別の支出・収入を算出する
 		List<Kakeibo> kakeiboList = kakeiboService.totalByIncomeAndExpenditureBreakdown(yearAndMonth);
-		
+		System.out.println(kakeiboList);
 		if (kakeiboList == null) { // データが存在しない場合
 			model.addAttribute("message", "該当月のデータが存在しません。");
 			return "kakeibo/breakdown-income-balance";
-		}
+		}else {
 		
 		//総収入・総支出・収支のMapを取得
 		Map<String,Integer> totalAmountMap = kakeiboService.totalAmountMap(kakeiboService.findBreakdown(kakeiboList));
@@ -275,6 +275,7 @@ public class KakeiboController {
 		model.addAttribute("totalAmountMap", totalAmountMap);
 		model.addAttribute("itemExpenceMap", itemExpenceMap);
 		model.addAttribute("rateItemMap", rateMap); 
+		}
 		
 		return breakdownIncomeBalance();
 	}

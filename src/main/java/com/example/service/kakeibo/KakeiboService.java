@@ -125,17 +125,18 @@ public class KakeiboService {
 	}
 
 	/**
-	 * 本月の費目別の支出・収入を算出する
+	 * 選択された月の費目別の支出・収入を算出する
 	 * 
 	 * @param year  年
 	 * @param month 月
 	 * @return Kakeibo 収支内訳(費目ID・費目別支出・費目別収入・費目名)
 	 */
 	public List<Kakeibo> totalByIncomeAndExpenditureBreakdown(String yearAndMonth) {
-		List<Kakeibo> kakeiboItemList = kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
-		if(kakeiboItemList == null || kakeiboItemList.size() == 0) {
+		
+		if(kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth) == null || kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth).size() == 0) {
 			return null;
 		}
+		List<Kakeibo> kakeiboItemList = kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
 		return kakeiboItemList;
 	}
 
