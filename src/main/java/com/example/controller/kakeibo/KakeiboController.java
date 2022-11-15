@@ -269,7 +269,7 @@ public class KakeiboController {
 		Map<String, Double> rateMap = kakeiboService.culcRate(kakeiboService.integerToDouble(kakeiboService.findBreakdown(kakeiboList)));
 		
 		//費目の総支出を格納したMapを呼び出す Map<費目名,支出額>
-		Map<String,Integer> itemExpenceMap = kakeiboService.itemExpenceMap(kakeiboService.findBreakdown(kakeiboList));
+		Map<String,Integer> itemExpenceMap = kakeiboService.itemExpenseMap(kakeiboService.findBreakdown(kakeiboList));
 
 		// スコープに格納
 		model.addAttribute("totalAmountMap", totalAmountMap);

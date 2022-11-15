@@ -206,8 +206,8 @@ public class KakeiboService {
 	 * 
 	 * 
 	 */
-	public Map<String, Integer> itemExpenceMap(Map<String, Integer> kakeiboItemMap) {
-		if(kakeiboItemMap == null) {
+	public Map<String, Integer> itemExpenseMap(Map<String, Integer> kakeiboItemMap) {
+		if(kakeiboItemMap.isEmpty()) {
 			return null;
 		}
 		kakeiboItemMap.remove("総収入");

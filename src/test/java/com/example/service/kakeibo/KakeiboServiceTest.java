@@ -178,5 +178,40 @@ class KakeiboServiceTest {
 		assertNull(totalAmountMap);
 
 	}
+	
+	@Test
+	@DisplayName("正常系：受け取ったMapから費目だけ取り出す")
+	void testItemExpenseMap() throws Exception {
+
+		// 期待するMapを生成
+		Map<String, Integer> expectedItemExpenseMap = new HashMap<>();
+		expectedItemExpenseMap.put("総収入", 0);
+		expectedItemExpenseMap.put("総支出", 5000);
+		expectedItemExpenseMap.put("収支", -5000);
+		expectedItemExpenseMap.put("食費", 5000); 
+		expectedItemExpenseMap.put("税・社会保障費", 10000);
+
+		// serviceクラスのメソッドを通したMapを取得
+		Map<String, Integer> itemExpenseMap = service.totalAmountMap(expectedItemExpenseMap);
+
+		// 正常処理
+		assertEquals(expectedItemExpenseMap.getClass(), itemExpenseMap.getClass());
+
+	}
+	
+	@Test
+	@DisplayName("異常系：受け取ったMapから費目だけ取り出す")
+	void testItemExpenceMapNull() throws Exception {
+
+		// 期待するMapを生成
+		Map<String, Integer> expectedItemExpenseMap = new HashMap<>();
+
+		// serviceクラスのメソッドを通したMapを取得
+		Map<String, Integer> itemExpenseMap = service.totalAmountMap(expectedItemExpenseMap);
+
+		// null処理
+		assertNull(itemExpenseMap);
+
+	}
 
 }
