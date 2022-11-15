@@ -149,6 +149,10 @@ public class KakeiboService {
 	 * @return Map<String, Integer>
 	 */
 	public Map<String, Integer> findBreakdown(List<Kakeibo> kakeiboItemList) {
+		
+		if(kakeiboItemList == null || kakeiboItemList.size() == 0) {
+			return null;
+		}
 
 		// Mapを生成
 		Map<String, Integer> kakeiboItemMap = new HashMap<>();
@@ -157,10 +161,6 @@ public class KakeiboService {
 		Integer totalExpenditureAmount = 0;
 		Integer totalIncomeAmount = 0;
 		Integer incomeAndExpenditure = 0;
-		
-		if(kakeiboItemList == null) {
-			return null;
-		}
 
 		// ListからMapへ移し替え
 		for (Kakeibo kakeiboItem : kakeiboItemList) {
