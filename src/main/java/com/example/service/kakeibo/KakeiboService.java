@@ -402,18 +402,4 @@ public class KakeiboService {
 		return rateMap;
 	}
 
-
-	/**
-	 * 月別で集計した費目毎の割合を計算
-	 * 
-	 * @return Map<String,Integer>
-	 */
-	public Map<String, Double> calcExpeditureRate(Map<String, Integer> kakeiboItemMap) {
-		Map<String, Double> itemExpeditureRateMap = new HashMap<>();
-
-		kakeiboItemMap.entrySet().stream().filter(e -> "自動車".equals(e.getKey())).forEach(System.out::println);
-
-		return itemExpeditureRateMap;
-	}
-
 }

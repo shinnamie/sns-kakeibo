@@ -250,5 +250,7 @@ class KakeiboServiceTest {
 		assertNull(itemExpenseMap);
 
 	}
+	
+	
 
 }
