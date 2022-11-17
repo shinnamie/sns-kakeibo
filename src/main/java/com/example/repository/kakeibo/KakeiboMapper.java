@@ -24,7 +24,7 @@ public interface KakeiboMapper {
 	 * 
 	 * @return 検索結果(1件)
 	 */
-	Kakeibo findByKakeiboId(Integer id);
+	Kakeibo findByKakeiboId(Long id);
 
 	/**
 	 * 家計簿の新規登録

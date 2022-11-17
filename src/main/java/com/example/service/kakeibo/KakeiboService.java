@@ -35,7 +35,7 @@ public class KakeiboService {
 	 * @param id 家計簿id
 	 * @return kakeibo 家計簿
 	 */
-	public Kakeibo findByKakeiboId(Integer id) {
+	public Kakeibo findByKakeiboId(Long id) {
 		return kakeiboMapper.findByKakeiboId(id);
 	}
 
