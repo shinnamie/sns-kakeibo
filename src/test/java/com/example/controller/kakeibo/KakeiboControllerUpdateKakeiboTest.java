@@ -97,8 +97,8 @@ class KakeiboControllerUpdateKakeiboTest {
 		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
 		editKakeiboForm.setPaymentDate(null);
 		editKakeiboForm.setExpenseItemId(2);
-		editKakeiboForm.setExpenditureAmount("5000");
-		editKakeiboForm.setIncomeAmount("0");
+		editKakeiboForm.setExpenditureAmount(5000);
+		editKakeiboForm.setIncomeAmount(0);
 		
 		// 検証&実行
 		mockMvc.perform(post("/kakeibo/update")
@@ -114,8 +114,8 @@ class KakeiboControllerUpdateKakeiboTest {
 		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
 		editKakeiboForm.setPaymentDate(LocalDate.parse("2022-11-04"));
 		editKakeiboForm.setExpenseItemId(null);
-		editKakeiboForm.setExpenditureAmount("5000");
-		editKakeiboForm.setIncomeAmount("0");
+		editKakeiboForm.setExpenditureAmount(5000);
+		editKakeiboForm.setIncomeAmount(0);
 		
 		// 検証&実行
 		mockMvc.perform(post("/kakeibo/update")
@@ -131,8 +131,8 @@ class KakeiboControllerUpdateKakeiboTest {
 		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
 		editKakeiboForm.setPaymentDate(LocalDate.parse("2022-11-04"));
 		editKakeiboForm.setExpenseItemId(2);
-		editKakeiboForm.setExpenditureAmount("");
-		editKakeiboForm.setIncomeAmount("0");
+		editKakeiboForm.setExpenditureAmount(null);
+		editKakeiboForm.setIncomeAmount(0);
 		
 		// 検証&実行
 		mockMvc.perform(post("/kakeibo/update")
@@ -148,8 +148,8 @@ class KakeiboControllerUpdateKakeiboTest {
 		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
 		editKakeiboForm.setPaymentDate(LocalDate.parse("2022-11-04"));
 		editKakeiboForm.setExpenseItemId(2);
-		editKakeiboForm.setExpenditureAmount("5000");
-		editKakeiboForm.setIncomeAmount("");
+		editKakeiboForm.setExpenditureAmount(5000);
+		editKakeiboForm.setIncomeAmount(null);
 		
 		// 検証&実行
 		mockMvc.perform(post("/kakeibo/update")
@@ -167,8 +167,8 @@ class KakeiboControllerUpdateKakeiboTest {
 		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
 		editKakeiboForm.setPaymentDate(LocalDate.parse("2022-11-04"));
 		editKakeiboForm.setExpenseItemId(2);
-		editKakeiboForm.setExpenditureAmount("5000");
-		editKakeiboForm.setIncomeAmount("0");
+		editKakeiboForm.setExpenditureAmount(5000);
+		editKakeiboForm.setIncomeAmount(0);
 		
 		// 検証&実行
 		mockMvc.perform(post("/kakeibo/update")

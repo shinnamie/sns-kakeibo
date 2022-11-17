@@ -31,10 +31,12 @@ public class EditKakeiboForm {
 	/** 支出金額 */
 	@Max(value = 99999999)
 	@Min(value = 0)
+	@NotNull
 	private Integer expenditureAmount;
 	/** 収入金額 */
 	@Max(value = 99999999)
 	@Min(value = 0)
+	@NotNull
 	private Integer incomeAmount;
 	/** 決済Id */
 	private Integer settlementId;
