@@ -23,15 +23,16 @@
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h2>年別・月別集計</h2>
                 </div>
-                <form th:action="@{/kakeibo/kakeiboByYearAndMonth}" method="post">
+                <form th:action="@{/kakeibo/kakeiboByYearAndMonth}" method="post" th:object="${searchKakeiboForm}">
                     <!-- 月別集計 -->
                     <div class="inputs">
+                    	<div th:errors="*{year}" style="color: red;"></div>
                         <label class="label">集計したい年</label>
-                        <input class="input_form" type="text" name="year">年
+                        <input class="input_form" type="text" name="year" th:field="*{year}">年
                     </div>
                     <div class="inputs">
                         <label class="label">集計したい月</label>
-                        <input class="input_form" type="text" name="month">月
+                        <input class="input_form" type="text" name="month" th:field="*{month}">月
                     </div>
                     <div class="btn-area">
                         <input type="submit" class="btn btn-sm btn-outline-secondary" value="検索">

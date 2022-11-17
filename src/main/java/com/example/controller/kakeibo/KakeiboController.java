@@ -24,6 +24,7 @@ import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
 import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 import com.example.form.kakeibo.AddKakeiboForm;
 import com.example.form.kakeibo.EditKakeiboForm;
+import com.example.form.kakeibo.SearchKakeiboForm;
 import com.example.service.kakeibo.KakeiboService;
 
 @Controller
@@ -46,6 +47,11 @@ public class KakeiboController {
 	@ModelAttribute
 	private EditKakeiboForm editKakeiboForm() {
 		return new EditKakeiboForm();
+	}
+	
+	@ModelAttribute
+	private SearchKakeiboForm searchKakeiboForm() {
+		return new SearchKakeiboForm();
 	}
 
 	/**
@@ -256,14 +262,17 @@ public class KakeiboController {
 	 * @return
 	 */
 	@PostMapping(value = "/kakeiboByYearAndMonth")
-	public String postKakeiboByYearAndMonth(String year, String month, Model model) {
+	public String postKakeiboByYearAndMonth(@Validated SearchKakeiboForm searchKakeiboForm, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "kakeibo/kakeiboByYearAndMonth";
+		}
 
 		// 年月のパラメーターを元に検索、結果を取得
-		List<Kakeibo> kakeiboMonthList = kakeiboService.findKakeiboByYearAndMonth(year, month);
+		List<Kakeibo> kakeiboMonthList = kakeiboService.findKakeiboByYearAndMonth(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth());
 
 		// 収支計算結果の取得
 		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
-				.monthlyBalanceCalculate(year, month);
+				.monthlyBalanceCalculate(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth());
 
 		// それぞれの結果をスコープに格納
 		if (kakeiboMonthList == null || kakeiboMonthList.size() == 0) {
