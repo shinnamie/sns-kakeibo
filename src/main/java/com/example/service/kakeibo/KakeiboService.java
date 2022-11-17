@@ -24,7 +24,7 @@ public class KakeiboService {
 	 * 
 	 * @return 検索結果
 	 */
-	public List<Kakeibo> kakeiboList() {
+	public List<Kakeibo> findKakeiboList() {
 		return kakeiboMapper.findAll();
 	}
 
