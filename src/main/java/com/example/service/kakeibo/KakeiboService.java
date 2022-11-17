@@ -53,7 +53,7 @@ public class KakeiboService {
 	 * 
 	 * @param kakeibo
 	 */
-	public void update(Kakeibo kakeibo) {
+	public void updateKakeibo(Kakeibo kakeibo) {
 		kakeiboMapper.update(kakeibo);
 	}
 

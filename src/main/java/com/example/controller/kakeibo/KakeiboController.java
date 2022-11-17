@@ -107,7 +107,7 @@ public class KakeiboController {
 	 * @return
 	 */
 	@PostMapping("/update")
-	public String update(@Validated EditKakeiboForm editKakeiboForm, BindingResult result) {
+	public String updateKakeibo(@Validated EditKakeiboForm editKakeiboForm, BindingResult result) {
 		
 		// 入力値エラーの際は編集画面を表示する
 		if (result.hasErrors()) {
@@ -124,7 +124,7 @@ public class KakeiboController {
 		kakeibo.setIncomeAmount(Integer.parseInt(editKakeiboForm.getIncomeAmount()));
 
 		// 更新処理の実行
-		kakeiboService.update(kakeibo);
+		kakeiboService.updateKakeibo(kakeibo);
 
 		return "redirect:/kakeibo/list";
 	}
