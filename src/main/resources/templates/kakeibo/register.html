@@ -1,61 +1,64 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>家計簿一覧</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
-<link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
-<link rel="stylesheet" th:href="@{/css/common/example.css}">
-<link rel="stylesheet" th:href="@{/css/kakeibo/input.css}">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
+    <meta charset="UTF-8">
+    <title>家計簿一覧</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/common/example.css}">
+    <link rel="stylesheet" th:href="@{/css/kakeibo/input.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
 </head>
+
 <body>
     <!-- ヘッド/インクルード化しているので、編集する際はheader.htmlから -->
     <div th:insert="common/head :: frag_head"></div>
-    
+
     <div class="container-fluid">
         <div class="row">
             <!-- メニューバー/インクルード化しているので、編集する際はheader.htmlから -->
             <div th:insert="common/sidebar :: frag_menu"></div>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h2>家計簿新規登録</h2>
                 </div>
-                <form  th:action="@{/kakeibo/create}" th:object="${addKakeiboForm}" method="post">
+                <form th:action="@{/kakeibo/saveKakeibo}" th:object="${addKakeiboForm}" method="post">
                     <!-- ユーザーID(とりあえずダミーを使用(ID=1)) -->
                     <input type="hidden" value="1" name="userId">
                     <!-- 決済日時 -->
-                    <div th:errors="*{settlementDate}" style="color: red;"></div>
+                    <div th:errors="*{paymentDate}" style="color: red;"></div>
                     <div class="inputs">
                         <label class="label">決済日時</label>
-                        <input class="input_form" type="date" name="settlementDate" th:field="*{settlementDate}">
+                        <input class="input_form" type="date" name="paymentDate" th:field="*{paymentDate}">
                     </div>
                     <!-- 費目 -->
                     <div th:errors="*{expenseItemId}" style="color: red;"></div>
                     <div class="inputs">
                         <label class="label">費目</label>
                         <select name="expenseItemId" id="" th:field="*{expenseItemId}">
-                        <option value="">---</option>
-                        <option value="1">給料</option>
-                        <option value="2">雑収入</option>
-                        <option value="3">振替・振込</option>
-                        <option value="4">食費</option>
-                        <option value="5">日用品</option>
-                        <option value="6">趣味・娯楽</option>
-                        <option value="7">交際費</option>
-                        <option value="8">交通費</option>
-                        <option value="9">衣服</option>
-                        <option value="10">美容</option>
-                        <option value="11">健康・医療</option>
-                        <option value="12">自動車</option>
-                        <option value="13">教養・教育</option>
-                        <option value="14">水道・光熱費</option>
-                        <option value="15">通信費</option>
-                        <option value="16">住宅</option>
-                        <option value="17">税・社会保障</option>
-                        <option value="18">保険</option>
-                        <option value="19">その他</option>
+                            <option value="">---</option>
+                            <option value="1">給料</option>
+                            <option value="2">雑収入</option>
+                            <option value="3">振替・振込</option>
+                            <option value="4">食費</option>
+                            <option value="5">日用品</option>
+                            <option value="6">趣味・娯楽</option>
+                            <option value="7">交際費</option>
+                            <option value="8">交通費</option>
+                            <option value="9">衣服</option>
+                            <option value="10">美容</option>
+                            <option value="11">健康・医療</option>
+                            <option value="12">自動車</option>
+                            <option value="13">教養・教育</option>
+                            <option value="14">水道・光熱費</option>
+                            <option value="15">通信費</option>
+                            <option value="16">住宅</option>
+                            <option value="17">税・社会保障</option>
+                            <option value="18">保険</option>
+                            <option value="19">その他</option>
                         </select>
                     </div>
                     <!-- 支出金額 -->
@@ -103,4 +106,5 @@
         </div>
     </div>
 </body>
+
 </html>
