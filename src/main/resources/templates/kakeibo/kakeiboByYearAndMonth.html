@@ -27,7 +27,7 @@
                     <!-- 月別集計 -->
                     <div class="inputs">
                     	<div th:errors="*{year}" style="color: red;"></div>
-                        <label class="label">集計したい年</label>
+                        <label class="label" th:text="#{year}">集計したい年</label>
                         <input class="input_form" type="text" name="year" th:field="*{year}">年
                     </div>
                     <div class="inputs">

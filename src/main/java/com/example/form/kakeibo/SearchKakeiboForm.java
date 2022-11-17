@@ -8,7 +8,7 @@ import lombok.Data;
 public class SearchKakeiboForm {
 
 	/** 年 */
-	@NotBlank(message = "年の指定は必須です")
+	@NotBlank
 	private String year;
 	
 	/** 月 */
