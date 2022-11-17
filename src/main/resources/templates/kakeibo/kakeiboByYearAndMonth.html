@@ -71,10 +71,12 @@
                                 <tr>
                                     <td>
                                         <div th:if="${result.totalIncomeAmount} >= 1000" th:text="${#numbers.formatInteger(result.totalIncomeAmount, '3', 'COMMA') + '円'}"></div>
+                                        <div th:unless="${result.totalIncomeAmount} >= 1000" th:text="${result.totalIncomeAmount + '円'}"></div>
                                     </td>
                                     <td>ー</td>
                                     <td>
                                         <div th:if="${result.totalExpenditureAmount} >= 1000"  th:text="${#numbers.formatInteger(result.totalExpenditureAmount, '3', 'COMMA') + '円'}"></div>
+                                        <div th:unless="${result.totalExpenditureAmount} >= 1000"  th:text="${result.totalExpenditureAmount + '円'}"></div>
                                     </td>
                                     <td>＝</td>
                                     <td>
