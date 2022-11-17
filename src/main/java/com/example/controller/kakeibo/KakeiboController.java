@@ -50,7 +50,7 @@ public class KakeiboController {
 		model.addAttribute("kakeiboList", kakeiboList);
 		return "kakeibo/kakeiboList";
 	}
-	
+
 	@GetMapping(value = "/update")
 	public String update(Integer id, EditKakeiboForm editKakeiboForm) {
 		// idから家計簿情報を1件取得する
@@ -87,7 +87,7 @@ public class KakeiboController {
 	public String monthlyAggregation() {
 		return "kakeibo/year-and-month";
 	}
-	
+
 	/** 家計簿を追加する画面(register.html)を表示 */
 	@GetMapping("/registerKakeibo")
 	public String getRegisterKakeibo(@ModelAttribute AddKakeiboForm form) {
@@ -96,18 +96,21 @@ public class KakeiboController {
 
 	/** 家計簿の追加処理 */
 	@PostMapping("/saveKakeibo")
-	public String saveKakeibo(@ModelAttribute @Validated AddKakeiboForm form, BindingResult result) {
+	public String saveKakeibo(@ModelAttribute @Validated AddKakeiboForm form, BindingResult result, Model model) {
 		// 入力値チェック
 		if (result.hasErrors()) {
-			return "kakeibo/register";
+			return getRegisterKakeibo(form);
 		}
 
 		// フォームの値をドメインにコピー
 		Kakeibo kakeibo = new Kakeibo();
 		BeanUtils.copyProperties(form, kakeibo);
 
-		// 新規登録処理
-		kakeiboService.saveKakeibo(kakeibo);
+		// 新規登録処理 (登録失敗した場合は登録画面に戻る)
+		if (!kakeiboService.saveKakeibo(kakeibo)) {
+			model.addAttribute("errorMessage", "登録が失敗しました");
+			return getRegisterKakeibo(form);
+		}
 
 		return "redirect:/kakeibo/list";
 	}
