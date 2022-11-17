@@ -241,8 +241,7 @@ public class KakeiboService {
 
 		// 総支出を変数に格納
 		Double totalExpenditureAmount = doubleMap.get("総支出");
-		System.out.println(totalExpenditureAmount);
-
+		
 		// 費目別の割合を格納するMapを生成
 		Map<String, Double> rateMap = new HashMap<>();
 
