@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +33,6 @@ public class KakeiboService {
 		return kakeiboMapper.findAll();
 	}
 
-
 	/**
 	 * 家計簿idから家計簿情報を取得
 	 * 
@@ -50,10 +48,10 @@ public class KakeiboService {
 		try {
 			kakeiboMapper.saveKakeibo(kakeibo);
 			return true;
-		} catch (DataIntegrityViolationException e) {
+		} catch (Exception e) {
 			log.error("例外が発生しました: {}", e);
 			return false;
-		}		
+		}
 	}
 
 	/**
