@@ -208,7 +208,7 @@
 				TO_CHAR(k.payment_date, 'YYYY') LIKE '${year}'
 			</if>
 			<if test="year != null and month != null">
-				and TO_CHAR(k.payment_date, 'YYYY-MM') LIKE '${year}-%${month}%'
+				TO_CHAR(k.payment_date, 'YYYY-MM') LIKE '${year}-${month}'
 			</if>
 		</where>
 		ORDER BY
@@ -229,7 +229,7 @@
 				TO_CHAR(payment_date, 'YYYY') LIKE '${year}'
 			</if>
 			<if test="year != null and month != null">
-				and TO_CHAR(payment_date, 'YYYY-MM') LIKE '${year}-%${month}%'
+				TO_CHAR(payment_date, 'YYYY-MM') LIKE '${year}-${month}'
 			</if>
 		</where>
  	</select>
