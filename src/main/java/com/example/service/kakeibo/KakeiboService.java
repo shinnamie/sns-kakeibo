@@ -66,6 +66,7 @@ public class KakeiboService {
 		kakeiboMapper.delete(id);
 	}
 
+
 	/**
 	 * 本月の収支内訳を算出する
 	 * 

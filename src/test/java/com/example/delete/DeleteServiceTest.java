@@ -12,19 +12,19 @@ import com.example.service.kakeibo.KakeiboService;
 
 @SpringBootTest
 public class DeleteServiceTest {
-	
+
 	@InjectMocks
 	KakeiboService service;
-	
+
 	@Mock
 	KakeiboMapper mapper;
-	
+
 	@Test
 	@DisplayName("家計簿の削除テスト")
 	void testKakeibodelete() throws Exception{
-		
+
 		mapper.delete(1L);
 		Mockito.verify(mapper).delete(1L);
-		
+
 	}
 }

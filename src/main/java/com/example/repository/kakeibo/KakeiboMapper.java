@@ -46,7 +46,7 @@ public interface KakeiboMapper {
 	 * 
 	 * @param id 
 	 */
-	void delete(long id);
+	boolean delete(long id);
 
 	/**
 	 * 本月の収支内訳を算出する

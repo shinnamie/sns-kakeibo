@@ -33,10 +33,16 @@ import com.example.service.kakeibo.KakeiboService;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class GetListControllerTest {
+	
+	List<Kakeibo> kakeiboList;
+	Kakeibo kakeibo1;
+	Kakeibo kakeibo2;
 
 	
     @MockBean
     private KakeiboService kakeiboService;
+    
+    
     
 
     @Autowired
@@ -52,6 +58,38 @@ public class GetListControllerTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		kakeiboList = new ArrayList<>();
+		kakeibo1 = new Kakeibo();
+		kakeibo1.setId(1);
+		kakeibo1.setPaymentDate(LocalDate.parse("2022-11-04"));
+		kakeibo1.setExpenseItemId(2);
+		kakeibo1.setExpenditureAmount(5000);
+		kakeibo1.setIncomeAmount(0);
+		ExpenseItem expenseItem1 = new ExpenseItem();
+		expenseItem1.setId(4);
+		expenseItem1.setExpenseItemName("食費");
+		kakeibo1.setExpenseItem(expenseItem1);
+		Settlement settlement1 = new Settlement();
+		settlement1.setId(2);
+		settlement1.setSettlementName("現金");
+		kakeibo1.setSettlement(settlement1);
+		kakeiboList.add(kakeibo1);
+		
+		kakeibo2 = new Kakeibo();
+		kakeibo2.setId(2);
+		kakeibo2.setPaymentDate(LocalDate.parse("2022-11-04"));
+		kakeibo2.setExpenseItemId(2);
+		kakeibo2.setExpenditureAmount(5000);
+		kakeibo2.setIncomeAmount(0);
+		ExpenseItem expenseItem2 = new ExpenseItem();
+		expenseItem2.setId(4);
+		expenseItem2.setExpenseItemName("食費");
+		kakeibo2.setExpenseItem(expenseItem2);
+		Settlement settlement2 = new Settlement();
+		settlement2.setId(2);
+		settlement2.setSettlementName("現金");
+		kakeibo2.setSettlement(settlement2);
+		kakeiboList.add(kakeibo2);
 	}
 
 	@AfterEach
@@ -65,24 +103,11 @@ public class GetListControllerTest {
      */
 	
 	@Test
-	@DisplayName("一覧表示のテスト")
+	@DisplayName("一覧表示のテスト（正常）")
 	void findAllTest() throws Exception{
-		List<Kakeibo> kakeiboList = new ArrayList<>();
-		Kakeibo kakeibo = new Kakeibo();
-		kakeibo.setId(1);
-		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
-		kakeibo.setExpenseItemId(2);
-		kakeibo.setExpenditureAmount(5000);
-		kakeibo.setIncomeAmount(0);
-		ExpenseItem expenseItem = new ExpenseItem();
-		expenseItem.setId(4);
-		expenseItem.setExpenseItemName("食費");
-		kakeibo.setExpenseItem(expenseItem);
-		Settlement settlement = new Settlement();
-		settlement.setId(2);
-		settlement.setSettlementName("現金");
-		kakeibo.setSettlement(settlement);
-		kakeiboList.add(kakeibo);
+		
+		
+		
 		
         when(kakeiboService.findKakeiboList()).thenReturn(kakeiboList);
 		
@@ -92,7 +117,21 @@ public class GetListControllerTest {
         .andReturn();
 		ModelAndView mav = mvcResult.getModelAndView();
 		assertEquals(mav.getModel().get("kakeiboList"), kakeiboList);
+
+	}
+	@Test
+	@DisplayName("一覧表示のテスト（異常）")
+	void findAllErrorTest() throws Exception{
+
+		when(kakeiboService.findKakeiboList()).thenReturn(null);
+
+		MvcResult mvcResult = mockMvc.perform(get("/kakeibo/list"))
+				.andExpect(view().name("kakeibo/list"))
+				.andReturn();
+
+		ModelAndView mav = mvcResult.getModelAndView();
+		assertEquals(mav.getModel().get("kakeiboList"), null);
+
 		
 	}
-	
 }
