@@ -94,7 +94,7 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="kakeibo : ${kakeiboMonthList}" class="align-middle">
-                                        <td th:text="${kakeibo.settlementDate}">2022-09-01</td>
+                                        <td th:text="${kakeibo.paymentDate}">2022-09-01</td>
                                         <td th:text="${kakeibo.expenseItem.expenseItemName}">3</td>
                                         <td th:if="${kakeibo.expenditureAmount >= 1000}" th:text="${#numbers.formatInteger(kakeibo.expenditureAmount, 3, 'COMMA')} + '円'">3000</td>
                                         <td th:unless="${kakeibo.expenditureAmount >= 1000}" th:text="${kakeibo.expenditureAmount} + '円'">100</td>

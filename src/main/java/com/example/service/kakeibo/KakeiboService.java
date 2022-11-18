@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
 import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
@@ -57,22 +56,14 @@ public class KakeiboService {
 		kakeiboMapper.update(kakeibo);
 	}
 
-	/**
-	 * 論理削除フラグ
-	 * 
-	 * @param kakeibo 家計簿
-	 */
-	public void updateIsDelete(Kakeibo kakeibo) {
-		kakeiboMapper.updateIsDelete(kakeibo);
-	}
 
 	/**
-	 * 家計簿の論理削除
+	 * 家計簿の削除
 	 * 
-	 * @param deletedKakeibo 家計簿論理削除データ
+	 * @param id 
 	 */
-	public void delete(DeletedKakeibo deletedKakeibo) {
-		kakeiboMapper.delete(deletedKakeibo);
+	public void deleteKakeibo(Integer id) {
+		kakeiboMapper.delete(id);
 	}
 
 	/**

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
 import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
@@ -40,19 +39,14 @@ public interface KakeiboMapper {
 	 */
 	void update(Kakeibo kakeibo);
 
-	/**
-	 * 論理削除フラグ
-	 * 
-	 * @param kakeibo 家計簿
-	 */
-	void updateIsDelete(Kakeibo kakeibo);
 
+	
 	/**
-	 * 家計簿の論理削除
+	 * 家計簿の削除
 	 * 
-	 * @param deletedKakeibo 家計簿論理削除データ
+	 * @param id 
 	 */
-	void delete(DeletedKakeibo deletedKakeibo);
+	void delete(Integer id);
 
 	/**
 	 * 本月の収支内訳を算出する
