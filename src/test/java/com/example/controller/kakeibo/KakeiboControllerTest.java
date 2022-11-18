@@ -78,10 +78,9 @@ class KakeiboControllerTest {
 		
 		LocalDate date = LocalDate.now();
 		doReturn("2022/11/01 - 2022/11/30").when(service).getFirstDayAndLastDay(date);
-		
 		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 
-		//Listを準備
+		//Listをセット
 		List<Kakeibo> kakeiboList = new ArrayList<>();
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
@@ -98,9 +97,9 @@ class KakeiboControllerTest {
 		settlement.setSettlementName("現金");
 		kakeibo.setSettlement(settlement);
 		kakeiboList.add(kakeibo);
-		
 		when(service.totalByIncomeAndExpenditureBreakdown(yearAndMonth)).thenReturn(kakeiboList);
 		
+		//家計簿情報の入ったMapをセット
 		Map<String,Integer> kakeiboMap = new HashMap<>();
 		kakeiboMap.put("総収入", 0);
 		kakeiboMap.put("総支出", 5000);
@@ -108,21 +107,26 @@ class KakeiboControllerTest {
 		kakeiboMap.put("食費", 5000);
 		doReturn(kakeiboMap).when(service).findBreakdown(kakeiboList);
 		
+		//総収入・総支出・収支をMapにセット
 		Map<String,Integer> totalAmountMap = new HashMap<>();
 		totalAmountMap.put("総収入", 0);
 		totalAmountMap.put("総支出", 5000);
 		totalAmountMap.put("収支", -5000);
 		doReturn(totalAmountMap).when(service).totalAmountMap(kakeiboMap);
 				
+		//月別費目別の情報をMapにセット
 		Map<String,Integer> itemExpenseMap = new HashMap<>();
 		itemExpenseMap.put("食費", 5000);
 		doReturn(itemExpenseMap).when(service).itemExpenseMap(kakeiboMap);
 		
-		Map<String,Double> rateMap = new HashMap<>();
+		//月別費目別の情報をDouble型に変更してMapにセット
 		Map<String,Double> integerToDoubleMap = new HashMap<>();
 		integerToDoubleMap.put("食費", 5000.0);
-		rateMap.put("食費", 100.0);
 		doReturn(integerToDoubleMap).when(service).integerToDouble(kakeiboMap);
+		
+		//月別費目別の情報を支出額から支出割合に変更してMapにセット
+		Map<String,Double> rateMap = new HashMap<>();
+		rateMap.put("食費", 100.0);
 		doReturn(rateMap).when(service).culcRate(integerToDoubleMap);
 
 		
@@ -134,6 +138,7 @@ class KakeiboControllerTest {
 				.andExpect(view().name("kakeibo/breakdown-income-balance"))
 				.andReturn();
 		
+		//上記でセットしたMapの情報がmodelに格納されているか確認
 		ModelAndView mavTotalAmountMap = result.getModelAndView();
 		assertEquals(totalAmountMap,mavTotalAmountMap.getModel().get("totalAmountMap"));
 		
