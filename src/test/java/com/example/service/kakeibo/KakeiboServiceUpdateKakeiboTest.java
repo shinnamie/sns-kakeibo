@@ -65,11 +65,9 @@ class KakeiboServiceUpdateKakeiboTest {
 		
 		// Mapperクラス実行
 		kakeiboMapper.update(kakeibo);
-		System.out.println(kakeibo);
 		
 		// 更新後を取得
 		Kakeibo updateKakeibo = kakeiboService.findByKakeiboId(1L);
-		System.out.println(updateKakeibo);
 		
 		// 検証(更新後の値になっているか)
 		assertEquals(kakeibo.getPaymentDate(), updateKakeibo.getPaymentDate());

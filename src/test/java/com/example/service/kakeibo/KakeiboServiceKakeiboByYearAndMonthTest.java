@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,20 +24,14 @@ import com.example.repository.kakeibo.KakeiboMapper;
 @SpringBootTest
 class KakeiboServiceKakeiboByYearAndMonthTest {
 	
-	@InjectMocks
-	private KakeiboService kakeiboService;
+	private List<Kakeibo> kakeiboList;
+	private Kakeibo kakeibo;
 	
-	@Mock
-	private KakeiboMapper kakeiboMapper;
-	
-	// 異常系
-	
-	@Test
-	@DisplayName("該当年月が存在しない時、エラーメッセージを返す")
-	void testNotYearAndMonth() throws Exception {
+	@BeforeEach
+	void setUp() throws Exception {
 		// テスト準備(2022年11月のデータをセット)
-		List<Kakeibo> kakeiboList = new ArrayList<>();
-		Kakeibo kakeibo = new Kakeibo();
+		kakeiboList = new ArrayList<>();
+		kakeibo = new Kakeibo();
 		kakeibo.setId(1);
 		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
 		kakeibo.setExpenseItemId(2);
@@ -51,6 +46,19 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 		settlement.setSettlementName("現金");
 		kakeibo.setSettlement(settlement);
 		kakeiboList.add(kakeibo);
+	}
+	
+	@InjectMocks
+	private KakeiboService kakeiboService;
+	
+	@Mock
+	private KakeiboMapper kakeiboMapper;
+	
+	// 異常系
+	
+	@Test
+	@DisplayName("該当年月が存在しない時、エラーメッセージを返す")
+	void testNotYearAndMonth() throws Exception {
 		
 		when(kakeiboMapper.findKakeiboByYearAndMonth(anyString(), anyString())).thenReturn(null);
 		// 検証
@@ -63,23 +71,6 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 	@Test
 	@DisplayName("年月共に入力されている時、リストを返す")
 	void testFindKakeiboByYearAndMonth() throws Exception {
-		// テスト準備(2022年11月のデータをセット)
-		List<Kakeibo> kakeiboList = new ArrayList<>();
-		Kakeibo kakeibo = new Kakeibo();
-		kakeibo.setId(1);
-		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
-		kakeibo.setExpenseItemId(2);
-		kakeibo.setExpenditureAmount(5000);
-		kakeibo.setIncomeAmount(0);
-		ExpenseItem expenseItem = new ExpenseItem();
-		expenseItem.setId(4);
-		expenseItem.setExpenseItemName("食費");
-		kakeibo.setExpenseItem(expenseItem);
-		Settlement settlement = new Settlement();
-		settlement.setId(2);
-		settlement.setSettlementName("現金");
-		kakeibo.setSettlement(settlement);
-		kakeiboList.add(kakeibo);
 		
 		when(kakeiboMapper.findKakeiboByYearAndMonth(anyString(), anyString())).thenReturn(kakeiboList);
 		// year:2022 , month:11 を渡す
@@ -91,23 +82,6 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 	@Test
 	@DisplayName("年のみ入力されている時のテスト")
 	void testMontIsNull() throws Exception {
-		// テスト準備(2022年11月のデータをセット)
-		List<Kakeibo> kakeiboList = new ArrayList<>();
-		Kakeibo kakeibo = new Kakeibo();
-		kakeibo.setId(1);
-		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
-		kakeibo.setExpenseItemId(2);
-		kakeibo.setExpenditureAmount(5000);
-		kakeibo.setIncomeAmount(0);
-		ExpenseItem expenseItem = new ExpenseItem();
-		expenseItem.setId(4);
-		expenseItem.setExpenseItemName("食費");
-		kakeibo.setExpenseItem(expenseItem);
-		Settlement settlement = new Settlement();
-		settlement.setId(2);
-		settlement.setSettlementName("現金");
-		kakeibo.setSettlement(settlement);
-		kakeiboList.add(kakeibo);
 		
 		when(kakeiboMapper.findKakeiboByYearAndMonth(anyString(), anyString())).thenReturn(kakeiboList);
 		// year:2022, month:"" を渡す
@@ -119,23 +93,6 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 	@Test
 	@DisplayName("正常な値の時、収支計算結果を表示する")
 	void testMonthlyBalanceCalculationResult() throws Exception {
-		// テスト準備(2022年11月のデータをセット)
-		List<Kakeibo> kakeiboList = new ArrayList<>();
-		Kakeibo kakeibo = new Kakeibo();
-		kakeibo.setId(1);
-		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
-		kakeibo.setExpenseItemId(2);
-		kakeibo.setExpenditureAmount(5000);
-		kakeibo.setIncomeAmount(0);
-		ExpenseItem expenseItem = new ExpenseItem();
-		expenseItem.setId(4);
-		expenseItem.setExpenseItemName("食費");
-		kakeibo.setExpenseItem(expenseItem);
-		Settlement settlement = new Settlement();
-		settlement.setId(2);
-		settlement.setSettlementName("現金");
-		kakeibo.setSettlement(settlement);
-		kakeiboList.add(kakeibo);
 		
 		// 収支結果に値をセット
 		MonthlyBalanceCalculationResult calc = new MonthlyBalanceCalculationResult();
