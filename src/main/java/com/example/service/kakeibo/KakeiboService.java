@@ -53,8 +53,8 @@ public class KakeiboService {
 	 * 
 	 * @param kakeibo
 	 */
-	public void updateKakeibo(Kakeibo kakeibo) {
-		kakeiboMapper.update(kakeibo);
+	public boolean updateKakeibo(Kakeibo kakeibo) {
+		return kakeiboMapper.update(kakeibo);
 	}
 
 	/**

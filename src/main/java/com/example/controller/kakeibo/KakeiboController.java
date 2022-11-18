@@ -103,7 +103,7 @@ public class KakeiboController {
 	 * @return
 	 */
 	@PostMapping("/update")
-	public String updateKakeibo(@Validated EditKakeiboForm editKakeiboForm, BindingResult result) {
+	public String updateKakeibo(@Validated EditKakeiboForm editKakeiboForm, BindingResult result, Model model) {
 		
 		// 入力値エラーの際は編集画面を表示する
 		if (result.hasErrors()) {
@@ -116,7 +116,10 @@ public class KakeiboController {
 		BeanUtils.copyProperties(editKakeiboForm, kakeibo);
 
 		// 更新処理の実行
-		kakeiboService.updateKakeibo(kakeibo);
+		if (!kakeiboService.updateKakeibo(kakeibo)) {
+			model.addAttribute("errorMessage", "更新が失敗しました");
+			return "kakeibo/edit";
+		}
 
 		return "redirect:/kakeibo/list";
 	}

@@ -38,7 +38,7 @@ public interface KakeiboMapper {
 	 * 
 	 * @param kakeibo
 	 */
-	void update(Kakeibo kakeibo);
+	boolean update(Kakeibo kakeibo);
 
 	/**
 	 * 論理削除フラグ
