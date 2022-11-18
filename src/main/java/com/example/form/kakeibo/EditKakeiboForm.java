@@ -31,11 +31,11 @@ public class EditKakeiboForm {
 	/** 支出金額 */
 	@Max(value = 99999999)
 	@Min(value = 0)
-	private String expenditureAmount;
+	private Integer expenditureAmount;
 	/** 収入金額 */
 	@Max(value = 99999999)
 	@Min(value = 0)
-	private String incomeAmount;
+	private Integer incomeAmount;
 	/** 決済Id */
 	private Integer settlementId;
 	/** 利用店舗 */

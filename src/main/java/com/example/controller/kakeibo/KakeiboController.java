@@ -92,10 +92,6 @@ public class KakeiboController {
 		// 値をコピー(kakeibo→editKakeiboForm)
 		BeanUtils.copyProperties(kakeibo, editKakeiboForm);
 
-		// 収入金額と支出金額に関してはdomainと型が異なるため手動でセット
-		editKakeiboForm.setExpenditureAmount(kakeibo.getExpenditureAmount().toString());
-		editKakeiboForm.setIncomeAmount(kakeibo.getIncomeAmount().toString());
-
 		return "kakeibo/edit";
 	}
 	
@@ -118,10 +114,6 @@ public class KakeiboController {
 
 		// 値をdomainにコピー
 		BeanUtils.copyProperties(editKakeiboForm, kakeibo);
-
-		// 支出金額と収入金額を変換してセット
-		kakeibo.setExpenditureAmount(Integer.parseInt(editKakeiboForm.getExpenditureAmount()));
-		kakeibo.setIncomeAmount(Integer.parseInt(editKakeiboForm.getIncomeAmount()));
 
 		// 更新処理の実行
 		kakeiboService.updateKakeibo(kakeibo);
