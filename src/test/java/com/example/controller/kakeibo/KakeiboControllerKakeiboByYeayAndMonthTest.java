@@ -13,10 +13,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,22 +39,6 @@ class KakeiboControllerKakeiboByYeayAndMonthTest {
 	
 	@MockBean
 	private KakeiboService kakeiboService;
-
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
 	
 	/** getKakeiboByYearAndMonth(年別・月別集計結果を表示する画面(kakeiboByYearAndMonth.html)を表示)のテスト */
 
@@ -79,9 +59,9 @@ class KakeiboControllerKakeiboByYeayAndMonthTest {
 	@DisplayName("該当年月が存在しない時、エラーメッセージを返す")
 	void testNotYearAndMonth() throws Exception {
 		// テスト準備(2022年11月のデータをセット)
-		List<Kakeibo> kakeiboMonthList = new ArrayList<>();
+		List<Kakeibo> kakeiboList = new ArrayList<>();
 		Kakeibo kakeibo = new Kakeibo();
-		kakeibo.setId(1);
+		kakeibo.setId(1L);
 		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
 		kakeibo.setExpenseItemId(2);
 		kakeibo.setExpenditureAmount(5000);
@@ -94,7 +74,7 @@ class KakeiboControllerKakeiboByYeayAndMonthTest {
 		settlement.setId(2);
 		settlement.setSettlementName("現金");
 		kakeibo.setSettlement(settlement);
-		kakeiboMonthList.add(kakeibo);
+		kakeiboList.add(kakeibo);
 		
 		when(kakeiboService.findKakeiboByYearAndMonth(anyString(), anyString())).thenReturn(null);
 		// 検証&実行
