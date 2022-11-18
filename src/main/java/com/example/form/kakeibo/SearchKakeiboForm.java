@@ -1,8 +1,8 @@
 package com.example.form.kakeibo;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-
-import org.hibernate.validator.constraints.Range;
 
 import lombok.Data;
 
@@ -11,7 +11,8 @@ public class SearchKakeiboForm {
 
 	/** 年 */
 	@NotBlank
-	@Range(min = 1950, max = 2050)
+	@Max(value = 2050)
+	@Min(value = 1950)
 	private String year;
 	
 	/** 月 */
