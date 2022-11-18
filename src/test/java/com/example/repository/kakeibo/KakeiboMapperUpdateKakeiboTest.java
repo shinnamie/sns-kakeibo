@@ -94,10 +94,10 @@ class KakeiboMapperUpdateKakeiboTest {
 		Kakeibo updateKakeibo = kakeiboMapper.findByKakeiboId(1L);
 		
 		// 検証(更新後の値になっているか)
-		assertEquals(LocalDate.parse("2022-11-11"), updateKakeibo.getPaymentDate());
-		assertEquals(8, updateKakeibo.getExpenseItemId());
-		assertEquals(3000, updateKakeibo.getExpenditureAmount());
-		assertEquals(0, updateKakeibo.getIncomeAmount());
+		assertEquals(kakeibo.getPaymentDate(), updateKakeibo.getPaymentDate());
+		assertEquals(kakeibo.getExpenseItemId(), updateKakeibo.getExpenseItemId());
+		assertEquals(kakeibo.getExpenditureAmount(), updateKakeibo.getExpenditureAmount());
+		assertEquals(kakeibo.getIncomeAmount(), updateKakeibo.getIncomeAmount());
 	}
 
 }
