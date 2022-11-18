@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.kakeibo.DeletedKakeibo;
@@ -54,7 +55,12 @@ public class KakeiboService {
 	 * @param kakeibo
 	 */
 	public boolean updateKakeibo(Kakeibo kakeibo) {
-		return kakeiboMapper.update(kakeibo);
+		try {
+			kakeiboMapper.update(kakeibo);
+			return true;
+		} catch (DataIntegrityViolationException e) {
+			return false;
+		}
 	}
 
 	/**
