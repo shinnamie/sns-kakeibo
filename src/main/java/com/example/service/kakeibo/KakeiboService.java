@@ -35,7 +35,7 @@ public class KakeiboService {
 	 * @param id 家計簿id
 	 * @return kakeibo 家計簿
 	 */
-	public Kakeibo findByKakeiboId(Integer id) {
+	public Kakeibo findByKakeiboId(Long id) {
 		return kakeiboMapper.findByKakeiboId(id);
 	}
 
@@ -53,7 +53,7 @@ public class KakeiboService {
 	 * 
 	 * @param kakeibo
 	 */
-	public void update(Kakeibo kakeibo) {
+	public void updateKakeibo(Kakeibo kakeibo) {
 		kakeiboMapper.update(kakeibo);
 	}
 
@@ -94,7 +94,11 @@ public class KakeiboService {
 	 * @return 集計結果
 	 */
 	public List<Kakeibo> findKakeiboByYearAndMonth(String year, String month) {
-		return kakeiboMapper.findKakeiboByYearAndMonth(year, month);
+		List<Kakeibo> kakeiboList = kakeiboMapper.findKakeiboByYearAndMonth(year, month);
+		if (kakeiboList == null || kakeiboList.size() == 0) {
+			return null;
+		}
+		return kakeiboList;
 	}
 
 	/**

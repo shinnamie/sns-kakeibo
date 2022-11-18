@@ -54,7 +54,7 @@
                 </form>
 
                 <!-- データが存在しない場合のメッセージ -->
-                <div th:if="${message}" th:text="${message}" style="color: red;"></div>
+                <div th:unless="${kakeiboList}" th:text="${message}" style="color: red;"></div>
 
                 <!-- 収支計算ボックス -->
                 <div th:if="${result}">
@@ -109,7 +109,7 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="kakeibo : ${kakeiboList}" class="align-middle">
-                                        <td th:text="${kakeibo.settlementDate}">2022-09-01</td>
+                                        <td th:text="${kakeibo.paymentDate}">2022-09-01</td>
                                         <td th:text="${kakeibo.expenseItem.expenseItemName}">3</td>
                                         <td th:if="${kakeibo.expenditureAmount >= 1000}" th:text="${#numbers.formatInteger(kakeibo.expenditureAmount, 3, 'COMMA')} + '円'">3000</td>
                                         <td th:unless="${kakeibo.expenditureAmount >= 1000}" th:text="${kakeibo.expenditureAmount} + '円'">100</td>
@@ -120,7 +120,7 @@
                                         <td th:text="${kakeibo.remarks}">テストテスト</td>
                                         <td th:text="${#dates.format(kakeibo.insertAt, 'yyyy月MM月dd日')}">2022-09-01</td>
                                         <td>
-                                            <form th:action="@{/kakeibo/update}">
+                                            <form th:action="@{/kakeibo/edit}">
                                                 <input name="id" type="hidden" th:value="${kakeibo.id}">
                                                 <button type="submit"><i class="fa-solid fa-pen"></i></button>
                                             </form>
