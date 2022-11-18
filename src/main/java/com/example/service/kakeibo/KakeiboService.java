@@ -135,8 +135,9 @@ public class KakeiboService {
 	@Transactional(readOnly = true)
 	public List<Kakeibo> totalByIncomeAndExpenditureBreakdown(String yearAndMonth) {
 		List<Kakeibo> kakeiboItemList = kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
-		
-		if(kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth) == null || kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth).size() == 0) {
+
+		if (kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth) == null
+				|| kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth).size() == 0) {
 			return null;
 		}
 		return kakeiboItemList;
@@ -149,8 +150,8 @@ public class KakeiboService {
 	 * @return Map<String, Integer>
 	 */
 	public Map<String, Integer> findBreakdown(List<Kakeibo> kakeiboItemList) {
-		
-		if(kakeiboItemList == null || kakeiboItemList.size() == 0) {
+
+		if (kakeiboItemList == null || kakeiboItemList.size() == 0) {
 			return null;
 		}
 
@@ -190,7 +191,7 @@ public class KakeiboService {
 	 * 
 	 */
 	public Map<String, Integer> totalAmountMap(Map<String, Integer> kakeiboItemMap) {
-		if(kakeiboItemMap.isEmpty()) {
+		if (kakeiboItemMap.isEmpty()) {
 			return null;
 		}
 		// Mapを生成
@@ -207,7 +208,7 @@ public class KakeiboService {
 	 * 
 	 */
 	public Map<String, Integer> itemExpenseMap(Map<String, Integer> kakeiboItemMap) {
-		if(kakeiboItemMap.isEmpty()) {
+		if (kakeiboItemMap.isEmpty()) {
 			return null;
 		}
 		kakeiboItemMap.remove("総収入");
@@ -222,7 +223,7 @@ public class KakeiboService {
 	 * 
 	 */
 	public Map<String, Double> integerToDouble(Map<String, Integer> kakeiboItemMap) {
-		if(kakeiboItemMap.isEmpty()) {
+		if (kakeiboItemMap.isEmpty()) {
 			return null;
 		}
 		return kakeiboItemMap.entrySet().stream()
@@ -235,13 +236,13 @@ public class KakeiboService {
 	 * 
 	 */
 	public Map<String, Double> culcRate(Map<String, Double> doubleMap) {
-		if(doubleMap == null) {
+		if (doubleMap.isEmpty()) {
 			return null;
 		}
 
 		// 総支出を変数に格納
 		Double totalExpenditureAmount = doubleMap.get("総支出");
-		
+
 		// 費目別の割合を格納するMapを生成
 		Map<String, Double> rateMap = new HashMap<>();
 

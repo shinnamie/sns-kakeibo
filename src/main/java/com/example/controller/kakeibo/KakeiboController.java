@@ -216,14 +216,12 @@ public class KakeiboController {
 		// 月初日と月末日を取得する
 		String firstDateAndLastDate = kakeiboService.getFirstDayAndLastDay(date);
 		model.addAttribute("firstDateAndLastDate", firstDateAndLastDate);
-//		model.addAttribute("date", date);
 
 		// 年と月をString型で取得
 		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 
 		// 選択されている年月の費目別の支出・収入を算出する
 		List<Kakeibo> kakeiboList = kakeiboService.totalByIncomeAndExpenditureBreakdown(yearAndMonth);
-		System.out.println(kakeiboList);
 		if (kakeiboList == null || kakeiboList.size() == 0) { // データが存在しない場合
 			model.addAttribute("message", "該当月のデータが存在しません。");
 			return "kakeibo/breakdown-income-balance";
@@ -235,11 +233,11 @@ public class KakeiboController {
 			// 総収入・総支出・収支のMapを取得
 			Map<String, Integer> totalAmountMap = kakeiboService.totalAmountMap(kakeiboMap);
 
-			// 費目の総支出を格納したMapを呼び出す Map<費目名,支出額>
-			Map<String, Integer> itemExpenceMap = kakeiboService.itemExpenseMap(kakeiboMap);
-
 			// Map内の費目別の割合を計算 Map<費目名,割合>
 			Map<String, Double> rateMap = kakeiboService.culcRate(kakeiboService.integerToDouble(kakeiboMap));
+
+			// 費目の総支出を格納したMapを呼び出す Map<費目名,支出額>
+			Map<String, Integer> itemExpenceMap = kakeiboService.itemExpenseMap(kakeiboMap);
 
 			// スコープに格納
 			model.addAttribute("totalAmountMap", totalAmountMap);
