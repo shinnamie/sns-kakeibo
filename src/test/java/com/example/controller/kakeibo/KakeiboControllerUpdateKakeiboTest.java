@@ -11,12 +11,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDate;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,22 +35,6 @@ class KakeiboControllerUpdateKakeiboTest {
 	
 	@MockBean
 	private KakeiboService kakeiboService;
-
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
 	
 	/** editKakeibo(家計簿を更新する画面(edit.html)を表示)のテスト */
 
@@ -78,12 +59,22 @@ class KakeiboControllerUpdateKakeiboTest {
 		
 		when(kakeiboService.findByKakeiboId(anyLong())).thenReturn(kakeibo);
 		
+		// DB登録情報を表示するためセット
+		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
+		editKakeiboForm.setId(1L);
+		editKakeiboForm.setPaymentDate(LocalDate.parse("2022-11-04"));
+		editKakeiboForm.setExpenseItemId(2);
+		editKakeiboForm.setExpenditureAmount(5000);
+		editKakeiboForm.setIncomeAmount(0);
+		editKakeiboForm.setExpenseItem(expenseItem);
+		editKakeiboForm.setSettlement(settlement);
+		
 		// 検証&実行
 		mockMvc.perform(get("/kakeibo/edit")
 				.param("id", "1"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("kakeibo/edit"))
-				.andReturn();
+				.andExpect(model().attribute("editKakeiboForm", editKakeiboForm))
+				.andExpect(view().name("kakeibo/edit"));
 	}
 	
 	/** updateKakeibo(家計簿を更新する処理)のテスト */
@@ -96,14 +87,12 @@ class KakeiboControllerUpdateKakeiboTest {
 		// パラメータに値をセット(決済日付以外)
 		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
 		editKakeiboForm.setPaymentDate(null);
-		editKakeiboForm.setExpenseItemId(2);
-		editKakeiboForm.setExpenditureAmount(5000);
-		editKakeiboForm.setIncomeAmount(0);
 		
 		// 検証&実行
 		mockMvc.perform(post("/kakeibo/update")
 				.flashAttr("editKakeiboForm", editKakeiboForm))
 		.andExpect(model().hasErrors())
+		.andExpect(model().attributeHasErrors("editKakeiboForm"))
 		.andExpect(view().name("kakeibo/edit"));
 	}
 	
@@ -112,15 +101,13 @@ class KakeiboControllerUpdateKakeiboTest {
 	void testExpenseItemIdIsNull() throws Exception {
 		// パラメータに値をセット(費目ID以外)
 		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
-		editKakeiboForm.setPaymentDate(LocalDate.parse("2022-11-04"));
 		editKakeiboForm.setExpenseItemId(null);
-		editKakeiboForm.setExpenditureAmount(5000);
-		editKakeiboForm.setIncomeAmount(0);
 		
 		// 検証&実行
 		mockMvc.perform(post("/kakeibo/update")
 				.flashAttr("editKakeiboForm", editKakeiboForm))
 		.andExpect(model().hasErrors())
+		.andExpect(model().attributeHasErrors("editKakeiboForm"))
 		.andExpect(view().name("kakeibo/edit"));
 	}
 	
@@ -129,15 +116,13 @@ class KakeiboControllerUpdateKakeiboTest {
 	void testExpenditureAmountIsNull() throws Exception {
 		// パラメータに値をセット(支出金額以外)
 		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
-		editKakeiboForm.setPaymentDate(LocalDate.parse("2022-11-04"));
-		editKakeiboForm.setExpenseItemId(2);
 		editKakeiboForm.setExpenditureAmount(null);
-		editKakeiboForm.setIncomeAmount(0);
 		
 		// 検証&実行
 		mockMvc.perform(post("/kakeibo/update")
 				.flashAttr("editKakeiboForm", editKakeiboForm))
 		.andExpect(model().hasErrors())
+		.andExpect(model().attributeHasErrors("editKakeiboForm"))
 		.andExpect(view().name("kakeibo/edit"));
 	}
 	
@@ -146,15 +131,13 @@ class KakeiboControllerUpdateKakeiboTest {
 	void testIncomeAmountIsNull() throws Exception {
 		// パラメータに値をセット(収入金額以外)
 		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
-		editKakeiboForm.setPaymentDate(LocalDate.parse("2022-11-04"));
-		editKakeiboForm.setExpenseItemId(2);
-		editKakeiboForm.setExpenditureAmount(5000);
 		editKakeiboForm.setIncomeAmount(null);
 		
 		// 検証&実行
 		mockMvc.perform(post("/kakeibo/update")
 				.flashAttr("editKakeiboForm", editKakeiboForm))
 		.andExpect(model().hasErrors())
+		.andExpect(model().attributeHasErrors("editKakeiboForm"))
 		.andExpect(view().name("kakeibo/edit"));
 	}
 	
@@ -163,12 +146,18 @@ class KakeiboControllerUpdateKakeiboTest {
 	@Test
 	@DisplayName("入力項目に問題がない時、更新に成功する")
 	void testSuccess() throws Exception {
-		// パラメータに値をセット(全て)
+		
+		Kakeibo kakeibo = new Kakeibo();
+		
 		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
 		editKakeiboForm.setPaymentDate(LocalDate.parse("2022-11-04"));
 		editKakeiboForm.setExpenseItemId(2);
 		editKakeiboForm.setExpenditureAmount(5000);
 		editKakeiboForm.setIncomeAmount(0);
+		
+		BeanUtils.copyProperties(editKakeiboForm, kakeibo);
+		
+		when(kakeiboService.updateKakeibo(kakeibo)).thenReturn(true);
 		
 		// 検証&実行
 		mockMvc.perform(post("/kakeibo/update")
