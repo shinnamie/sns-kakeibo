@@ -50,7 +50,9 @@ public class DeleteControllerTest {
 	
 	@Test
 	@DisplayName("家計簿削除のテスト（正常）")
-	void deleteTest() throws Exception{
+	void deleteTrueTest() throws Exception{
+		
+		when(kakeiboService.deleteKakeibo(anyLong())).thenReturn(true);
 		
 		mockMvc.perform(post("/kakeibo/delete")
 		.param("id" , "1"))
@@ -61,7 +63,7 @@ public class DeleteControllerTest {
 	
 	@Test
 	@DisplayName("家計簿削除のテスト（異常）")
-	void deleteTest2() throws Exception{
+	void deleteFalseTest() throws Exception{
 //		// テスト準備
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(2L);
