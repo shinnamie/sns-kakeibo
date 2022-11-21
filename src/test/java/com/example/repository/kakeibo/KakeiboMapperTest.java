@@ -39,7 +39,7 @@ class KakeiboMapperTest {
 	}
 
 	@Test
-	@DisplayName("正常系：選択された月の家計簿情報を算出する")
+	@DisplayName("選択された月の家計簿情報を算出する")
 	void testFindKakeiboByYearAndMonth() throws Exception {
 		List<Kakeibo> kakeiboList = mapper.totalIncomeAndExpenditureBreakdown("2022-11");
 		assertTrue(0 <= kakeiboList.size());
