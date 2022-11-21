@@ -1,9 +1,11 @@
 package com.example.delete;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,7 +17,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.service.kakeibo.KakeiboService;
 
@@ -50,12 +51,7 @@ public class DeleteControllerTest {
 	@Test
 	@DisplayName("家計簿削除のテスト（正常）")
 	void deleteTest() throws Exception{
-		// テスト準備
-		Kakeibo kakeibo = new Kakeibo();
-		kakeibo.setId(1);
 		
-		//正常系
-		kakeiboService.deleteKakeibo(kakeibo.getId());
 		mockMvc.perform(post("/kakeibo/delete")
 		.param("id" , "1"))
 		.andExpect(status().isFound())
@@ -66,15 +62,17 @@ public class DeleteControllerTest {
 	@Test
 	@DisplayName("家計簿削除のテスト（異常）")
 	void deleteTest2() throws Exception{
-		// テスト準備
+//		// テスト準備
 		Kakeibo kakeibo = new Kakeibo();
-		kakeibo.setId(1);
+		kakeibo.setId(2L);
 		
-		//異常系
-		kakeiboService.deleteKakeibo(kakeibo.getId());
-		mockMvc.perform(post("/kakeibo/delete")
-		.param("id" , "null"))
-		.andExpect(status().isFound())
-		.andExpect(redirectedUrl("/kakeibo/list"));
+		when(kakeiboService.deleteKakeibo(anyLong())).thenReturn(false);
+		
+//		//異常系
+		boolean actual = kakeiboService.deleteKakeibo(kakeibo.getId());
+		
+		assertFalse(actual);
+		
+
 	}
 }
