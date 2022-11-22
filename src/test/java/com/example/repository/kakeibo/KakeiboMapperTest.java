@@ -43,7 +43,6 @@ class KakeiboMapperTest {
 	void testFindKakeiboByYearAndMonth() throws Exception {
 		List<Kakeibo> kakeiboList = mapper.totalIncomeAndExpenditureBreakdown("2022-11");
 		assertTrue(0 <= kakeiboList.size());
-		assertNotNull(kakeiboList.get(0));
 	}
 
 }
