@@ -25,7 +25,7 @@ public class DeleteServiceTest {
 	KakeiboMapper mapper;
 	
 	@Test
-	@DisplayName("家計簿の削除テスト（正常）")
+	@DisplayName("返す値がtrueの場合、正常に削除する")
 	void testKakeiboDelete() throws Exception{
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
@@ -40,7 +40,7 @@ public class DeleteServiceTest {
 
 	}
 	@Test
-	@DisplayName("家計簿の削除テスト（異常）")
+	@DisplayName("返す値がfalseの場合、削除出来ない")
 	void testKakeiboDeleteFalse() throws Exception{
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
