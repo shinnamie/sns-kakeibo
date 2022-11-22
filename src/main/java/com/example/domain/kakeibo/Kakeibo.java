@@ -30,7 +30,6 @@ public class Kakeibo {
 	private Timestamp insertAt;
 	/** 更新日 */
 	private Timestamp updateAt;
-	private boolean isDeleted;
 	/** 費目 */
 	private ExpenseItem expenseItem;
 	/** 決済 */
