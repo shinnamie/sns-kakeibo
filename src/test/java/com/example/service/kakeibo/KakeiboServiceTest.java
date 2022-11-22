@@ -175,17 +175,22 @@ class KakeiboServiceTest {
 
 		// 期待するMapを生成
 		Map<String, Integer> expectedItemExpenseMap = new HashMap<>();
-		expectedItemExpenseMap.put("総収入", 0);
-		expectedItemExpenseMap.put("総支出", 5000);
-		expectedItemExpenseMap.put("収支", -5000);
 		expectedItemExpenseMap.put("食費", 5000);
 		expectedItemExpenseMap.put("税・社会保障費", 10000);
 
+		// serviceクラス通すMapを生成
+		Map<String, Integer> toServiceItemExpenseMap = new HashMap<>();
+		toServiceItemExpenseMap.put("総収入", 0);// このメソッドでは取り除かれるはずの”総収入・総支出・収支”も追加
+		toServiceItemExpenseMap.put("総支出", 5000);
+		toServiceItemExpenseMap.put("収支", -5000);
+		toServiceItemExpenseMap.put("食費", 5000);
+		toServiceItemExpenseMap.put("税・社会保障費", 10000);
+
 		// serviceクラスのメソッドを通したMapを取得
-		Map<String, Integer> itemExpenseMap = service.totalAmountMap(expectedItemExpenseMap);
+		Map<String, Integer> itemExpenseMap = service.itemExpenseMap(toServiceItemExpenseMap);
 
 		// 正常処理
-		assertEquals(expectedItemExpenseMap.getClass(), itemExpenseMap.getClass());
+		assertEquals(expectedItemExpenseMap, itemExpenseMap);
 
 	}
 
