@@ -136,10 +136,10 @@ public class KakeiboService {
 	public List<Kakeibo> totalByIncomeAndExpenditureBreakdown(String yearAndMonth) {
 		List<Kakeibo> kakeiboItemList = kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
 
-		if (kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth) == null
-				|| kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth).size() == 0) {
+		if (kakeiboItemList == null || kakeiboItemList.size() == 0) {
 			return null;
 		}
+		
 		return kakeiboItemList;
 	}
 
