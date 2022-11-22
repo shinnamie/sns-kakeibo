@@ -57,8 +57,8 @@
                                         </form>
                                     </td>
                                     <td>
-                                    	 <!-- 更新が失敗した場合、エラーメッセージを表示する -->
-                <div th:if="			${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
+                                    	 <!-- 削除が失敗した場合、エラーメッセージを表示する -->
+                						<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
                                         <form th:action="@{/kakeibo/delete}" method="post">
                                             <input name="id" type="hidden" th:value="${kakeibo.id}">
                                             <button type="submit"><i class="fa-solid fa-trash"></i></button>

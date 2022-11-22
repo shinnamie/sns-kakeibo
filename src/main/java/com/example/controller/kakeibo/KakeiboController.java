@@ -180,7 +180,7 @@ public class KakeiboController {
 	public String deleteKakeibo(long id , Model model) {
 		if (!kakeiboService.deleteKakeibo(id)) {
 			model.addAttribute("errorMessage", "削除に失敗しました");
-			return "redirect:/kakeibo/list";}
+			return "kakeibo/list";}
 		else {
 			kakeiboService.deleteKakeibo(id);
 			return "redirect:/kakeibo/list";
