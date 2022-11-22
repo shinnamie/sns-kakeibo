@@ -109,8 +109,8 @@ class KakeiboServiceTest {
 		// serviceクラスのメソッドを通したMapを取得
 		Map<String, Integer> kakeiboItemMap = service.findBreakdown(kakeiboList);
 
-		// null処理
-		assertEquals(expectedKakeiboItemMap.getClass(), kakeiboItemMap.getClass());
+		// 正常処理
+		assertEquals(expectedKakeiboItemMap, kakeiboItemMap);
 
 	}
 
