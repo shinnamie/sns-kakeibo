@@ -43,22 +43,6 @@ class KakeiboServiceTest {
 	@InjectMocks // モックオブジェクトの注入
 	KakeiboService service;
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
 	@Test
 	@DisplayName("正常系：選択された月の費目別の支出・収入をListで返す")
 	void testTotalByIncomeAndExpenditureBreakdown() throws Exception {
@@ -74,8 +58,8 @@ class KakeiboServiceTest {
 		List<Kakeibo> serviceKakeiboList = service.totalByIncomeAndExpenditureBreakdown(anyString());
 
 		// 正常処理
-		assertEquals(mapperKakeiboList.getClass(), serviceKakeiboList.getClass());
-
+		assertEquals(mapperKakeiboList, serviceKakeiboList);
+		
 	}
 
 	@Test
