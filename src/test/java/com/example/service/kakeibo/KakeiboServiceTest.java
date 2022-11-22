@@ -224,10 +224,10 @@ class KakeiboServiceTest {
 		integerMap.put("税・社会保障費", 10000);
 
 		// serviceクラスのメソッドを通したMapを取得
-		Map<String, Integer> stillIntegerMap = service.totalAmountMap(integerMap);
+		Map<String, Double> doubleMap = service.integerToDouble(integerMap);
 
 		// 正常処理
-		assertEquals(stillIntegerMap.getClass(), integerToDoubleMap.getClass());
+		assertEquals(integerToDoubleMap,doubleMap);
 
 	}
 
