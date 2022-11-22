@@ -59,7 +59,7 @@ class KakeiboServiceTest {
 
 		// 正常処理
 		assertEquals(mapperKakeiboList, serviceKakeiboList);
-		
+
 	}
 
 	@Test
@@ -138,13 +138,19 @@ class KakeiboServiceTest {
 		expectedTotalAmountMap.put("総収入", 0);
 		expectedTotalAmountMap.put("総支出", 5000);
 		expectedTotalAmountMap.put("収支", -5000);
-		expectedTotalAmountMap.put("食費", 5000); // このメソッドでは取り除かれるはずの”食費”も追加
+
+		// serviceクラスを通すMapを生成
+		Map<String, Integer> toServiceTotalAmountMap = new HashMap<>();
+		toServiceTotalAmountMap.put("総収入", 0);
+		toServiceTotalAmountMap.put("総支出", 5000);
+		toServiceTotalAmountMap.put("収支", -5000);
+		toServiceTotalAmountMap.put("食費", 5000); // このメソッドでは取り除かれるはずの”食費”も追加
 
 		// serviceクラスのメソッドを通したMapを取得
-		Map<String, Integer> totalAmountMap = service.totalAmountMap(expectedTotalAmountMap);
+		Map<String, Integer> totalAmountMap = service.totalAmountMap(toServiceTotalAmountMap);
 
 		// 正常処理
-		assertEquals(expectedTotalAmountMap.getClass(), totalAmountMap.getClass());
+		assertEquals(expectedTotalAmountMap, totalAmountMap);
 
 	}
 
@@ -234,7 +240,5 @@ class KakeiboServiceTest {
 		assertNull(itemExpenseMap);
 
 	}
-	
-	
 
 }
