@@ -1,7 +1,6 @@
 package com.example.service.kakeibo;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -12,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import com.example.domain.kakeibo.ExpenseItem;
 import com.example.domain.kakeibo.Kakeibo;
@@ -55,40 +55,32 @@ class KakeiboServiceUpdateKakeiboTest {
 	@DisplayName("入力項目に問題がない時、更新に成功する")
 	void testSuccess() throws Exception {
 		
-		when(kakeiboService.findByKakeiboId(anyLong())).thenReturn(kakeibo);
-		
 		// 更新後の値をセット
 		kakeibo.setPaymentDate(LocalDate.parse("2022-11-11"));
 		kakeibo.setExpenseItemId(8);
 		kakeibo.setExpenditureAmount(3000);
 		kakeibo.setIncomeAmount(0);
 		
-		// Mapperクラス実行
-		kakeiboMapper.update(kakeibo);
+		when(kakeiboMapper.update(kakeibo)).thenReturn(true);
 		
-		// 更新後を取得
-		Kakeibo updateKakeibo = kakeiboService.findByKakeiboId(1L);
-		
-		// 検証(更新後の値になっているか)
-		assertEquals(kakeibo.getPaymentDate(), updateKakeibo.getPaymentDate());
-		assertEquals(kakeibo.getExpenseItemId(), updateKakeibo.getExpenseItemId());
-		assertEquals(kakeibo.getExpenditureAmount(), updateKakeibo.getExpenditureAmount());
-		assertEquals(kakeibo.getIncomeAmount(), updateKakeibo.getIncomeAmount());
+		// 検証
+		boolean actual = kakeiboService.updateKakeibo(kakeibo);
+		assertTrue(actual);
 	}
 	
 	// 異常系
 	
 		@Test
-		@DisplayName("決済日時がnullの時、更新に失敗する")
+		@DisplayName("決済日付がnullの時、更新に失敗する")
 		void testPaymentDateIsNull() throws Exception {
 			
-			when(kakeiboService.findByKakeiboId(anyLong())).thenReturn(kakeibo);
-			
-			// 更新後の値をセット
+			// 決済日付をnullでセット
 			kakeibo.setPaymentDate(null);
+			
+			when(kakeiboMapper.update(kakeibo)).thenThrow(new DataIntegrityViolationException(null));
 		
 			// 検証
-			boolean autual = kakeiboMapper.update(kakeibo);
+			boolean autual = kakeiboService.updateKakeibo(kakeibo);
 			assertFalse(autual);
 		}
 		
@@ -96,13 +88,13 @@ class KakeiboServiceUpdateKakeiboTest {
 		@DisplayName("費目IDがnullの時、更新に失敗する")
 		void testExpenseItemIdIsNull() throws Exception {
 			
-			when(kakeiboService.findByKakeiboId(anyLong())).thenReturn(kakeibo);
-			
-			// 更新後の値をセット
+			// 費目IDをnullでセット
 			kakeibo.setExpenseItemId(null);
+			
+			when(kakeiboMapper.update(kakeibo)).thenThrow(new DataIntegrityViolationException(null));
 		
 			// 検証
-			boolean autual = kakeiboMapper.update(kakeibo);
+			boolean autual = kakeiboService.updateKakeibo(kakeibo);
 			assertFalse(autual);
 		}
 		
@@ -110,13 +102,13 @@ class KakeiboServiceUpdateKakeiboTest {
 		@DisplayName("支出金額がnullの時、更新に失敗する")
 		void testError() throws Exception {
 			
-			when(kakeiboService.findByKakeiboId(anyLong())).thenReturn(kakeibo);
-			
-			// 更新後の値をセット
+			// 支出金額をnullでセット
 			kakeibo.setExpenditureAmount(null);
+			
+			when(kakeiboMapper.update(kakeibo)).thenThrow(new DataIntegrityViolationException(null));
 		
 			// 検証
-			boolean autual = kakeiboMapper.update(kakeibo);
+			boolean autual = kakeiboService.updateKakeibo(kakeibo);
 			assertFalse(autual);
 		}
 		
@@ -124,13 +116,13 @@ class KakeiboServiceUpdateKakeiboTest {
 		@DisplayName("収入金額がnullの時、更新に失敗する")
 		void testIncomeAmounIsNull() throws Exception {
 			
-			when(kakeiboService.findByKakeiboId(anyLong())).thenReturn(kakeibo);
-			
-			// 更新後の値をセット
+			// 収入金額をnullでセット
 			kakeibo.setIncomeAmount(null);
+			
+			when(kakeiboMapper.update(kakeibo)).thenThrow(new DataIntegrityViolationException(null));
 		
 			// 検証
-			boolean autual = kakeiboMapper.update(kakeibo);
+			boolean autual = kakeiboService.updateKakeibo(kakeibo);
 			assertFalse(autual);
 		}
 
