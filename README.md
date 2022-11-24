@@ -1,6 +1,9 @@
 # 家計簿
 
 <details>
+ 
+  <summary>シーケンス図</summary>
+ 
  ```mermaid
 @startuml
 
