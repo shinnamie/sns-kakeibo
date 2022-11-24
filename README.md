@@ -1,8 +1,10 @@
 # 家計簿
 
+
+# ログイン機能
  
 <details>
-    <summary>ログイン機能シーケンス図</summary>
+    <summary>シーケンス図</summary>
   <br />
      ログイン機能のシーケンス図です。 <br>
  
