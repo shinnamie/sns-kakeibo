@@ -1,6 +1,5 @@
 # 家計簿
 
-[テーブル図](https://user-images.githubusercontent.com/105257899/203700586-a3977956-5702-493c-a911-968f4cfa9ed3.png)
 
 [ER図](https://user-images.githubusercontent.com/105257899/203700832-8655045e-650d-4127-aabb-ab518d2fd3a4.png)
 
