@@ -2,10 +2,9 @@
 
 <details>
  
-  <summary>シーケンス図</summary>
+  <summary>クラス図</summary>
  
  ```mermaid
-@startuml
 
 top to bottom direction
 
@@ -73,10 +72,6 @@ class LoginForm{
 
 }
 
-```
-</details>
-
-
 
 
 LoginController  ..>  LoginService 
@@ -89,7 +84,9 @@ SignUpService  ..>  SignUpMapper
 SignUpController -- SignUpForm
 SignUpController -- User
 
-@enduml
+ ```
+</details>
+
 
 
 # ログイン機能
