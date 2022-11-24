@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.kakeibo.Kakeibo;
@@ -62,10 +63,14 @@ public class KakeiboService {
 	 * 
 	 * @param id 
 	 */
-	public void deleteKakeibo(long id) {
-		kakeiboMapper.delete(id);
+	public boolean deleteKakeibo(long id) {
+		try {
+			kakeiboMapper.delete(id);
+			return true;
+		} catch (DataIntegrityViolationException e) {
+			return false;
+		}
 	}
-
 
 	/**
 	 * 本月の収支内訳を算出する
