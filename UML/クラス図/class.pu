@@ -1,0 +1,46 @@
+@startuml
+
+class loginController {
+
+    login(LoginForm loginForm)
+    logout(???)
+
+}
+
+class loginService{
+    
+    login(String mailAdderess , String password)
+    
+}
+
+class loginMapper{
+    
+    login(String mailAdderess , String password)
+    
+}
+
+class signUpController{
+
+    signUp(SignUpForm signUpForm)
+    
+}
+
+class signUpService{
+
+    signUp(User user)
+}
+
+class signUpMapper{
+
+    signUp(User user)
+}
+
+left to right direction
+
+loginController  -->  loginService 
+loginService  -->  loginMapper 
+
+signUpController  -->  signUpService 
+signUpService  -->  signUpMapper 
+
+@enduml
