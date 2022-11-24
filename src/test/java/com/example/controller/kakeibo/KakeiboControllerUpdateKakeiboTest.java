@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDate;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
@@ -30,19 +31,18 @@ import com.example.service.kakeibo.KakeiboService;
 @AutoConfigureMockMvc
 class KakeiboControllerUpdateKakeiboTest {
 	
+	Kakeibo kakeibo = new Kakeibo();
+	EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
+	
 	@Autowired
 	private MockMvc mockMvc;
 	
 	@MockBean
 	private KakeiboService kakeiboService;
 	
-	/** editKakeibo(家計簿を更新する画面(edit.html)を表示)のテスト */
-
-	@Test
-	@DisplayName("更新画面に遷移")
-	void testEditKakeibo() throws Exception {
+	@BeforeEach
+	void setUp() throws Exception {
 		// テスト準備
-		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
 		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
 		kakeibo.setExpenseItemId(2);
@@ -57,10 +57,7 @@ class KakeiboControllerUpdateKakeiboTest {
 		settlement.setSettlementName("現金");
 		kakeibo.setSettlement(settlement);
 		
-		when(kakeiboService.findByKakeiboId(anyLong())).thenReturn(kakeibo);
-		
 		// DB登録情報を表示するためセット
-		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
 		editKakeiboForm.setId(1L);
 		editKakeiboForm.setPaymentDate(LocalDate.parse("2022-11-04"));
 		editKakeiboForm.setExpenseItemId(2);
@@ -68,6 +65,16 @@ class KakeiboControllerUpdateKakeiboTest {
 		editKakeiboForm.setIncomeAmount(0);
 		editKakeiboForm.setExpenseItem(expenseItem);
 		editKakeiboForm.setSettlement(settlement);
+	}
+	
+	/** editKakeibo(家計簿を更新する画面(edit.html)を表示)のテスト */
+
+	@Test
+	@DisplayName("更新画面に遷移")
+	void testEditKakeibo() throws Exception {
+		
+		
+		when(kakeiboService.findByKakeiboId(anyLong())).thenReturn(kakeibo);
 		
 		// 検証&実行
 		mockMvc.perform(get("/kakeibo/edit")
@@ -84,8 +91,7 @@ class KakeiboControllerUpdateKakeiboTest {
 	@Test
 	@DisplayName("決済日付がnullの時、更新に失敗する")
 	void testPaymentDateIsNull() throws Exception {
-		// パラメータに値をセット(決済日付以外)
-		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
+		// 決済日付をnullでセット
 		editKakeiboForm.setPaymentDate(null);
 		
 		// 検証&実行
@@ -99,8 +105,7 @@ class KakeiboControllerUpdateKakeiboTest {
 	@Test
 	@DisplayName("費目IDがnullの時、更新に失敗する")
 	void testExpenseItemIdIsNull() throws Exception {
-		// パラメータに値をセット(費目ID以外)
-		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
+		// 費目IDをnullでセット
 		editKakeiboForm.setExpenseItemId(null);
 		
 		// 検証&実行
@@ -114,8 +119,7 @@ class KakeiboControllerUpdateKakeiboTest {
 	@Test
 	@DisplayName("支出金額がnullの時、更新に失敗する")
 	void testExpenditureAmountIsNull() throws Exception {
-		// パラメータに値をセット(支出金額以外)
-		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
+		// 支出金額をnullでセット
 		editKakeiboForm.setExpenditureAmount(null);
 		
 		// 検証&実行
@@ -129,8 +133,7 @@ class KakeiboControllerUpdateKakeiboTest {
 	@Test
 	@DisplayName("収入金額がnullの時、更新に失敗する")
 	void testIncomeAmountIsNull() throws Exception {
-		// パラメータに値をセット(収入金額以外)
-		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
+		// 収入以外をnullでセット
 		editKakeiboForm.setIncomeAmount(null);
 		
 		// 検証&実行
@@ -147,12 +150,10 @@ class KakeiboControllerUpdateKakeiboTest {
 	@DisplayName("入力項目に問題がない時、更新に成功する")
 	void testSuccess() throws Exception {
 		
-		Kakeibo kakeibo = new Kakeibo();
-		
-		EditKakeiboForm editKakeiboForm = new EditKakeiboForm();
-		editKakeiboForm.setPaymentDate(LocalDate.parse("2022-11-04"));
-		editKakeiboForm.setExpenseItemId(2);
-		editKakeiboForm.setExpenditureAmount(5000);
+		// 更新する値をセット
+		editKakeiboForm.setPaymentDate(LocalDate.parse("2022-11-11"));
+		editKakeiboForm.setExpenseItemId(8);
+		editKakeiboForm.setExpenditureAmount(3000);
 		editKakeiboForm.setIncomeAmount(0);
 		
 		BeanUtils.copyProperties(editKakeiboForm, kakeibo);
