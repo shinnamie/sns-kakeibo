@@ -235,7 +235,7 @@ public class KakeiboService {
 	 * 
 	 */
 	public Map<String, Double> culcRate(Map<String, Double> doubleMap) {
-		if(doubleMap == null) {
+		if(doubleMap.isEmpty()) {
 			return null;
 		}
 

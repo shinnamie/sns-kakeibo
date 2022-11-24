@@ -266,5 +266,20 @@ class KakeiboServiceTest {
 		assertEquals(expectedRateMap, serviceThroughRateMap);
 
 	}
+	
+	@Test
+	@DisplayName("異常系：Map内の費目別の割合を計算し、Map<費目名,割合>を返す")
+	void testCultRateNull() throws Exception {
+
+		// サービスクラスに渡すMapを生成
+		Map<String, Double> rateMap = new HashMap<>();
+
+		// serviceクラスのメソッドを通したMapを取得
+		Map<String, Double> serviceThroughRateMap = service.culcRate(rateMap);
+
+		// null処理
+		assertNull(serviceThroughRateMap);
+
+	}
 
 }
