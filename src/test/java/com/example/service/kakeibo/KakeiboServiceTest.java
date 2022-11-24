@@ -227,7 +227,7 @@ class KakeiboServiceTest {
 		Map<String, Double> doubleMap = service.integerToDouble(integerMap);
 
 		// 正常処理
-		assertEquals(integerToDoubleMap,doubleMap);
+		assertEquals(integerToDoubleMap, doubleMap);
 
 	}
 
@@ -243,6 +243,27 @@ class KakeiboServiceTest {
 
 		// null処理
 		assertNull(itemExpenseMap);
+
+	}
+
+	@Test
+	@DisplayName("正常系：Map内の費目別の割合を計算し、Map<費目名,割合>を返す")
+	void testCultRate() throws Exception {
+
+		// 期待するMapを生成
+		Map<String, Double> expectedRateMap = new HashMap<>();
+		expectedRateMap.put("食費", 50.0);
+
+		// サービスクラスに渡すMapを生成
+		Map<String, Double> rateMap = new HashMap<>();
+		rateMap.put("食費", 5000.0);
+		rateMap.put("総支出", 10000.0);
+
+		// serviceクラスのメソッドを通したMapを取得
+		Map<String, Double> serviceThroughRateMap = service.culcRate(rateMap);
+
+		// 正常処理
+		assertEquals(expectedRateMap, serviceThroughRateMap);
 
 	}
 
