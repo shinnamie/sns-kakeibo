@@ -43,7 +43,7 @@ class KakeiboServiceSaveKakeiboTest {
 
 	@Test
 	@DisplayName("例外が発生した際に、戻り値としてFalseを返す")
-	void whenUserIdDoesNotExist_throwException() {
+	void whenInvalidInformation_throwException() {
 		// 準備
 		when(mapper.saveKakeibo(kakeibo)).thenThrow(new DataIntegrityViolationException(null));
 
