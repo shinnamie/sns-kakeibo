@@ -236,7 +236,7 @@ public class KakeiboController {
 			Map<String, Integer> totalAmountMap = kakeiboService.totalAmountMap(kakeiboMap);
 
 			// Map内の費目別の割合を計算 Map<費目名,割合>
-			Map<String, Double> rateMap = kakeiboService.culcRate(kakeiboService.integerToDouble(kakeiboMap));
+			Map<String, Double> percentageMap = kakeiboService.culclatePercentage(kakeiboService.integerToDouble(kakeiboMap));
 
 			// 費目の総支出を格納したMapを呼び出す Map<費目名,支出額>
 			Map<String, Integer> itemExpenceMap = kakeiboService.itemExpenseMap(kakeiboMap);
@@ -244,7 +244,7 @@ public class KakeiboController {
 			// スコープに格納
 			model.addAttribute("totalAmountMap", totalAmountMap);
 			model.addAttribute("itemExpenceMap", itemExpenceMap);
-			model.addAttribute("rateItemMap", rateMap);
+			model.addAttribute("rateItemMap", percentageMap);
 		}
 
 		return "kakeibo/breakdown-income-balance";

@@ -234,7 +234,7 @@ public class KakeiboService {
 	 * 
 	 * 
 	 */
-	public Map<String, Double> culcRate(Map<String, Double> doubleMap) {
+	public Map<String, Double> culclatePercentage(Map<String, Double> doubleMap) {
 		if(doubleMap.isEmpty()) {
 			return null;
 		}
