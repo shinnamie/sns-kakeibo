@@ -1,5 +1,93 @@
 # 家計簿
 
+<details>
+ ```mermaid
+@startuml
+
+top to bottom direction
+
+class LoginController {
+
+    login(LoginForm loginForm)
+    logout(???)
+
+}
+
+class LoginService{
+    
+    login(String mailAdderess , String password)
+    
+}
+
+class LoginMapper{
+    
+    login(String mailAdderess , String password)
+    
+}
+
+class SignUpController{
+
+    signUp(SignUpForm signUpForm)
+    
+}
+
+class SignUpService{
+
+    signUp(User user)
+}
+
+class SignUpMapper{
+
+    signUp(User user)
+}
+
+class SignUpForm{
+
+    String mailAdderess
+    String password
+    String name
+    Integer age
+    Integer gender
+    String remarks
+}
+
+class User{
+
+    Long id
+    String mailAdderess
+    String password
+    String name
+    Integer age
+    Integer gender
+    String remarks
+    List<kakeibo> kakeiboList
+}
+
+class LoginForm{
+
+    String mailAdderess
+    String password
+
+}
+
+```
+</details>
+
+
+
+
+LoginController  ..>  LoginService 
+LoginService  ..>  LoginMapper 
+LoginController -- LoginForm
+LoginController -- User
+
+SignUpController  ..>  SignUpService 
+SignUpService  ..>  SignUpMapper 
+SignUpController -- SignUpForm
+SignUpController -- User
+
+@enduml
+
 
 # ログイン機能
  
