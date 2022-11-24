@@ -2,6 +2,7 @@
 
 <details>
  
+ 
   <summary>クラス図</summary>
  
  ```mermaid
@@ -86,6 +87,8 @@ SignUpController -- User
 
  ```
 </details>
+ 
+ @enduml
 
 
 
