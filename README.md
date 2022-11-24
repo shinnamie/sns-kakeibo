@@ -1,6 +1,6 @@
 # 家計簿
 
- ```mermaid
+ 
 <details>
     <summary>シーケンス図</summary>
   <br />
