@@ -1,0 +1,9 @@
+@startuml erd
+ !include tables.pu
+
+users ||..|| profile
+users ||..|{ kakeibo
+kakeibo ||..|| expense_item
+kakeibo ||..|| settlement
+
+ @enduml
