@@ -248,7 +248,7 @@ class KakeiboServiceTest {
 
 	@Test
 	@DisplayName("正常系：Map内の費目別の割合を計算し、Map<費目名,割合>を返す")
-	void testCulculatePercentage() throws Exception {
+	void testCalculatePercentage() throws Exception {
 		
 		// 期待するMapを生成
 		Map<String, Double> expectedPercentageMap = new HashMap<>();
@@ -260,7 +260,7 @@ class KakeiboServiceTest {
 		percentageMap.put("総支出", 10000.0);
 
 		// serviceクラスのメソッドを通したMapを取得
-		Map<String, Double> serviceThroughPercentageMap = service.culculatePercentage(percentageMap);
+		Map<String, Double> serviceThroughPercentageMap = service.calculatePercentage(percentageMap);
 
 		// 正常処理
 		assertEquals(percentageMap, serviceThroughPercentageMap);
@@ -269,13 +269,13 @@ class KakeiboServiceTest {
 	
 	@Test
 	@DisplayName("異常系：Map内の費目別の割合を計算し、Map<費目名,割合>を返す")
-	void testCulculatePercentageMapNull() throws Exception {
+	void testCalculatePercentageMapNull() throws Exception {
 
 		// サービスクラスに渡すMapを生成
 		Map<String, Double> percentageMap = new HashMap<>();
 
 		// serviceクラスのメソッドを通したMapを取得
-		Map<String, Double> serviceThroughPercentageMap = service.culculatePercentage(percentageMap);
+		Map<String, Double> serviceThroughPercentageMap = service.calculatePercentage(percentageMap);
 
 		// null処理
 		assertNull(serviceThroughPercentageMap);
