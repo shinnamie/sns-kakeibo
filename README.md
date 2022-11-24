@@ -1,6 +1,12 @@
 # 家計簿
 
  ```mermaid
+<details>
+    <summary>シーケンス図</summary>
+  <br />
+     ログイン機能のシーケンス図です。 <br>
+ 
+ ```mermaid
 sequenceDiagram
   actor ユーザー
   participant ログイン
@@ -15,3 +21,4 @@ sequenceDiagram
   ログイン ->> ユーザー : リダイレクト
 end
 ```
+</details>
