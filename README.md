@@ -2,7 +2,7 @@
 
  
 <details>
-    <summary>シーケンス図</summary>
+    <summary>ログイン機能シーケンス図</summary>
   <br />
      ログイン機能のシーケンス図です。 <br>
  
