@@ -45,16 +45,30 @@ import com.example.service.kakeibo.KakeiboService;
 @SpringBootTest
 @AutoConfigureMockMvc
 class KakeiboControllerTest {
-	
+
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@MockBean
 	private KakeiboService service;
-	
+
 	@InjectMocks
 	private KakeiboController controller;
-	
+
+	List<Kakeibo> kakeiboList = new ArrayList<>();
+	Kakeibo kakeibo = new Kakeibo();
+	ExpenseItem expenseItem = new ExpenseItem();
+	Settlement settlement = new Settlement();
+
+	Map<String, Integer> kakeiboMap = new HashMap<>();
+
+	Map<String, Integer> totalAmountMap = new HashMap<>();
+
+	Map<String, Integer> itemExpenseMap = new HashMap<>();
+
+	Map<String, Double> integerToDoubleMap = new HashMap<>();
+
+	Map<String, Double> rateMap = new HashMap<>();
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -66,117 +80,143 @@ class KakeiboControllerTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-	}
 
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
-	@Test
-	@DisplayName("正常系：収支内訳表示のテスト")
-	void testBreakdownIncomeBalance() throws Exception{
-		
-		LocalDate date = LocalDate.now();
-		doReturn("2022/11/01 - 2022/11/30").when(service).getFirstDayAndLastDay(date);
-		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-
-		//Listをセット
-		List<Kakeibo> kakeiboList = new ArrayList<>();
-		Kakeibo kakeibo = new Kakeibo();
+		// Listをセット
 		kakeibo.setId(1);
 		kakeibo.setSettlementDate(LocalDate.parse("2022-11-13"));
 		kakeibo.setExpenseItemId(2);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);
-		ExpenseItem expenseItem = new ExpenseItem();
+
 		expenseItem.setId(4);
 		expenseItem.setExpenseItemName("食費");
 		kakeibo.setExpenseItem(expenseItem);
-		Settlement settlement = new Settlement();
+
 		settlement.setId(2);
 		settlement.setSettlementName("現金");
 		kakeibo.setSettlement(settlement);
 		kakeiboList.add(kakeibo);
-		when(service.totalByIncomeAndExpenditureBreakdown(yearAndMonth)).thenReturn(kakeiboList);
-		
-		//家計簿情報の入ったMapをセット
-		Map<String,Integer> kakeiboMap = new HashMap<>();
+
+		LocalDate date = LocalDate.now();
+		doReturn("2022/11/01 - 2022/11/30").when(service).getFirstDayAndLastDay(date);
+		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+		doReturn(kakeiboList).when(service).totalByIncomeAndExpenditureBreakdown(yearAndMonth);
+
+		// 家計簿情報の入ったMapをセット
 		kakeiboMap.put("総収入", 0);
 		kakeiboMap.put("総支出", 5000);
 		kakeiboMap.put("収支", -5000);
 		kakeiboMap.put("食費", 5000);
 		doReturn(kakeiboMap).when(service).findBreakdown(kakeiboList);
-		
-		//総収入・総支出・収支をMapにセット
-		Map<String,Integer> totalAmountMap = new HashMap<>();
+
+		// 総収入・総支出・収支をMapにセット
 		totalAmountMap.put("総収入", 0);
 		totalAmountMap.put("総支出", 5000);
 		totalAmountMap.put("収支", -5000);
 		doReturn(totalAmountMap).when(service).totalAmountMap(kakeiboMap);
-				
-		//月別費目別の情報をMapにセット
-		Map<String,Integer> itemExpenseMap = new HashMap<>();
+
+		// 月別費目別の情報をMapにセット
 		itemExpenseMap.put("食費", 5000);
 		doReturn(itemExpenseMap).when(service).itemExpenseMap(kakeiboMap);
-		
-		//月別費目別の情報をDouble型に変更してMapにセット
-		Map<String,Double> integerToDoubleMap = new HashMap<>();
+
+		// 月別費目別の情報をDouble型に変更してMapにセット
 		integerToDoubleMap.put("食費", 5000.0);
 		doReturn(integerToDoubleMap).when(service).integerToDouble(kakeiboMap);
-		
-		//月別費目別の情報を支出額から支出割合に変更してMapにセット
-		Map<String,Double> rateMap = new HashMap<>();
+
+		// 月別費目別の情報を支出額から支出割合に変更してMapにセット
 		rateMap.put("食費", 100.0);
 		doReturn(rateMap).when(service).culcRate(integerToDoubleMap);
 
-		
-		MvcResult result = mockMvc.perform(get("/kakeibo/breakdown")
-				.param("date","2022-11-16"))
-				// ステータスコードがOK(200)であるかのテスト
-				.andExpect(status().isOk())
-				// 指定されたHTMLを表示できているかのテスト
-				.andExpect(view().name("kakeibo/breakdown-income-balance"))
-				.andReturn();
-		
-		//上記でセットしたMapの情報がmodelに格納されているか確認
-		ModelAndView mavTotalAmountMap = result.getModelAndView();
-		assertEquals(totalAmountMap,mavTotalAmountMap.getModel().get("totalAmountMap"));
-		
-		ModelAndView mavItemExpenseMap = result.getModelAndView();
-		assertEquals(itemExpenseMap,mavItemExpenseMap.getModel().get("itemExpenceMap"));
-		
-		ModelAndView mavRateMap = result.getModelAndView();
-		assertEquals(rateMap,mavRateMap.getModel().get("rateItemMap"));
-		
-		ModelAndView mavfirst = result.getModelAndView();
-		assertEquals("2022/11/01 - 2022/11/30",mavfirst.getModel().get("firstDateAndLastDate"));
-		
 	}
 	
 	@Test
-	@DisplayName("異常系：収支内訳表示のテスト")
-	void testBreakdownIncomeBalanceNull() throws Exception{
-		
-		LocalDate date = LocalDate.now();
-		doReturn("2022/11/01 - 2022/11/30").when(service).getFirstDayAndLastDay(date);
-		
-		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-		List<Kakeibo> kakeiboList = null;
-		when(service.totalByIncomeAndExpenditureBreakdown(yearAndMonth)).thenReturn(kakeiboList);
-		
-		MvcResult result = mockMvc.perform(get("/kakeibo/breakdown")
-				.param("date","2022-11-16"))
+	@DisplayName("正常系：収支内訳表示のテスト（総収入・総支出・収支）")
+	void testBreakdownIncomeBalanceTotal() throws Exception {
+
+		MvcResult result = mockMvc.perform(get("/kakeibo/breakdown").param("date", "2022-11-16"))
 				// ステータスコードがOK(200)であるかのテスト
 				.andExpect(status().isOk())
 				// 指定されたHTMLを表示できているかのテスト
-				.andExpect(view().name("kakeibo/breakdown-income-balance"))
-				.andReturn();
-		
+				.andExpect(view().name("kakeibo/breakdown-income-balance")).andReturn();
+
+		// 総収入・総支出・収支の比較
+		ModelAndView mavTotalAmountMap = result.getModelAndView();
+		assertEquals(totalAmountMap, mavTotalAmountMap.getModel().get("totalAmountMap"));
+
+	}
+	
+	
+	
+	@Test
+	@DisplayName("正常系：収支内訳表示のテスト（月別の費目別）")
+	void testBreakdownIncomeBalanceItemExpense() throws Exception {
+
+		MvcResult result = mockMvc.perform(get("/kakeibo/breakdown").param("date", "2022-11-16"))
+				// ステータスコードがOK(200)であるかのテスト
+				.andExpect(status().isOk())
+				// 指定されたHTMLを表示できているかのテスト
+				.andExpect(view().name("kakeibo/breakdown-income-balance")).andReturn();
+
+		// 月別費目別の比較
+		ModelAndView mavItemExpenseMap = result.getModelAndView();
+		assertEquals(itemExpenseMap, mavItemExpenseMap.getModel().get("itemExpenceMap"));
+
+	}
+	
+	@Test
+	@DisplayName("正常系：収支内訳表示のテスト（月別費目別の支出割合）")
+	void testBreakdownIncomeBalanceRate() throws Exception {
+
+		MvcResult result = mockMvc.perform(get("/kakeibo/breakdown").param("date", "2022-11-16"))
+				// ステータスコードがOK(200)であるかのテスト
+				.andExpect(status().isOk())
+				// 指定されたHTMLを表示できているかのテスト
+				.andExpect(view().name("kakeibo/breakdown-income-balance")).andReturn();
+
+		// 月別費目別の支出割合の比較
+		ModelAndView mavRateMap = result.getModelAndView();
+		assertEquals(rateMap, mavRateMap.getModel().get("rateItemMap"));
+
+	}
+	
+	@Test
+	@DisplayName("正常系：収支内訳表示のテスト（日付の確認）")
+	void testBreakdownIncomeBalanceDate() throws Exception {
+
+		MvcResult result = mockMvc.perform(get("/kakeibo/breakdown").param("date", "2022-11-16"))
+				// ステータスコードがOK(200)であるかのテスト
+				.andExpect(status().isOk())
+				// 指定されたHTMLを表示できているかのテスト
+				.andExpect(view().name("kakeibo/breakdown-income-balance")).andReturn();
+
+		// 日付情報の比較
+		ModelAndView mavfirst = result.getModelAndView();
+		assertEquals("2022/11/01 - 2022/11/30", mavfirst.getModel().get("firstDateAndLastDate"));
+
+	}
+
+	@Test
+	@DisplayName("異常系：収支内訳表示のテスト")
+	void testBreakdownIncomeBalanceNull() throws Exception {
+
+		LocalDate date = LocalDate.now();
+		doReturn("2022/11/01 - 2022/11/30").when(service).getFirstDayAndLastDay(date);
+
+		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+		List<Kakeibo> kakeiboList = null;
+		when(service.totalByIncomeAndExpenditureBreakdown(yearAndMonth)).thenReturn(kakeiboList);
+
+		MvcResult result = mockMvc.perform(get("/kakeibo/breakdown").param("date", "2022-11-16"))
+				// ステータスコードがOK(200)であるかのテスト
+				.andExpect(status().isOk())
+				// 指定されたHTMLを表示できているかのテスト
+				.andExpect(view().name("kakeibo/breakdown-income-balance")).andReturn();
+
 		ModelAndView mavTotalAmountMap = result.getModelAndView();
 		ModelAndView message = result.getModelAndView();
-		assertEquals("2022/11/01 - 2022/11/30",mavTotalAmountMap.getModel().get("firstDateAndLastDate"));
-		assertEquals("該当月のデータが存在しません。",message.getModel().get("message"));
-		
+		assertEquals("2022/11/01 - 2022/11/30", mavTotalAmountMap.getModel().get("firstDateAndLastDate"));
+		assertEquals("該当月のデータが存在しません。", message.getModel().get("message"));
+
 	}
 
 }
