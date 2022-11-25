@@ -209,26 +209,24 @@ public class KakeiboController {
 	 * @return
 	 */
 	@RequestMapping(path = "{date}", method = RequestMethod.GET)
-	public String getBreakDown(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)  @ModelAttribute @PathVariable("date") LocalDate date,
+	public String getBreakDown(
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @ModelAttribute @PathVariable("date") LocalDate date,
 			Model model) {
 
 		// 月初日と月末日を取得する
 		String firstDateAndLastDate = kakeiboService.getFirstDayAndLastDay(date);
 		model.addAttribute("firstDateAndLastDate", firstDateAndLastDate);
-//		model.addAttribute("date", date);
 
 		// 年と月をString型で取得
 		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-		
 
 		// 選択されている年月の費目別の支出・収入を算出する
 		List<Kakeibo> kakeiboList = kakeiboService.totalByIncomeAndExpenditureBreakdown(yearAndMonth);
-		System.out.println(kakeiboList);
 		if (kakeiboList == null || kakeiboList.size() == 0) { // データが存在しない場合
 			model.addAttribute("message", "該当月のデータが存在しません。");
 			return "kakeibo/breakdown-income-balance";
 		} else {
-			
+
 			// 家計簿ListからMapに変換
 			Map<String, Integer> kakeiboMap = kakeiboService.findBreakdown(kakeiboList);
 
