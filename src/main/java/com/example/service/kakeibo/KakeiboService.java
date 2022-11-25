@@ -234,8 +234,8 @@ public class KakeiboService {
 	 * 
 	 * 
 	 */
-	public Map<String, Double> culcRate(Map<String, Double> doubleMap) {
-		if(doubleMap == null) {
+	public Map<String, Double> calculatePercentage(Map<String, Double> doubleMap) {
+		if(doubleMap.isEmpty()) {
 			return null;
 		}
 
