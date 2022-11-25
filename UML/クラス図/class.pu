@@ -1,46 +1,86 @@
 @startuml
 
-class loginController {
+top to bottom direction
+
+class LoginController {
 
     login(LoginForm loginForm)
     logout(???)
 
 }
 
-class loginService{
+class LoginService{
     
     login(String mailAdderess , String password)
     
 }
 
-class loginMapper{
+class LoginMapper{
     
     login(String mailAdderess , String password)
     
 }
 
-class signUpController{
+class SignUpController{
 
     signUp(SignUpForm signUpForm)
     
 }
 
-class signUpService{
+class SignUpService{
 
     signUp(User user)
 }
 
-class signUpMapper{
+class SignUpMapper{
 
     signUp(User user)
 }
 
-left to right direction
+class SignUpForm{
 
-loginController  -->  loginService 
-loginService  -->  loginMapper 
+    String mailAdderess
+    String password
+    String name
+    Integer age
+    Integer gender
+    String remarks
+}
 
-signUpController  -->  signUpService 
-signUpService  -->  signUpMapper 
+class User{
+
+    Long id
+    String mailAdderess
+    String password
+    String name
+    Integer age
+    Integer gender
+    String remarks
+    List<kakeibo> kakeiboList
+}
+
+class LoginForm{
+
+    String mailAdderess
+    String password
+
+}
+
+
+
+
+
+
+LoginController  ..>  LoginService 
+LoginService  ..>  LoginMapper 
+LoginController -- LoginForm
+LoginController -- User
+
+SignUpController  ..>  SignUpService 
+SignUpService  ..>  SignUpMapper 
+SignUpController -- SignUpForm
+SignUpController -- User
+
+
 
 @enduml
