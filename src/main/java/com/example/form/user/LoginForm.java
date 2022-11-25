@@ -10,7 +10,7 @@ public class LoginForm {
 
 	@NotBlank
 	@Email
-	private String mailAdress;
+	private String mailAddress;
 	@NotBlank
 	private String password;
 

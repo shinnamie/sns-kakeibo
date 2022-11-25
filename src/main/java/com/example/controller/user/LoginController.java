@@ -59,7 +59,7 @@ public class LoginController {
 			return getLogin();
 		}
 		
-		User user = service.login(loginForm.getMailAdress(), loginForm.getPassword());
+		User user = service.login(loginForm.getMailAddress(), loginForm.getPassword());
 		
 		if (user == null) {
 			model.addAttribute("errorMessage", "メールアドレスまたはパスワードが不正です");
