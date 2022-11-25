@@ -7,6 +7,6 @@ import com.example.domain.user.User;
 @Mapper
 public interface SignUpMapper {
 
-	boolean signUp(User user);
+	public boolean signUp(User user);
 
 }
