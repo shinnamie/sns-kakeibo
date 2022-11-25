@@ -125,7 +125,7 @@ class KakeiboControllerTest {
 
 		// 月別費目別の情報を支出額から支出割合に変更してMapにセット
 		rateMap.put("食費", 100.0);
-		doReturn(rateMap).when(service).culcRate(integerToDoubleMap);
+		doReturn(rateMap).when(service).calculatePercentage(integerToDoubleMap);
 
 	}
 	
