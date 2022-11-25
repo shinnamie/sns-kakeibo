@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -131,12 +132,14 @@ public class KakeiboService {
 	 * @param month 月
 	 * @return Kakeibo 収支内訳(費目ID・費目別支出・費目別収入・費目名)
 	 */
+	@Transactional(readOnly = true)
 	public List<Kakeibo> totalByIncomeAndExpenditureBreakdown(String yearAndMonth) {
-		
-		if(kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth) == null || kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth).size() == 0) {
+		List<Kakeibo> kakeiboItemList = kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
+
+		if (kakeiboItemList == null || kakeiboItemList.size() == 0) {
 			return null;
 		}
-		List<Kakeibo> kakeiboItemList = kakeiboMapper.totalIncomeAndExpenditureBreakdown(yearAndMonth);
+		
 		return kakeiboItemList;
 	}
 
@@ -148,6 +151,10 @@ public class KakeiboService {
 	 */
 	public Map<String, Integer> findBreakdown(List<Kakeibo> kakeiboItemList) {
 
+		if (kakeiboItemList == null || kakeiboItemList.size() == 0) {
+			return null;
+		}
+
 		// Mapを生成
 		Map<String, Integer> kakeiboItemMap = new HashMap<>();
 
@@ -155,10 +162,6 @@ public class KakeiboService {
 		Integer totalExpenditureAmount = 0;
 		Integer totalIncomeAmount = 0;
 		Integer incomeAndExpenditure = 0;
-		
-		if(kakeiboItemList == null) {
-			return null;
-		}
 
 		// ListからMapへ移し替え
 		for (Kakeibo kakeiboItem : kakeiboItemList) {
@@ -188,7 +191,7 @@ public class KakeiboService {
 	 * 
 	 */
 	public Map<String, Integer> totalAmountMap(Map<String, Integer> kakeiboItemMap) {
-		if(kakeiboItemMap == null) {
+		if (kakeiboItemMap.isEmpty()) {
 			return null;
 		}
 		// Mapを生成
@@ -204,8 +207,8 @@ public class KakeiboService {
 	 * 
 	 * 
 	 */
-	public Map<String, Integer> itemExpenceMap(Map<String, Integer> kakeiboItemMap) {
-		if(kakeiboItemMap == null) {
+	public Map<String, Integer> itemExpenseMap(Map<String, Integer> kakeiboItemMap) {
+		if (kakeiboItemMap.isEmpty()) {
 			return null;
 		}
 		kakeiboItemMap.remove("総収入");
@@ -220,7 +223,7 @@ public class KakeiboService {
 	 * 
 	 */
 	public Map<String, Double> integerToDouble(Map<String, Integer> kakeiboItemMap) {
-		if(kakeiboItemMap == null) {
+		if (kakeiboItemMap.isEmpty()) {
 			return null;
 		}
 		return kakeiboItemMap.entrySet().stream()
@@ -232,14 +235,13 @@ public class KakeiboService {
 	 * 
 	 * 
 	 */
-	public Map<String, Double> culcRate(Map<String, Double> doubleMap) {
-		if(doubleMap == null) {
+	public Map<String, Double> calculatePercentage(Map<String, Double> doubleMap) {
+		if(doubleMap.isEmpty()) {
 			return null;
 		}
 
 		// 総支出を変数に格納
 		Double totalExpenditureAmount = doubleMap.get("総支出");
-		System.out.println(totalExpenditureAmount);
 
 		// 費目別の割合を格納するMapを生成
 		Map<String, Double> rateMap = new HashMap<>();
@@ -398,20 +400,6 @@ public class KakeiboService {
 		}
 
 		return rateMap;
-	}
-
-
-	/**
-	 * 月別で集計した費目毎の割合を計算
-	 * 
-	 * @return Map<String,Integer>
-	 */
-	public Map<String, Double> calcExpeditureRate(Map<String, Integer> kakeiboItemMap) {
-		Map<String, Double> itemExpeditureRateMap = new HashMap<>();
-
-		kakeiboItemMap.entrySet().stream().filter(e -> "自動車".equals(e.getKey())).forEach(System.out::println);
-
-		return itemExpeditureRateMap;
 	}
 
 }
