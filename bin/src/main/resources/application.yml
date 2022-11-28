@@ -4,11 +4,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/kakeibo
     username: postgres
     password: postgres
-    
-# Message
-  messages:
-    basename: i18n/messages,i18n/ValidationMessages
-    fallback-to-system-locale: false
   
 # MyBatis
 mybatis:
