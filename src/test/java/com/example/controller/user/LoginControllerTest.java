@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import javax.servlet.http.HttpSession;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,13 @@ class LoginControllerTest {
 		user.setMailAddress("test@gmail.com");
 		user.setPassword("testtest");
 	}
+	
+	@BeforeEach
+	void setUp() throws Exception {
+		// User情報セット(メールアドレス：○ パスワード：○)
+		loginForm.setMailAddress("test@gmail.com");
+		loginForm.setPassword("testtest");
+	}
 
 	@Test
 	@DisplayName("ログイン画面(user/login.html)に遷移するかのテスト")
@@ -61,11 +69,6 @@ class LoginControllerTest {
 	@Test
 	@DisplayName("メールアドレス・パスワード共に正しく入力された時、家計簿一覧画面に遷移する")
 	void testSuccess() throws Exception {
-		
-		// 準備
-		// User情報セット(メールアドレス：○ パスワード：○)
-		loginForm.setMailAddress("test@gmail.com");
-		loginForm.setPassword("testtest");
 		
 		// Session情報セット
 		MockHttpSession mockHttpSession = new MockHttpSession();
@@ -96,7 +99,6 @@ class LoginControllerTest {
 		// 準備
 		// User情報セット(メールアドレス：不一致 パスワード：○)
 		loginForm.setMailAddress("aaa@gmail.com");
-		loginForm.setPassword("testtest");
 		
 		// テスト
 		when(loginService.login(anyString(), anyString())).thenReturn(null);
@@ -117,7 +119,6 @@ class LoginControllerTest {
 		
 		// 準備
 		// User情報セット(メールアドレス：○ パスワード：不一致)
-		loginForm.setMailAddress("test@gmail.com");
 		loginForm.setPassword("testtesttest");
 		
 		// テスト
@@ -155,7 +156,6 @@ class LoginControllerTest {
 		// 準備
 		// User情報セット(メールアドレス：× パスワード：○)
 		loginForm.setMailAddress("testAddress");
-		loginForm.setPassword("testtest");
 		
 		// 検証
 		mockMvc.perform(post("/user/login")
