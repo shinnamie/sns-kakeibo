@@ -1,5 +1,6 @@
 package com.example.domain.user;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.example.domain.kakeibo.Kakeibo;
@@ -13,7 +14,7 @@ public class User {
 	private String mailAdress;
 	private String password;
 	private String name;
-	private Integer age;
+	private LocalDate dateOfBirth;
 	private Integer gender;
 	private String remarks;
 	private List<Kakeibo> kakeiboList;

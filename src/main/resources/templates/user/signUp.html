@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>新規ユーザー登録</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<style>
+html {
+	height: 100%;
+	margin: 0 auto;
+	padding: 0;
+	display: table;
+}
+
+body {
+	min-height: 100%;
+	margin: 0 auto;
+	padding: 0;
+	display: table-cell;
+	vertical-align: middle;
+}
+</style>
+</head>
+<body>
+	<h1>新規ユーザー登録</h1>
+	<form th:action="@{user/signUp}" action="signUp.html" th:object="${signUpForm}" method="post">
+		<div th:if="${errorMessage}">
+			<label class="control-label" style="color: red;"
+				th:text="${errorMessage}"></label>
+		</div>
+		<p>メールアドレス:<br> <input type="email" name="mailAddress" th:field="*{mailAddress}" placeholder="xxx@co.jp" required autofocus></p>
+		<p>パスワード:<br> <input type="password" name="password" th:field="*{password}" required></p>
+		<p>確認用パスワード:<br> <input type="password" name="confirmPassword" th:field="*{confirmPassword}" required></p>
+		<p>名前：<br> <input type="text" name="name" th:field="*{name}" placeholder="山田太郎" required></p>
+		<p>性別:<br>
+		 <select name="gender" id="" th:field="*{gender}">
+				<option value=0></option>
+				<option value=1>男</option>
+				<option value=2>女</option>
+				</select>
+		</p>
+		<p>生年月日：<br> <input type="date" name="dateOfBirth" th:field="*{dateOfBirth}" required></p>
+		<p>備考：<br> <input type="text" name="remarks" th:field="*{remarks}" required></p>
+
+		<p><a href="#">ログインはこちら</a></p>
+		<p>
+			<button type="reset">クリア</button>
+			<button type="submit">登録</button>
+		</p>
+	</form>
+</body>
+</html>
