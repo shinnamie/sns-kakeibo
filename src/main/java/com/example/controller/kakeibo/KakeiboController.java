@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,6 +24,7 @@ import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
 import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 import com.example.form.kakeibo.AddKakeiboForm;
 import com.example.form.kakeibo.EditKakeiboForm;
+import com.example.form.kakeibo.SearchKakeiboForm;
 import com.example.service.kakeibo.KakeiboService;
 
 @Controller
@@ -45,6 +47,11 @@ public class KakeiboController {
 	@ModelAttribute
 	private EditKakeiboForm editKakeiboForm() {
 		return new EditKakeiboForm();
+	}
+	
+	@ModelAttribute
+	private SearchKakeiboForm searchKakeiboForm() {
+		return new SearchKakeiboForm();
 	}
 
 	/**
@@ -69,21 +76,51 @@ public class KakeiboController {
 		return "kakeibo/add";
 	}
 
-	@GetMapping(value = "/update")
-	public String update(Integer id, EditKakeiboForm editKakeiboForm) {
+	/**
+	 * 編集画面表示(初期値に登録済みデータ表示)
+	 * 
+	 * @param id
+	 * @param editKakeiboForm
+	 * @return
+	 */
+	@GetMapping("/edit")
+	public String editKakeibo(Long id, EditKakeiboForm editKakeiboForm) {
 		// idから家計簿情報を1件取得する
 		Kakeibo kakeibo = kakeiboService.findByKakeiboId(id);
 
 		// 値をコピー(kakeibo→editKakeiboForm)
 		BeanUtils.copyProperties(kakeibo, editKakeiboForm);
 
-		// 収入金額と支出金額に関してはdomainと型が異なるため手動でセット
-		String expenditureAmount = kakeibo.getExpenditureAmount().toString();
-		String incomeAmount = kakeibo.getIncomeAmount().toString();
-		editKakeiboForm.setExpenditureAmount(expenditureAmount);
-		editKakeiboForm.setIncomeAmount(incomeAmount);
-
 		return "kakeibo/edit";
+	}
+	
+	/**
+	 * 家計簿の更新処理
+	 * 
+	 * @param editKakeiboForm
+	 * @param result
+	 * @return
+	 */
+	@PostMapping("/update")
+	public String updateKakeibo(@Validated EditKakeiboForm editKakeiboForm, BindingResult result, Model model) {
+		
+		// 入力値エラーの際は編集画面を表示する
+		if (result.hasErrors()) {
+			return "kakeibo/edit";
+		}
+
+		Kakeibo kakeibo = new Kakeibo();
+
+		// 値をdomainにコピー
+		BeanUtils.copyProperties(editKakeiboForm, kakeibo);
+
+		// 更新処理の実行
+		if (!kakeiboService.updateKakeibo(kakeibo)) {
+			model.addAttribute("errorMessage", "更新が失敗しました");
+			return "kakeibo/edit";
+		}
+
+		return "redirect:/kakeibo/list";
 	}
 
 	/**
@@ -94,16 +131,6 @@ public class KakeiboController {
 	@GetMapping(value = "/breakdown-income-balance")
 	public String breakdownIncomeBalance() {
 		return "kakeibo/breakdown-income-balance";
-	}
-
-	/**
-	 * 年別・月別集計画面を表示する
-	 * 
-	 * @return
-	 */
-	@GetMapping(value = "/yearly-or-monthly-aggregation")
-	public String monthlyAggregation() {
-		return "kakeibo/year-and-month";
 	}
 
 	/**
@@ -123,7 +150,7 @@ public class KakeiboController {
 
 		// 決済日時を変換・セット(LocalDate型)
 		LocalDate settlementDate = addKakeiboForm.getSettlementDate();
-		kakeibo.setSettlementDate(settlementDate);
+		kakeibo.setPaymentDate(settlementDate);
 
 		// フォームの値をドメインにコピー
 		BeanUtils.copyProperties(addKakeiboForm, kakeibo);
@@ -136,36 +163,6 @@ public class KakeiboController {
 
 		// 新規登録処理
 		kakeiboService.save(kakeibo);
-
-		return "redirect:/kakeibo/list";
-	}
-
-	/**
-	 * 家計簿の更新処理
-	 * 
-	 * @param editKakeiboForm
-	 * @param result
-	 * @return
-	 */
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(@Validated EditKakeiboForm editKakeiboForm, BindingResult result) {
-		if (result.hasErrors()) {
-			return "kakeibo/edit";
-		}
-
-		Kakeibo kakeibo = new Kakeibo();
-
-		// 値をdomainにコピー
-		BeanUtils.copyProperties(editKakeiboForm, kakeibo);
-
-		// 支出金額と収入金額を変換してセット
-		Integer expenditureAmount = Integer.parseInt(editKakeiboForm.getExpenditureAmount());
-		Integer incomeAmount = Integer.parseInt(editKakeiboForm.getIncomeAmount());
-		kakeibo.setExpenditureAmount(expenditureAmount);
-		kakeibo.setIncomeAmount(incomeAmount);
-
-		// 更新処理の実装
-		kakeiboService.update(kakeibo);
 
 		return "redirect:/kakeibo/list";
 	}
@@ -186,7 +183,6 @@ public class KakeiboController {
 
 		// 削除フラグをtrueにする
 		kakeibo.setId(id);
-		kakeibo.setDeleted(true);
 
 		// 論理削除の実行
 		kakeiboService.delete(deletedKakeibo);
@@ -244,33 +240,40 @@ public class KakeiboController {
 
 		return incomeAndExpenditureBalance(date, model);
 	}
+	
+	/**
+	 * 年別・月別集計画面を表示する
+	 * 
+	 * @return
+	 */
+	@GetMapping("/kakeiboByYearAndMonth")
+	public String getKakeiboByYearAndMonth() {
+		return "kakeibo/kakeiboByYearAndMonth";
+	}
 
 	/**
-	 * 月別集計結果を取得する
-	 * 
-	 * @param year
-	 * @param month
+	 * 年別・月別集計結果を取得する
+	 * @param searchKakeiboForm
+	 * @param result
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/aggregated-year-or-month", method = RequestMethod.POST)
-	public String aggregatedByMonth(String year, String month, Model model) {
-
-		// 年月のパラメーターを元に検索、結果を取得
-		List<Kakeibo> kakeiboMonthList = kakeiboService.findByYearAndMonth(year, month);
-
-		// 収支計算結果の取得
-		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
-				.monthlyBalanceCalculate(year, month);
-
-		// それぞれの結果をスコープに格納
-		if (kakeiboMonthList == null || kakeiboMonthList.size() == 0) {
-			model.addAttribute("message", "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
-		} else {
-			model.addAttribute("kakeiboMonthList", kakeiboMonthList);
-			model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
+	@PostMapping("/kakeiboByYearAndMonth")
+	public String postKakeiboByYearAndMonth(@Validated SearchKakeiboForm searchKakeiboForm, BindingResult result, Model model) {
+		
+		// 入力値エラーの際は集計ページを表示する
+		if (result.hasErrors()) {
+			return "kakeibo/kakeiboByYearAndMonth";
 		}
 
-		return "kakeibo/year-and-month";
+		// リストが返ってきた時、kakeiboListに格納
+		model.addAttribute("kakeiboList", kakeiboService.findKakeiboByYearAndMonth(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
+		// リストがnullの時、messageに格納
+		model.addAttribute("message", "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
+		// 収支計算結果の取得
+		model.addAttribute("result", kakeiboService.monthlyBalanceCalculate(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
+
+
+		return "kakeibo/kakeiboByYearAndMonth";
 	}
 }
