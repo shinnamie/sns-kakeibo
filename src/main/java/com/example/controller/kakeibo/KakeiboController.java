@@ -24,6 +24,7 @@ import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 import com.example.form.kakeibo.AddKakeiboForm;
 import com.example.form.kakeibo.EditKakeiboForm;
 import com.example.service.kakeibo.KakeiboService;
+import com.example.service.user.LoginService;
 
 @Controller
 @RequestMapping("/kakeibo")
@@ -31,6 +32,9 @@ public class KakeiboController {
 
 	@Autowired
 	KakeiboService kakeiboService;
+	
+	@Autowired
+	LoginService loginService;
 
 	/**
 	 * 支出金額及び収入金額はnullを許容しないため、あらかじめ初期値として0をセット
