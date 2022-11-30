@@ -8,7 +8,7 @@ import com.example.service.user.SignUpService;
 @Controller
 public class SignUpController {
 
-	@Autowired
-	private SignUpService service;
+//	@Autowired
+//	private SignUpService service;
 
 }

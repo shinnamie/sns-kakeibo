@@ -15,10 +15,18 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
 	private LoginMapper mapper;
 
+	/**
+	 * ログイン処理
+	 * 成功時：ユーザー情報を1件取得
+	 * 失敗時：mail_addressが無効・passwordが無効
+	 * 
+	 * @param mailAddress,password
+	 * @return User
+	 */
 	@Override
 	public User login(String mailAddress, String password) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		User loginUser = mapper.Login(mailAddress,password);
+		return loginUser;
 	}
 
 }
