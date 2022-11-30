@@ -24,7 +24,7 @@ import com.example.service.user.SignUpService;
 public class SignUpController {
 
 	@Autowired
-	private SignUpService signUpservice;
+	private SignUpService signUpService;
 	
 	@ModelAttribute
 	private SignUpForm signUpform() {
@@ -37,7 +37,7 @@ public class SignUpController {
 	 * @return
 	 */
 	@GetMapping("/signup")
-	public String toSignUp(Model model) {
+	public String toSignUp() {
 			
 		return "user/signup";
 	}
@@ -51,11 +51,11 @@ public class SignUpController {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping("/signup")
+	@PostMapping("/signUp")
 	public String getSignUp(@ModelAttribute @Validated SignUpForm signUpForm , BindingResult result , Model model) {
 		// 入力値チェック
 		if (result.hasErrors()) {
-			return "user/signup";
+			return "user/signUp";
 		}
 		
 		User user = new User();
@@ -72,10 +72,10 @@ public class SignUpController {
 		user.setGender(gender);
 		
 		
-		// 新規ユーザー登録 (登録失敗した場合は登録画面に戻る)
+	// 新規ユーザー登録 (登録失敗した場合は登録画面に戻る)
 		if (!signUpService.signUp(user)) {
 			model.addAttribute("errorMessage", "登録に失敗しました");
-			return "user/signup";
+			return "user/signUp";
 				}
 		
 		return "user/login";
