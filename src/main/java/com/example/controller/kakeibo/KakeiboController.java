@@ -70,6 +70,7 @@ public class KakeiboController {
 	 */
 	@GetMapping(value = "/addKakeibo")
 	public String addKakeibo(AddKakeiboForm addKakeiboForm) {
+		System.out.println(loginService.login(null, null));
 		return "kakeibo/add";
 	}
 
