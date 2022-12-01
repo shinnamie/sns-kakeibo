@@ -29,7 +29,7 @@ entity profile as "profile\nプロフィール" {
   user_id [ユーザーID]
   name [名前]
   gender [性別]
-  age [年齢]
+  date_of_birth [生年月日]
   remarks [備考]
   
 }
