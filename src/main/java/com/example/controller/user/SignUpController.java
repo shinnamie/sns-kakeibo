@@ -65,10 +65,6 @@ public class SignUpController {
 		
 		User user = new User();
 		
-		// 生年月日を変換・セット(LocalDate型)
-		LocalDate dateOfBirth = signUpForm.getDateOfBirth();
-		user.setDateOfBirth(dateOfBirth);
-
 		// フォームの値をドメインにコピー
 		BeanUtils.copyProperties(signUpForm , user);
 		
