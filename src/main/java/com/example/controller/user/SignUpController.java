@@ -51,7 +51,7 @@ public class SignUpController {
 	 * @return
 	 */
 	@PostMapping("/signUp")
-	public String postSignUp(@ModelAttribute @Validated SignUpForm signUpForm , BindingResult result , Model model) {
+	public String postSignUp(@Validated SignUpForm signUpForm , BindingResult result , Model model) {
 		// 入力値チェック
 		if (result.hasErrors()) {
 			log.info("入力値エラー: {}" , signUpForm);
