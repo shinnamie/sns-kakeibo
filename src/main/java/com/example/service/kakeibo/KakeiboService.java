@@ -63,6 +63,7 @@ public class KakeiboService {
 	 * 
 	 * @param id 
 	 */
+
 	public boolean deleteKakeibo(long id) {
 		try {
 			kakeiboMapper.delete(id);

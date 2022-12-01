@@ -177,10 +177,14 @@ public class KakeiboController {
 	 * @return
 	 */
 	@PostMapping("/delete")
-	public String deleteKakeibo(long id) {
-		kakeiboService.deleteKakeibo(id);
-		
-		return "redirect:/kakeibo/list";
+	public String deleteKakeibo(long id , Model model) {
+		if (!kakeiboService.deleteKakeibo(id)) {
+			model.addAttribute("errorMessage", "削除に失敗しました");
+			return "kakeibo/list";}
+		else {
+			kakeiboService.deleteKakeibo(id);
+			return "redirect:/kakeibo/list";
+		}
 	}
 
 	/**
