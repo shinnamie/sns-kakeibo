@@ -1,9 +1,6 @@
 package com.example.controller.user;
 
 import java.time.LocalDate;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +16,9 @@ import com.example.domain.user.User;
 import com.example.form.user.SignUpForm;
 import com.example.service.user.SignUpService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/user")
 public class SignUpController {
@@ -36,12 +36,11 @@ public class SignUpController {
 	 * 
 	 * @return
 	 */
-	@GetMapping("/signup")
-	public String toSignUp() {
-			
-		return "user/signup";
+	@GetMapping("/signUp")
+	public String getSignUp() {
+		return "user/signUp";
 	}
-	
+
 	/**
 	 * 新規ユーザー登録処理
 	 * 成功時：ログイン画面表示(user/login.html)
@@ -52,9 +51,15 @@ public class SignUpController {
 	 * @return
 	 */
 	@PostMapping("/signUp")
-	public String getSignUp(@ModelAttribute @Validated SignUpForm signUpForm , BindingResult result , Model model) {
+	public String postSignUp(@ModelAttribute @Validated SignUpForm signUpForm , BindingResult result , Model model) {
 		// 入力値チェック
 		if (result.hasErrors()) {
+			log.info("入力値エラー: {}" , signUpForm);
+			return "user/signUp";
+		//パスワードの一致チェック
+		}else if(!(signUpForm.getPassword().equals(signUpForm.getConfirmPassword()))){
+			log.info("パスワード不一致: password:{} confirmPassword:{}" , signUpForm.getPassword() , signUpForm.getConfirmPassword());
+			model.addAttribute("passwordErrorMessage", "確認用パスワードはパスワードと同じものを入力してください");
 			return "user/signUp";
 		}
 		
@@ -67,17 +72,10 @@ public class SignUpController {
 		// フォームの値をドメインにコピー
 		BeanUtils.copyProperties(signUpForm , user);
 		
-		// 性別を変換してセット
-		Integer gender = Integer.parseInt(signUpForm.getGender());
-		user.setGender(gender);
 		
 		
-	// 新規ユーザー登録 (登録失敗した場合は登録画面に戻る)
-		if (!signUpService.signUp(user)) {
-			model.addAttribute("errorMessage", "登録に失敗しました");
-			return "user/signUp";
-				}
-		
-		return "user/login";
+	// 新規ユーザー登録
+		signUpService.signUp(user);
+		return "redirect:/user/login";
 	}
 }

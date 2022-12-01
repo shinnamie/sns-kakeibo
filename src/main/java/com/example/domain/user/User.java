@@ -8,7 +8,7 @@ import com.example.domain.kakeibo.Kakeibo;
 import lombok.Data;
 
 @Data
-public class User {
+public class User{
 
 	private Long id;
 	private String mailAddress;
