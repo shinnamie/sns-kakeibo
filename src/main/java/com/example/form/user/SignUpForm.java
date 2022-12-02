@@ -21,9 +21,13 @@ public class SignUpForm {
 	
 	@NotBlank
 	private String confirmPassword;
+	
 	private String name;
 	private LocalDate dateOfBirth;
+	
+	@NotNull
 	private Integer gender;
+	
 	private String remarks;
 
 }
