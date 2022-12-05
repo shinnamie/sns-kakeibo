@@ -21,7 +21,7 @@ public class AddKakeiboForm {
 	/** 決済日付 */
 	@NotNull(message = "日付を指定してください")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate settlementDate;
+	private LocalDate paymentDate;
 	/** 費目Id */
 	@NotNull(message = "費目を選択してください")
 	private Integer expenseItemId;
@@ -78,12 +78,12 @@ public class AddKakeiboForm {
 		this.userId = userId;
 	}
 
-	public LocalDate getSettlementDate() {
-		return settlementDate;
+	public LocalDate getPaymentDate() {
+		return paymentDate;
 	}
 
-	public void setSettlementDate(LocalDate settlementDate) {
-		this.settlementDate = settlementDate;
+	public void setPaymentDate(LocalDate paymentDate) {
+		this.paymentDate = paymentDate;
 	}
 
 	public Integer getExpenseItemId() {
@@ -168,13 +168,11 @@ public class AddKakeiboForm {
 
 	@Override
 	public String toString() {
-		return "AddKakeiboForm [id=" + id + ", userId=" + userId + ", settlementDate=" + settlementDate
-				+ ", expenseItemId=" + expenseItemId + ", expenditureAmount=" + expenditureAmount + ", incomeAmount="
-				+ incomeAmount + ", settlementId=" + settlementId + ", usedStore=" + usedStore + ", remarks=" + remarks
-				+ ", insertAt=" + insertAt + ", updateAt=" + updateAt + ", expenseItem=" + expenseItem + ", settlement="
-				+ settlement + "]";
+		return "AddKakeiboForm [id=" + id + ", userId=" + userId + ", paymentDate=" + paymentDate + ", expenseItemId="
+				+ expenseItemId + ", expenditureAmount=" + expenditureAmount + ", incomeAmount=" + incomeAmount
+				+ ", settlementId=" + settlementId + ", usedStore=" + usedStore + ", remarks=" + remarks + ", insertAt="
+				+ insertAt + ", updateAt=" + updateAt + ", expenseItem=" + expenseItem + ", settlement=" + settlement
+				+ "]";
 	}
-
-
-
+	
 }

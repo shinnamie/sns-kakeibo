@@ -70,7 +70,7 @@ public class GetListControllerTest {
 		List<Kakeibo> kakeiboList = new ArrayList<>();
 		Kakeibo kakeibo = new Kakeibo();
 		kakeibo.setId(1);
-		kakeibo.setSettlementDate(LocalDate.parse("2022-11-04"));
+		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
 		kakeibo.setExpenseItemId(2);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);

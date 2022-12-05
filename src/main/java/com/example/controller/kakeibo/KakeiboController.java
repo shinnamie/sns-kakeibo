@@ -14,10 +14,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
 import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
@@ -122,8 +122,8 @@ public class KakeiboController {
 		Kakeibo kakeibo = new Kakeibo();
 
 		// 決済日時を変換・セット(LocalDate型)
-		LocalDate settlementDate = addKakeiboForm.getSettlementDate();
-		kakeibo.setSettlementDate(settlementDate);
+		LocalDate paymentDate = addKakeiboForm.getPaymentDate();
+		kakeibo.setPaymentDate(paymentDate);
 
 		// フォームの値をドメインにコピー
 		BeanUtils.copyProperties(addKakeiboForm, kakeibo);
@@ -171,27 +171,15 @@ public class KakeiboController {
 	}
 
 	/**
-	 * 家計簿を論理削除する
+	 * 家計簿を削除する
 	 * 
 	 * @param id 家計簿id
 	 * @return
 	 */
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(Integer id) {
-		DeletedKakeibo deletedKakeibo = new DeletedKakeibo();
-		Kakeibo kakeibo = new Kakeibo();
-
-		// 値をセット
-		deletedKakeibo.setKakeiboId(id);
-
-		// 削除フラグをtrueにする
-		kakeibo.setId(id);
-		kakeibo.setDeleted(true);
-
-		// 論理削除の実行
-		kakeiboService.delete(deletedKakeibo);
-		kakeiboService.updateIsDelete(kakeibo);
-
+	@PostMapping("/delete")
+	public String deleteKakeibo(Integer id) {
+		kakeiboService.deleteKakeibo(id);
+		
 		return "redirect:/kakeibo/list";
 	}
 

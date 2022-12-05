@@ -21,7 +21,7 @@ public class EditKakeiboForm {
 	/** 決済日付 */
 	@NotNull(message = "日付を指定してください")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate settlementDate;
+	private LocalDate paymentDate;
 	/** 費目Id */
 	@NotNull(message = "費目を選択してください")
 	private Integer expenseItemId;
@@ -45,112 +45,85 @@ public class EditKakeiboForm {
 	private ExpenseItem expenseItem;
 	/** 決済 */
 	private Settlement settlement;
-
-	public EditKakeiboForm() {
-	}
-
 	public long getId() {
 		return id;
 	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 	public Integer getUserId() {
 		return userId;
 	}
-
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-
-	public LocalDate getSettlementDate() {
-		return settlementDate;
+	public LocalDate getPaymentDate() {
+		return paymentDate;
 	}
-
-	public void setSettlementDate(LocalDate settlementDate) {
-		this.settlementDate = settlementDate;
+	public void setPaymentDate(LocalDate paymentDate) {
+		this.paymentDate = paymentDate;
 	}
-
 	public Integer getExpenseItemId() {
 		return expenseItemId;
 	}
-
 	public void setExpenseItemId(Integer expenseItemId) {
 		this.expenseItemId = expenseItemId;
 	}
-
 	public String getExpenditureAmount() {
 		return expenditureAmount;
 	}
-
 	public void setExpenditureAmount(String expenditureAmount) {
 		this.expenditureAmount = expenditureAmount;
 	}
-
 	public String getIncomeAmount() {
 		return incomeAmount;
 	}
-
 	public void setIncomeAmount(String incomeAmount) {
 		this.incomeAmount = incomeAmount;
 	}
-
 	public Integer getSettlementId() {
 		return settlementId;
 	}
-
 	public void setSettlementId(Integer settlementId) {
 		this.settlementId = settlementId;
 	}
-
 	public String getUsedStore() {
 		return usedStore;
 	}
-
 	public void setUsedStore(String usedStore) {
 		this.usedStore = usedStore;
 	}
-
 	public String getRemarks() {
 		return remarks;
 	}
-
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-
 	public Timestamp getUpdateAt() {
 		return updateAt;
 	}
-
 	public void setUpdateAt(Timestamp updateAt) {
 		this.updateAt = updateAt;
 	}
-
 	public ExpenseItem getExpenseItem() {
 		return expenseItem;
 	}
-
 	public void setExpenseItem(ExpenseItem expenseItem) {
 		this.expenseItem = expenseItem;
 	}
-
 	public Settlement getSettlement() {
 		return settlement;
 	}
-
 	public void setSettlement(Settlement settlement) {
 		this.settlement = settlement;
 	}
-
 	@Override
 	public String toString() {
-		return "EditKakeibo [id=" + id + ", userId=" + userId + ", settlementDate=" + settlementDate
-				+ ", expenseItemId=" + expenseItemId + ", expenditureAmount=" + expenditureAmount + ", incomeAmount="
-				+ incomeAmount + ", settlementId=" + settlementId + ", usedStore=" + usedStore + ", remarks=" + remarks
-				+ ", updateAt=" + updateAt + ", expenseItem=" + expenseItem + ", settlement=" + settlement + "]";
+		return "EditKakeiboForm [id=" + id + ", userId=" + userId + ", paymentDate=" + paymentDate + ", expenseItemId="
+				+ expenseItemId + ", expenditureAmount=" + expenditureAmount + ", incomeAmount=" + incomeAmount
+				+ ", settlementId=" + settlementId + ", usedStore=" + usedStore + ", remarks=" + remarks + ", updateAt="
+				+ updateAt + ", expenseItem=" + expenseItem + ", settlement=" + settlement + "]";
 	}
+
 
 }
