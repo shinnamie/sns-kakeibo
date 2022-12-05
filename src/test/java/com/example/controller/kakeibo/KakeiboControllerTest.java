@@ -83,7 +83,7 @@ class KakeiboControllerTest {
 
 		// Listをセット
 		kakeibo.setId(1);
-		kakeibo.setSettlementDate(LocalDate.parse("2022-11-13"));
+		kakeibo.setPaymentDate(LocalDate.parse("2022-11-13"));
 		kakeibo.setExpenseItemId(2);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);

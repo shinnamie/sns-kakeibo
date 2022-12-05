@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
+<link rel="stylesheet" th:href="@{/css//common/example.css}">
+</head>
+<body>
+    <div th:fragment="frag_head">
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">家計簿</a>
+            <input class="form-control form-control-dark w-100" type="text" placeholder="検索" aria-label="検索">
+            <ul class="navbar-nav px-3">
+              <li class="nav-item text-nowrap">
+                <!-- <a class="nav-link" href="#">Sign out</a> -->
+                <a class="nav-link" href="#">サインアウト</a>
+              </li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>

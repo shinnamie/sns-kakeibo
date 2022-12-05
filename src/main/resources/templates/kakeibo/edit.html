@@ -21,14 +21,16 @@
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h2>家計簿編集</h2>
                 </div>
+                <!-- 更新が失敗した場合、エラーメッセージを表示する -->
+                <div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
                 <form th:action="@{/kakeibo/update}" th:object="${editKakeiboForm}" method="post">
                     <!-- 家計簿Id -->
                     <input type="hidden" name="id" th:value="*{id}">
                     <!-- 決済日時 -->
-                    <div th:errors="*{settlementDate}" style="color: red;"></div>
+                    <div th:errors="*{paymentDate}" style="color: red;"></div>
                     <div class="inputs">
                         <label class="label">決済日時</label>
-                        <input class="input_form" type="date" name="settlementDate" th:field="*{settlementDate}">
+                        <input class="input_form" type="date" name="paymentDate" th:field="*{paymentDate}">
                     </div>
                     <!-- 費目 -->
                     <div th:errors="*{expenseItemId}" style="color: red;"></div>
