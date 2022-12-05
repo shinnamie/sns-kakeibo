@@ -3,6 +3,7 @@ package com.example.controller.kakeibo;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class KakeiboController {
 
 	/**
 	 * 支出金額及び収入金額はnullを許容しないため、あらかじめ初期値として0をセット
-	 * 
+	 *
 	 * @return 家計簿新規登録フォーム
 	 */
 	@ModelAttribute
@@ -48,7 +49,7 @@ public class KakeiboController {
 	private EditKakeiboForm editKakeiboForm() {
 		return new EditKakeiboForm();
 	}
-	
+
 	@ModelAttribute
 	private SearchKakeiboForm searchKakeiboForm() {
 		return new SearchKakeiboForm();
@@ -56,19 +57,19 @@ public class KakeiboController {
 
 	/**
 	 * 家計簿一覧画面を表示
-	 * 
+	 *
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/list")
 	public String getList(Model model) {
 		model.addAttribute("kakeiboList", kakeiboService.findKakeiboList());
-		return "kakeibo/list";
+		return "kakeibo/kakeiboList";
 	}
-	
+
 	/**
 	 * 家計簿登録画面を表示(元のデータをデフォルト表示)
-	 * 
+	 *
 	 * @return
 	 */
 	@GetMapping(value = "/addKakeibo")
@@ -78,7 +79,7 @@ public class KakeiboController {
 
 	/**
 	 * 編集画面表示(初期値に登録済みデータ表示)
-	 * 
+	 *
 	 * @param id
 	 * @param editKakeiboForm
 	 * @return
@@ -93,17 +94,17 @@ public class KakeiboController {
 
 		return "kakeibo/edit";
 	}
-	
+
 	/**
 	 * 家計簿の更新処理
-	 * 
+	 *
 	 * @param editKakeiboForm
 	 * @param result
 	 * @return
 	 */
 	@PostMapping("/update")
 	public String updateKakeibo(@Validated EditKakeiboForm editKakeiboForm, BindingResult result, Model model) {
-		
+
 		// 入力値エラーの際は編集画面を表示する
 		if (result.hasErrors()) {
 			return "kakeibo/edit";
@@ -124,18 +125,8 @@ public class KakeiboController {
 	}
 
 	/**
-	 * 収支内訳画面を表示する
-	 * 
-	 * @return
-	 */
-	@GetMapping(value = "/breakdown-income-balance")
-	public String breakdownIncomeBalance() {
-		return "kakeibo/breakdown-income-balance";
-	}
-
-	/**
 	 * 家計簿の新規登録処理
-	 * 
+	 *
 	 * @param addKakeiboForm
 	 * @param result
 	 * @return
@@ -169,7 +160,7 @@ public class KakeiboController {
 
 	/**
 	 * 家計簿を論理削除する
-	 * 
+	 *
 	 * @param id 家計簿id
 	 * @return
 	 */
@@ -192,43 +183,8 @@ public class KakeiboController {
 	}
 
 	/**
-	 * 収支内訳を算出する
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(path = "{date}", method = RequestMethod.GET)
-	public String incomeAndExpenditureBalance(
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, Model model) {
-		// 月初日と月末日を取得する
-		String firstDateAndLastDate = kakeiboService.getFirstDayAndLastDay(date);
-		model.addAttribute("firstDateAndLastDate", firstDateAndLastDate);
-
-		// 年と月をString型で取得
-		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-
-		// 収支計算結果の取得
-		MonthlyBalanceCalculationResult monthlyBalanceCalculationResult = kakeiboService
-				.monthlyBalanceCalculateOfBreakdown(yearAndMonth);
-		if (monthlyBalanceCalculationResult == null) { // データが存在しない場合
-			model.addAttribute("message", "該当月のデータが存在しません。");
-			return "kakeibo/breakdown-income-balance";
-		}
-
-		// 年月の値を送り収支内訳結果を取得する
-		List<TotalByIncomeAndExpenditureBreakdown> totalByIncomeAndExpenditureBreakdownList = kakeiboService
-				.totalByIncomeAndExpenditureBreakdown(yearAndMonth);
-
-		// それぞれをスコープに格納
-		model.addAttribute("totalByIncomeAndExpenditureBreakdownList", totalByIncomeAndExpenditureBreakdownList);
-		model.addAttribute("monthlyBalanceCalculationResult", monthlyBalanceCalculationResult);
-
-		return breakdownIncomeBalance();
-	}
-
-	/**
 	 * 日付を取得するためのメソッド
-	 * 
+	 *
 	 * @param model
 	 * @return
 	 */
@@ -238,12 +194,68 @@ public class KakeiboController {
 		LocalDate date = LocalDate.now();
 		model.addAttribute("date", date);
 
-		return incomeAndExpenditureBalance(date, model);
+		return getBreakDown(date, model);
 	}
-	
+
+	/**
+	 * 収支内訳を算出する
+	 *
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(path = "{date}", method = RequestMethod.GET)
+	public String getBreakDown(
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @ModelAttribute @PathVariable("date") LocalDate date,
+			Model model) {
+
+		// 月初日と月末日を取得する
+		String firstDateAndLastDate = kakeiboService.getFirstDayAndLastDay(date);
+		model.addAttribute("firstDateAndLastDate", firstDateAndLastDate);
+
+		// 年と月をString型で取得
+		String yearAndMonth = date.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+
+		// 選択されている年月の費目別の支出・収入を算出する
+		List<Kakeibo> kakeiboList = kakeiboService.totalByIncomeAndExpenditureBreakdown(yearAndMonth);
+		if (kakeiboList == null || kakeiboList.size() == 0) { // データが存在しない場合
+			model.addAttribute("message", "該当月のデータが存在しません。");
+			return "kakeibo/breakdown-income-balance";
+		} else {
+
+			// 家計簿ListからMapに変換
+			Map<String, Integer> kakeiboMap = kakeiboService.findBreakdown(kakeiboList);
+
+			// 総収入・総支出・収支のMapを取得
+			Map<String, Integer> totalAmountMap = kakeiboService.totalAmountMap(kakeiboMap);
+
+			// Map内の費目別の割合を計算 Map<費目名,割合>
+			Map<String, Double> percentageMap = kakeiboService.calculatePercentage(kakeiboService.integerToDouble(kakeiboMap));
+
+			// 費目の総支出を格納したMapを呼び出す Map<費目名,支出額>
+			Map<String, Integer> itemExpenceMap = kakeiboService.itemExpenseMap(kakeiboMap);
+
+			// スコープに格納
+			model.addAttribute("totalAmountMap", totalAmountMap);
+			model.addAttribute("itemExpenceMap", itemExpenceMap);
+			model.addAttribute("rateItemMap", percentageMap);
+		}
+
+		return "kakeibo/breakdown-income-balance";
+	}
+
+	/**
+	 * 収支内訳画面を表示する
+	 *
+	 * @return
+	 */
+	@GetMapping(value = "/breakdown-income-balance")
+	public String breakdownIncomeBalance() {
+		return "kakeibo/breakdown-income-balance";
+	}
+
 	/**
 	 * 年別・月別集計画面を表示する
-	 * 
+	 *
 	 * @return
 	 */
 	@GetMapping("/kakeiboByYearAndMonth")
@@ -260,7 +272,7 @@ public class KakeiboController {
 	 */
 	@PostMapping("/kakeiboByYearAndMonth")
 	public String postKakeiboByYearAndMonth(@Validated SearchKakeiboForm searchKakeiboForm, BindingResult result, Model model) {
-		
+
 		// 入力値エラーの際は集計ページを表示する
 		if (result.hasErrors()) {
 			return "kakeibo/kakeiboByYearAndMonth";

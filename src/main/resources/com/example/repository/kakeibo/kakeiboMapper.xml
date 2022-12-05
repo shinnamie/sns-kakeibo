@@ -9,7 +9,7 @@
  		SELECT
 			k.id,
 			k.user_id,
-			k.settlement_date,
+			k.payment_date,
 			k.expense_item_id,
 			ei.expense_item_name,
 			k.expenditure_amount,
@@ -33,7 +33,7 @@
 		WHERE
 			k.is_deleted = false
 		ORDER BY
-			k.settlement_date DESC,
+			k.payment_date DESC,
 			k.update_at DESC;
  	</select>
  	
@@ -97,9 +97,9 @@
  	<!-- 家計簿新規登録 -->
  	<insert id="save">
  		INSERT INTO kakeibo
- 			(user_id, settlement_date, expense_item_id, expenditure_amount, income_amount, settlement_id, used_store, remarks)
+ 			(user_id, payment_date, expense_item_id, expenditure_amount, income_amount, settlement_id, used_store, remarks)
  		VALUES
- 			(#{userId}, #{settlementDate}, #{expenseItemId}, #{expenditureAmount}, #{incomeAmount}, #{settlementId}, #{usedStore}, #{remarks})
+ 			(#{userId}, #{paymentDate}, #{expenseItemId}, #{expenditureAmount}, #{incomeAmount}, #{settlementId}, #{usedStore}, #{remarks})
  	</insert>
  	
  	
@@ -128,19 +128,12 @@
  	
  	
  	<!-- 収支内訳算出 -->
- 	<select id="totalIncomeAndExpenditureBreakdown" resultMap="totalIncomeAndExpenditureBreakdownResultMap">
+ 	<select id="totalIncomeAndExpenditureBreakdown" resultMap="kakeiboResultMap">
  		SELECT
-			ei.id,
+			ei.id as expense_item_id,
 			ei.expense_item_name,
-			SUM(k.expenditure_amount) AS total_by_expense_item,
-			ROUND((100.0 * SUM(k.expenditure_amount) / (
-				SELECT
-					SUM(expenditure_amount) AS total_expenditure_amount
-				FROM kakeibo
-				WHERE
-					is_deleted = false
-					and TO_CHAR(settlement_date, 'YYYY-MM') LIKE '%${yearAndMonth}%'
-			)) , 2) AS income_and_expenditure_breakedown_rate
+			SUM(k.expenditure_amount) AS expenditure_amount,
+			SUM(k.income_amount) AS income_amount
 		FROM
 			expense_item AS ei
 		LEFT JOIN
@@ -150,21 +143,18 @@
 		WHERE
 			k.is_deleted = false
 			and k.expense_item_id NOT IN(1, 2, 3)
-			and TO_CHAR(k.settlement_date, 'YYYY-MM') LIKE '%${yearAndMonth}%'
+			and TO_CHAR(k.payment_date, 'YYYY-MM') LIKE '%${yearAndMonth}%'
 		GROUP BY
 			ei.id,
 			ei.expense_item_name
-		ORDER BY
-			total_by_expense_item DESC
  	</select>
  	
- 	<resultMap id="totalIncomeAndExpenditureBreakdownResultMap" type="com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown">
+ 	<resultMap id="totalIncomeAndExpenditureBreakdownResultMap" type="com.example.domain.kakeibo.Kakeibo">
  		<result property="expenseItemId" column="expense_item_id"/>
  		<result property="totalByExpenseItem" column="total_by_expense_item"/>
  		<result property="incomeAndExpenditureBreakedownRate" column="income_and_expenditure_breakedown_rate"/>
  		<association property="expenseItem" resultMap="expenseItemResultMap"/>
  	</resultMap>
- 	
  	
  	<!-- 月別収支計算(収支内訳画面用) -->
  	<select id="monthlyBalanceCalculateOfBreakdown" resultMap="BalanceCalculationResultMap">
@@ -175,7 +165,7 @@
 		FROM kakeibo
 		WHERE
 			is_deleted = false
-			and TO_CHAR(settlement_date, 'YYYY-MM') LIKE '%${yearAndMonth}%'
+			and TO_CHAR(payment_date, 'YYYY-MM') LIKE '%${yearAndMonth}%'
  	</select>
 
  	
@@ -233,4 +223,5 @@
  		<result property="totalExpenditureAmount" column="total_expenditure_amount"/>
  		<result property="balanceCalculationResult" column="balance_calculation_result"/>
  	</resultMap>
+ 	
  </mapper>

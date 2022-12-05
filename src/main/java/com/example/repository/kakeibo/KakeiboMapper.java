@@ -59,9 +59,9 @@ public interface KakeiboMapper {
 	 * 
 	 * @param year  年
 	 * @param month 月
-	 * @return 収支内訳
+	 * @return 収支内訳(費目ID・費目別支出・費目別収入・費目名)
 	 */
-	List<TotalByIncomeAndExpenditureBreakdown> totalIncomeAndExpenditureBreakdown(String yearAndMonth);
+	List<Kakeibo> totalIncomeAndExpenditureBreakdown(String yearAndMonth);
 
 	/**
 	 * 月別集計
