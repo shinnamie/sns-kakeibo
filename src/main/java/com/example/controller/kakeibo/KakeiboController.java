@@ -177,7 +177,7 @@ public class KakeiboController {
 	 * @return
 	 */
 	@PostMapping("/delete")
-	public String deleteKakeibo(Integer id) {
+	public String deleteKakeibo(long id) {
 		kakeiboService.deleteKakeibo(id);
 		
 		return "redirect:/kakeibo/list";

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.kakeibo.Kakeibo;
@@ -34,7 +35,7 @@ public class KakeiboService {
 	 * @param id 家計簿id
 	 * @return kakeibo 家計簿
 	 */
-	public Kakeibo findByKakeiboId(Integer id) {
+	public Kakeibo findByKakeiboId(long id) {
 		return kakeiboMapper.findByKakeiboId(id);
 	}
 
@@ -62,8 +63,13 @@ public class KakeiboService {
 	 * 
 	 * @param id 
 	 */
-	public void deleteKakeibo(Integer id) {
-		kakeiboMapper.delete(id);
+	public boolean deleteKakeibo(long id) {
+		try {
+			kakeiboMapper.delete(id);
+			return true;
+		} catch (DataIntegrityViolationException e) {
+			return false;
+		}
 	}
 
 	/**
