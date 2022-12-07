@@ -18,6 +18,7 @@ public class SignUpServiceImpl implements SignUpService {
 	@Autowired
 	private SignUpMapper mapper;
 
+	/** ユーザー登録 */
 	@Override
 	public boolean signUp(User user) {
 		try {

@@ -36,7 +36,7 @@ class SignUpMapperTest {
 
 	@Test
 	@DisplayName("登録情報が正しいとき、登録が成功することを期待する")
-	void whenValidInformation_signupIsSuccess() {
+	void whenValidInformation_signupIsSuccess() throws Exception {
 		// 実行
 		boolean actual = mapper.signUp(mitsuki);
 
@@ -46,7 +46,7 @@ class SignUpMapperTest {
 
 	@Test
 	@DisplayName("メールアドレスが既に登録されているとき、例外が発生し、登録が失敗することを期待する")
-	void whenMailAddressIsNotUnique_signupIsFail() {
+	void whenMailAddressIsNotUnique_signupIsFail() throws Exception {
 		// 準備
 		mapper.signUp(mitsuki);
 
