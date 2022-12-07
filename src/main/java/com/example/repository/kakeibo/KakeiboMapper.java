@@ -24,7 +24,7 @@ public interface KakeiboMapper {
 	 * 
 	 * @return 検索結果(1件)
 	 */
-	Kakeibo findByKakeiboId(Integer id);
+	Kakeibo findByKakeiboId(Long id);
 
 	/**
 	 * 家計簿の新規登録
@@ -38,7 +38,7 @@ public interface KakeiboMapper {
 	 * 
 	 * @param kakeibo
 	 */
-	void update(Kakeibo kakeibo);
+	boolean update(Kakeibo kakeibo);
 
 	/**
 	 * 論理削除フラグ
@@ -59,9 +59,9 @@ public interface KakeiboMapper {
 	 * 
 	 * @param year  年
 	 * @param month 月
-	 * @return 収支内訳
+	 * @return 収支内訳(費目ID・費目別支出・費目別収入・費目名)
 	 */
-	List<TotalByIncomeAndExpenditureBreakdown> totalIncomeAndExpenditureBreakdown(String yearAndMonth);
+	List<Kakeibo> totalIncomeAndExpenditureBreakdown(String yearAndMonth);
 
 	/**
 	 * 月別集計
@@ -70,7 +70,7 @@ public interface KakeiboMapper {
 	 * @param month 集計月
 	 * @return 集計結果
 	 */
-	List<Kakeibo> findByYearAndMonth(String year, String month);
+	List<Kakeibo> findKakeiboByYearAndMonth(String year, String month);
 
 	/**
 	 * 月別の収支計算結果

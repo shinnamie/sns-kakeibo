@@ -1,15 +1,46 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン</title>
+    <!-- bootstrap読み込み -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        html {
+            height: 100%;
+            margin: 0 auto;
+            padding: 0;
+            display: table;
+        }
+
+        body {
+            min-height: 100%;
+            margin: 0 auto;
+            padding: 0;
+            display: table-cell;
+            vertical-align: middle;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>ユーザーログイン画面</h1>
-    <form th:action="@{/user/login}" method="post">
-        メールアドレス<input type="text" name="mailAddress"><br>
-        パスワード<input type="password" name="password"><br>
-        <button>ログイン</button>
+    <form class="text-center card" th:action="@{/user/login}" method="post" th:object="${loginForm}">
+        <div class="card-body">
+            <h1 class="card-title">SNS家計簿</h1>
+            <div th:if="${errorMessage}">
+                <label class="control-label" style="color: red;" th:text="${errorMessage}"></label>
+            </div>
+            <div th:errors="*{mailAddress}" style="color: red;"></div>
+            <p class="card-text"><input class="form-control" type="email" name="mailAddress" th:field="*{mailAddress}" placeholder="メールアドレス" required autofocus></p>
+            <div th:errors="*{password}" style="color: red;"></div>
+            <p class="card-text"><input class="form-control" type="password" name="password" th:field="*{password}" placeholder="パスワード" required></p>
+            <p class="card-text"><a href="#">パスワードをお忘れの方はこちら</a></p>
+            <p class="card-text"><button class="btn btn-primary" type="submit">ログイン</button></p>
+        </div>
     </form>
 </body>
+
 </html>
