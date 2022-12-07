@@ -7,6 +7,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import lombok.Data;
 
 @Data
@@ -24,6 +27,8 @@ public class SignUpForm {
 	private String confirmPassword;
 	
 	private String name;
+	
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dateOfBirth;
 	
 	@NotNull
