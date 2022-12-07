@@ -25,7 +25,7 @@ class SignUpMapperTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		// 事前情報の登録
-		mitsuki.setMailAdress("test@net.com");
+		mitsuki.setMailAddress("test@net.com");
 		mitsuki.setPassword("password");
 		mitsuki.setName("高畑充希");
 		mitsuki.setGender(2);
@@ -58,7 +58,7 @@ class SignUpMapperTest {
 	@DisplayName("メールアドレスがnullのとき、例外が発生し、登録が失敗することを期待する")
 	void whenMailAddressIsnull_signupIsFail() {
 		// 準備
-		mitsuki.setMailAdress(null);
+		mitsuki.setMailAddress(null);
 
 		// 実行 & 検証
 		//		assertEquals(null, mapper.signUp(mitsuki));

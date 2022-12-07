@@ -79,4 +79,25 @@ INSERT INTO settlement(settlement_name) VALUES('クレジットカード');
 INSERT INTO settlement(settlement_name) VALUES('IC');					
 INSERT INTO settlement(settlement_name) VALUES('WAON');					
 INSERT INTO settlement(settlement_name) VALUES('PayPay');					
-INSERT INTO settlement(settlement_name) VALUES('ポイント');					
+INSERT INTO settlement(settlement_name) VALUES('ポイント');		
+
+
+--ユーザーテーブル作成					
+DROP TABLE IF EXISTS users CASCADE;					
+					
+CREATE TABLE users(
+id serial PRIMARY KEY,
+mail_address VARCHAR(50) NOT NULL UNIQUE,
+password VARCHAR(50) NOT NULL,
+name VARCHAR(20) NOT NULL DEFAULT '未設定',
+gender INTEGER,
+date_of_birth DATE,
+remarks VARCHAR(100)
+);				
+					
+INSERT INTO users(mail_address,password,name,gender,date_of_birth,remarks) VALUES('aaa@aaa','test1','佐藤太郎',1,'2000-01-01','特になし');					
+INSERT INTO users(mail_address,password,name,gender,date_of_birth,remarks) VALUES('bbb@bbb','test2','鈴木一郎',1,'2000-02-01','特になし');					
+INSERT INTO users(mail_address,password,name,gender,date_of_birth,remarks) VALUES('ccc@ccc','test3','ウサインボルト',1,'2000-03-01','特になし');					
+INSERT INTO users(mail_address,password,name,gender,date_of_birth,remarks) VALUES('ddd@ddd','test4','三笘薫',1,'2000-04-01','特になし');					
+INSERT INTO users(mail_address,password,name,gender,date_of_birth,remarks) VALUES('eee@eee','test5','堂安律',1,'2000-05-01','特になし');					
+			
