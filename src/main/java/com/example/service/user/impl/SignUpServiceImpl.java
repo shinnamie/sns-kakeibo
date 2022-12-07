@@ -8,6 +8,9 @@ import com.example.domain.user.User;
 import com.example.repository.user.SignUpMapper;
 import com.example.service.user.SignUpService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 @Transactional
 public class SignUpServiceImpl implements SignUpService {
@@ -17,8 +20,13 @@ public class SignUpServiceImpl implements SignUpService {
 
 	@Override
 	public boolean signUp(User user) {
-		// TODO 自動生成されたメソッド・スタブ
-		return false;
+		try {
+			mapper.signUp(user);
+			return true;
+		} catch (Exception e) {
+			log.error("登録が失敗しました");
+			return false;
+		}
 	}
 
 }
