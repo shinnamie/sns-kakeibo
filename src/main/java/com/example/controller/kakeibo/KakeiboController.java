@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -32,16 +33,6 @@ public class KakeiboController {
 	@Autowired
 	KakeiboService kakeiboService;
 
-	/**
-	 * 支出金額及び収入金額はnullを許容しないため、あらかじめ初期値として0をセット
-	 * 
-	 * @return 家計簿新規登録フォーム
-	 */
-	@ModelAttribute
-	private AddKakeiboForm addKakeiboForm() {
-		return new AddKakeiboForm("0", "0");
-	}
-
 	@ModelAttribute
 	private EditKakeiboForm editKakeiboForm() {
 		return new EditKakeiboForm();
@@ -58,16 +49,6 @@ public class KakeiboController {
 		List<Kakeibo> kakeiboList = kakeiboService.kakeiboList();
 		model.addAttribute("kakeiboList", kakeiboList);
 		return "kakeibo/kakeiboList";
-	}
-	
-	/**
-	 * 家計簿登録画面を表示(元のデータをデフォルト表示)
-	 * 
-	 * @return
-	 */
-	@GetMapping(value = "/addKakeibo")
-	public String addKakeibo(AddKakeiboForm addKakeiboForm) {
-		return "kakeibo/add";
 	}
 
 	@GetMapping(value = "/update")
@@ -107,36 +88,29 @@ public class KakeiboController {
 		return "kakeibo/year-and-month";
 	}
 
-	/**
-	 * 家計簿の新規登録処理
-	 * 
-	 * @param addKakeiboForm
-	 * @param result
-	 * @return
-	 */
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(@Validated AddKakeiboForm addKakeiboForm, BindingResult result) {
+	/** 家計簿を追加する画面(register.html)を表示 */
+	@GetMapping("/registerKakeibo")
+	public String getRegisterKakeibo(@ModelAttribute AddKakeiboForm form) {
+		return "kakeibo/register";
+	}
+
+	/** 家計簿の追加処理 */
+	@PostMapping("/saveKakeibo")
+	public String saveKakeibo(@ModelAttribute @Validated AddKakeiboForm form, BindingResult result, Model model) {
+		// 入力値チェック
 		if (result.hasErrors()) {
-			return "kakeibo/add";
+			return getRegisterKakeibo(form);
 		}
 
-		Kakeibo kakeibo = new Kakeibo();
-
-		// 決済日時を変換・セット(LocalDate型)
-		LocalDate settlementDate = addKakeiboForm.getSettlementDate();
-		kakeibo.setSettlementDate(settlementDate);
-
 		// フォームの値をドメインにコピー
-		BeanUtils.copyProperties(addKakeiboForm, kakeibo);
+		Kakeibo kakeibo = new Kakeibo();
+		BeanUtils.copyProperties(form, kakeibo);
 
-		// 支出金額と収入金額を変換してセット
-		Integer expenditureAmount = Integer.parseInt(addKakeiboForm.getExpenditureAmount());
-		Integer incomeAmount = Integer.parseInt(addKakeiboForm.getIncomeAmount());
-		kakeibo.setExpenditureAmount(expenditureAmount);
-		kakeibo.setIncomeAmount(incomeAmount);
-
-		// 新規登録処理
-		kakeiboService.save(kakeibo);
+		// 新規登録処理 (登録失敗した場合は登録画面に戻る)
+		if (!kakeiboService.saveKakeibo(kakeibo)) {
+			model.addAttribute("errorMessage", "登録が失敗しました");
+			return getRegisterKakeibo(form);
+		}
 
 		return "redirect:/kakeibo/list";
 	}
