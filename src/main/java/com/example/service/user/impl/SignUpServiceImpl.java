@@ -23,6 +23,7 @@ public class SignUpServiceImpl implements SignUpService {
 	public boolean signUp(User user) {
 		try {
 			mapper.signUp(user);
+			log.info("登録が成功しました");
 			return true;
 		} catch (Exception e) {
 			log.error("登録が失敗しました");

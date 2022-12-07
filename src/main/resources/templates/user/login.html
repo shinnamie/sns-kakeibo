@@ -34,11 +34,12 @@
                 <label class="control-label" style="color: red;" th:text="${errorMessage}"></label>
             </div>
             <div th:errors="*{mailAddress}" style="color: red;"></div>
-            <p class="card-text"><input class="form-control" type="email" name="mailAddress" th:field="*{mailAddress}" placeholder="メールアドレス" required autofocus></p>
+            <p class="card-text"><input class="form-control" type="email" name="mailAddress" th:field="*{mailAddress}" placeholder="メールアドレス" autofocus></p>
             <div th:errors="*{password}" style="color: red;"></div>
-            <p class="card-text"><input class="form-control" type="password" name="password" th:field="*{password}" placeholder="パスワード" required></p>
+            <p class="card-text"><input class="form-control" type="password" name="password" th:field="*{password}" placeholder="パスワード"></p>
             <p class="card-text"><a href="#">パスワードをお忘れの方はこちら</a></p>
             <p class="card-text"><button class="btn btn-primary" type="submit">ログイン</button></p>
+            <p class="card-text"><a th:href="@{/user/signup}">新規登録はこちら</a></p>
         </div>
     </form>
 </body>

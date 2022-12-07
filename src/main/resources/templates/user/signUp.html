@@ -52,7 +52,7 @@ body {
 		<p>生年月日：<br> <input type="date" name="dateOfBirth" th:field="*{dateOfBirth}"></p>
 		<p>備考：<br> <input type="text" name="remarks" th:field="*{remarks}"></p>
 
-		<p><a href="#">ログインはこちら</a></p>
+		<p><a th:href="@{/user/login}">ログインはこちら</a></p>
 		<p>
 			<button type="reset">クリア</button>
 			<button type="submit">登録</button>
