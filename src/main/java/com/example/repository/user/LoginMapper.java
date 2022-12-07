@@ -7,6 +7,6 @@ import com.example.domain.user.User;
 @Mapper
 public interface LoginMapper {
 
-	User Login(String mailAddress, String password);
+	public User Login(String mailAddress, String password);
 
 }
