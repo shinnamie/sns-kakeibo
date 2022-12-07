@@ -27,7 +27,7 @@ body {
 <body>
 	<h1>新規ユーザー登録</h1>
 	
-	<form th:action="@{/user/signUp}" method="post" th:object="${signUpForm}">
+	<form th:action="@{/user/signup}" method="post" th:object="${signUpForm}">
 		
 		<p>メールアドレス:
 		<span th:errors="*{mailAddress}" style="color: red;"></span><br>

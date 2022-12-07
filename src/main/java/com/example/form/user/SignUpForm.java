@@ -24,6 +24,7 @@ public class SignUpForm {
 	private String confirmPassword;
 	
 	private String name;
+	
 	private LocalDate dateOfBirth;
 	
 	@NotNull
