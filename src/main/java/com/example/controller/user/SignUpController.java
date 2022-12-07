@@ -25,7 +25,7 @@ public class SignUpController {
 
 	@Autowired
 	private SignUpService signUpService;
-	
+
 	@ModelAttribute
 	private SignUpForm signUpform() {
 		return new SignUpForm();
@@ -33,10 +33,10 @@ public class SignUpController {
 
 	/**
 	 * 新規ユーザー登録画面に遷移(user/signUp.html)
-	 * 
+	 *
 	 * @return
 	 */
-	@GetMapping("/signUp")
+	@GetMapping("/signup")
 	public String getSignUp() {
 		return "user/signUp";
 	}
@@ -45,7 +45,7 @@ public class SignUpController {
 	 * 新規ユーザー登録処理
 	 * 成功時：ログイン画面表示(user/login.html)
 	 * 失敗時：新規ユーザー登録画面に戻る(エラーメッセージ表示)
-	 * 
+	 *
 	 * @param signUpForm
 	 * @param model
 	 * @return
@@ -62,14 +62,14 @@ public class SignUpController {
 			model.addAttribute("passwordErrorMessage", "確認用パスワードはパスワードと同じものを入力してください");
 			return "user/signUp";
 		}
-		
+
 		User user = new User();
-		
+
 		// フォームの値をドメインにコピー
 		BeanUtils.copyProperties(signUpForm , user);
-		
-		
-		
+
+
+
 	// 新規ユーザー登録
 		signUpService.signUp(user);
 		return "redirect:/user/login";
