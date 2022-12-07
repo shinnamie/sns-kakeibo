@@ -1,0 +1,45 @@
+@startuml tables
+entity kakeibo as "kakeibo\n家計簿" {
+  + id [PK]
+  --
+  user_id [ユーザーID]
+  payment_date [支払日]
+  expense_item_id [費目ID]
+  expenditure_amount [支払金額]
+  income_amount　[収入金額]
+  payment_id [決済ID]
+  used_store [利用店舗]
+  remarks [備考]
+  insert_at [登録日]
+  update_at [更新日]
+}
+entity users as "users\nユーザー" {
+  + id [PK]
+  --
+  mail_address [メールアドレス]
+  password [パスワード]
+  
+}
+entity profile as "profile\nプロフィール" {
+  + id [PK]
+  --
+  user_id [ユーザーID]
+  name [名前]
+  gender [性別]
+  date_of_birth [生年月日]
+  remarks [備考]
+
+}
+
+
+entity expense_item  as "expense_item \n費目" {
+  + id [PK]
+  --
+  expense_item_name [費目名]
+}
+entity settlement  as "settlement \n決済" {
+  + id [PK]
+  --
+  settlement_name [決済方法]
+}
+@enduml
