@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.repository.user.SignUpMapper">
+
+<insert id="signUp">
+	INSERT INTO users (mail_address, password, name, gender, date_of_birth, remarks)
+	VALUES (#{mailAddress}, #{password}, #{name}, #{gender}, #{dateOfBirth}, #{remarks})
+</insert>
+
+</mapper>
