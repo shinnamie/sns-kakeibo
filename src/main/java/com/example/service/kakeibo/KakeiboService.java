@@ -20,7 +20,11 @@ import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
 import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 import com.example.repository.kakeibo.KakeiboMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Transactional
+@Slf4j
 public class KakeiboService {
 
 	@Autowired
@@ -45,13 +49,15 @@ public class KakeiboService {
 		return kakeiboMapper.findByKakeiboId(id);
 	}
 
-	/**
-	 * 家計簿の新規登録
-	 * 
-	 * @param kakeibo
-	 */
-	public void save(Kakeibo kakeibo) {
-		kakeiboMapper.save(kakeibo);
+	/** 家計簿の追加 */
+	public boolean saveKakeibo(Kakeibo kakeibo) {
+		try {
+			kakeiboMapper.saveKakeibo(kakeibo);
+			return true;
+		} catch (Exception e) {
+			log.error("例外が発生しました: {}", e);
+			return false;
+		}
 	}
 
 	/**

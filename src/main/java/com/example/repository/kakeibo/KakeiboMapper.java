@@ -11,7 +11,7 @@ import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 
 @Mapper
 public interface KakeiboMapper {
-	
+
 	/**
 	 * 家計簿情報の全件取得
 	 * 
@@ -31,7 +31,7 @@ public interface KakeiboMapper {
 	 * 
 	 * @param kakeibo
 	 */
-	void save(Kakeibo kakeibo);
+	boolean saveKakeibo(Kakeibo kakeibo);
 
 	/**
 	 * 家計簿の編集

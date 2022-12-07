@@ -124,6 +124,12 @@ public class KakeiboController {
 		return "redirect:/kakeibo/list";
 	}
 
+	/** 家計簿を追加する画面(register.html)を表示 */
+	@GetMapping("/registerKakeibo")
+	public String getRegisterKakeibo(@ModelAttribute AddKakeiboForm form) {
+		return "kakeibo/register";
+	}
+
 	/**
 	 * 家計簿の新規登録処理
 	 *
@@ -134,7 +140,7 @@ public class KakeiboController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String create(@Validated AddKakeiboForm addKakeiboForm, BindingResult result) {
 		if (result.hasErrors()) {
-			return "kakeibo/add";
+			return getRegisterKakeibo(form);
 		}
 
 		Kakeibo kakeibo = new Kakeibo();
@@ -144,16 +150,14 @@ public class KakeiboController {
 		kakeibo.setPaymentDate(settlementDate);
 
 		// フォームの値をドメインにコピー
-		BeanUtils.copyProperties(addKakeiboForm, kakeibo);
+		Kakeibo kakeibo = new Kakeibo();
+		BeanUtils.copyProperties(form, kakeibo);
 
-		// 支出金額と収入金額を変換してセット
-		Integer expenditureAmount = Integer.parseInt(addKakeiboForm.getExpenditureAmount());
-		Integer incomeAmount = Integer.parseInt(addKakeiboForm.getIncomeAmount());
-		kakeibo.setExpenditureAmount(expenditureAmount);
-		kakeibo.setIncomeAmount(incomeAmount);
-
-		// 新規登録処理
-		kakeiboService.save(kakeibo);
+		// 新規登録処理 (登録失敗した場合は登録画面に戻る)
+		if (!kakeiboService.saveKakeibo(kakeibo)) {
+			model.addAttribute("errorMessage", "登録が失敗しました");
+			return getRegisterKakeibo(form);
+		}
 
 		return "redirect:/kakeibo/list";
 	}

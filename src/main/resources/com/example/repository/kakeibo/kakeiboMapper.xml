@@ -95,7 +95,7 @@
  	
  	
  	<!-- 家計簿新規登録 -->
- 	<insert id="save">
+ 	<insert id="saveKakeibo">
  		INSERT INTO kakeibo
  			(user_id, payment_date, expense_item_id, expenditure_amount, income_amount, settlement_id, used_store, remarks)
  		VALUES
