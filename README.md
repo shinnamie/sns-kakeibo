@@ -3,7 +3,7 @@
 
 [ER図](https://user-images.githubusercontent.com/105257899/204226975-9e11bcc1-e8c4-405e-99ea-8065eb7cc991.png)
 
-[クラス図](https://user-images.githubusercontent.com/105257899/204227058-5100ce05-af76-4405-816a-e9130e0dba23.png)
+[クラス図](https://user-images.githubusercontent.com/105257899/206100187-d175ac31-f016-4ddc-a6f0-0a2cc822e955.png)
 
 
 
