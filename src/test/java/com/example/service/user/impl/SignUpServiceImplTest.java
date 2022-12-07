@@ -54,5 +54,4 @@ class SignUpServiceImplTest {
 		// 検証
 		assertFalse(actual);
 	}
-
 }

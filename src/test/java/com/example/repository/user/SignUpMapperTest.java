@@ -61,7 +61,6 @@ class SignUpMapperTest {
 		mitsuki.setMailAddress(null);
 
 		// 実行 & 検証
-		//		assertEquals(null, mapper.signUp(mitsuki));
 		assertThrows(Exception.class, () -> mapper.signUp(mitsuki));
 	}
 
