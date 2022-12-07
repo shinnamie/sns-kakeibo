@@ -4,7 +4,7 @@
 
 <insert id="signUp">
 	INSERT INTO users (mail_address, password, name, gender, date_of_birth, remarks)
-	VALUES (#{mailAdress}, #{password}, #{name}, #{gender}, #{dateOfBirth}, #{remarks})
+	VALUES (#{mailAddress}, #{password}, #{name}, #{gender}, #{dateOfBirth}, #{remarks})
 </insert>
 
 </mapper>

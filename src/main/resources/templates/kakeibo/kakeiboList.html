@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>家計簿一覧</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
-<link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
-<link rel="stylesheet" th:href="@{/css/common/example.css}">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
+    <meta charset="UTF-8">
+    <title>家計簿一覧</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/common/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/common/example.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
 </head>
 <body>
     <!-- ヘッド/インクルード化しているので、編集する際はheader.htmlから -->
     <div th:insert="common/head :: frag_head"></div>
-    
+
     <div class="container-fluid">
         <div class="row">
             <!-- サイドバー/インクルード化しているので、編集する際はsidebar.htmlから -->
@@ -40,7 +40,7 @@
                             </thead>
                             <tbody>
                                 <tr th:each="kakeibo : ${kakeiboList}" class="align-middle">
-                                    <td th:text="${kakeibo.settlementDate}">2022-09-01</td>
+                                    <td th:text="${kakeibo.paymentDate}">2022-09-01</td>
                                     <td th:text="${kakeibo.expenseItem.expenseItemName}">3</td>
                                     <td th:if="${kakeibo.expenditureAmount >= 1000}" th:text="${#numbers.formatInteger(kakeibo.expenditureAmount, 3, 'COMMA')} + '円'">3000</td>
                                     <td th:unless="${kakeibo.expenditureAmount >= 1000}" th:text="${kakeibo.expenditureAmount} + '円'">100</td>
@@ -51,7 +51,7 @@
                                     <td th:text="${kakeibo.remarks}">テストテスト</td>
                                     <td th:text="${#dates.format(kakeibo.insertAt, 'yyyy月MM月dd日')}">2022-09-01</td>
                                     <td>
-                                        <form th:action="@{/kakeibo/update}">
+                                        <form th:action="@{/kakeibo/edit}">
                                             <input name="id" type="hidden" th:value="${kakeibo.id}">
                                             <button type="submit"><i class="fa-solid fa-pen"></i></button>
                                         </form>
