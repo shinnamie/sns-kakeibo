@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
-import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
-import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 import com.example.form.kakeibo.AddKakeiboForm;
 import com.example.form.kakeibo.EditKakeiboForm;
 import com.example.form.kakeibo.SearchKakeiboForm;
@@ -35,19 +33,9 @@ public class KakeiboController {
 
 	@Autowired
 	KakeiboService kakeiboService;
-	
+
 	@Autowired
 	LoginService loginService;
-
-	/**
-	 * 支出金額及び収入金額はnullを許容しないため、あらかじめ初期値として0をセット
-	 *
-	 * @return 家計簿新規登録フォーム
-	 */
-	@ModelAttribute
-	private AddKakeiboForm addKakeiboForm() {
-		return new AddKakeiboForm("0", "0");
-	}
 
 	@ModelAttribute
 	private EditKakeiboForm editKakeiboForm() {
@@ -71,15 +59,31 @@ public class KakeiboController {
 		return "kakeibo/kakeiboList";
 	}
 
-	/**
-	 * 家計簿登録画面を表示(元のデータをデフォルト表示)
-	 *
-	 * @return
-	 */
-	@GetMapping(value = "/addKakeibo")
-	public String addKakeibo(AddKakeiboForm addKakeiboForm) {
-		System.out.println(loginService.login(null, null));
-		return "kakeibo/add";
+	/** 家計簿を追加する画面(register.html)を表示 */
+	@GetMapping("/registerKakeibo")
+	public String getRegisterKakeibo(@ModelAttribute AddKakeiboForm form) {
+		return "kakeibo/register";
+	}
+
+	/** 家計簿の追加処理 */
+	@PostMapping("/saveKakeibo")
+	public String saveKakeibo(@ModelAttribute @Validated AddKakeiboForm form, BindingResult result, Model model) {
+		// 入力値チェック
+		if (result.hasErrors()) {
+			return getRegisterKakeibo(form);
+		}
+
+		// フォームの値をドメインにコピー
+		Kakeibo kakeibo = new Kakeibo();
+		BeanUtils.copyProperties(form, kakeibo);
+
+		// 新規登録処理 (登録失敗した場合は登録画面に戻る)
+		if (!kakeiboService.saveKakeibo(kakeibo)) {
+			model.addAttribute("errorMessage", "登録が失敗しました");
+			return getRegisterKakeibo(form);
+		}
+
+		return "redirect:/kakeibo/list";
 	}
 
 	/**
@@ -124,44 +128,6 @@ public class KakeiboController {
 		if (!kakeiboService.updateKakeibo(kakeibo)) {
 			model.addAttribute("errorMessage", "更新が失敗しました");
 			return "kakeibo/edit";
-		}
-
-		return "redirect:/kakeibo/list";
-	}
-
-	/** 家計簿を追加する画面(register.html)を表示 */
-	@GetMapping("/registerKakeibo")
-	public String getRegisterKakeibo(@ModelAttribute AddKakeiboForm form) {
-		return "kakeibo/register";
-	}
-
-	/**
-	 * 家計簿の新規登録処理
-	 *
-	 * @param addKakeiboForm
-	 * @param result
-	 * @return
-	 */
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(@Validated AddKakeiboForm addKakeiboForm, BindingResult result) {
-		if (result.hasErrors()) {
-			return getRegisterKakeibo(form);
-		}
-
-		Kakeibo kakeibo = new Kakeibo();
-
-		// 決済日時を変換・セット(LocalDate型)
-		LocalDate settlementDate = addKakeiboForm.getSettlementDate();
-		kakeibo.setPaymentDate(settlementDate);
-
-		// フォームの値をドメインにコピー
-		Kakeibo kakeibo = new Kakeibo();
-		BeanUtils.copyProperties(form, kakeibo);
-
-		// 新規登録処理 (登録失敗した場合は登録画面に戻る)
-		if (!kakeiboService.saveKakeibo(kakeibo)) {
-			model.addAttribute("errorMessage", "登録が失敗しました");
-			return getRegisterKakeibo(form);
 		}
 
 		return "redirect:/kakeibo/list";
@@ -238,7 +204,8 @@ public class KakeiboController {
 			Map<String, Integer> totalAmountMap = kakeiboService.totalAmountMap(kakeiboMap);
 
 			// Map内の費目別の割合を計算 Map<費目名,割合>
-			Map<String, Double> percentageMap = kakeiboService.calculatePercentage(kakeiboService.integerToDouble(kakeiboMap));
+			Map<String, Double> percentageMap = kakeiboService
+					.calculatePercentage(kakeiboService.integerToDouble(kakeiboMap));
 
 			// 費目の総支出を格納したMapを呼び出す Map<費目名,支出額>
 			Map<String, Integer> itemExpenceMap = kakeiboService.itemExpenseMap(kakeiboMap);
@@ -280,7 +247,8 @@ public class KakeiboController {
 	 * @return
 	 */
 	@PostMapping("/kakeiboByYearAndMonth")
-	public String postKakeiboByYearAndMonth(@Validated SearchKakeiboForm searchKakeiboForm, BindingResult result, Model model) {
+	public String postKakeiboByYearAndMonth(@Validated SearchKakeiboForm searchKakeiboForm, BindingResult result,
+			Model model) {
 
 		// 入力値エラーの際は集計ページを表示する
 		if (result.hasErrors()) {
@@ -288,12 +256,13 @@ public class KakeiboController {
 		}
 
 		// リストが返ってきた時、kakeiboListに格納
-		model.addAttribute("kakeiboList", kakeiboService.findKakeiboByYearAndMonth(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
+		model.addAttribute("kakeiboList",
+				kakeiboService.findKakeiboByYearAndMonth(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
 		// リストがnullの時、messageに格納
 		model.addAttribute("message", "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
 		// 収支計算結果の取得
-		model.addAttribute("result", kakeiboService.monthlyBalanceCalculate(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
-
+		model.addAttribute("result",
+				kakeiboService.monthlyBalanceCalculate(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
 
 		return "kakeibo/kakeiboByYearAndMonth";
 	}
