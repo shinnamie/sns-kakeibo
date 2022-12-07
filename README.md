@@ -3,9 +3,7 @@
 
 [ER図](https://user-images.githubusercontent.com/105257899/204226975-9e11bcc1-e8c4-405e-99ea-8065eb7cc991.png)
 
-[クラス図](https://user-images.githubusercontent.com/105257899/206100415-cc104b2a-c1dc-41a7-a125-30fd388a5274.png)
-
-
+[クラス図](https://user-images.githubusercontent.com/105257899/206100682-6d7dab14-cec3-4c93-b6e7-1c6e5cf4fd79.png)
 
 
 # ログイン機能
