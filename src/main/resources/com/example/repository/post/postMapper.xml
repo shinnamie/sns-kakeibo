@@ -1,3 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.repository.post.PostMapper"></mapper>
+
+<mapper namespace="com.example.repository.post.PostMapper">
+
+  <!-- 投稿一覧表示のresultMap -->
+  <resultMap id="postResultMap" type="com.example.domain.post.Post" autoMapping="true">
+    <id property="id" column="id" />
+  </resultMap>
+
+  <!-- Board未作成の為コメントアウト -->
+  <!-- <resultMap id="boardMap" type="com.example.domain.post.Board" autoMapping="true">
+    <id property="id" column="id" />
+  </resultMap> -->
+
+  <resultMap id="userMap" type="com.example.domain.user.User" autoMapping="true">
+    <id property="id" column="id" />
+  </resultMap>
+
+  <!-- 投稿一覧表示(掲示板IDに紐付けて表示) -->
+  <select id="findPostList" resultMap="postResultMap">
+    SELECT
+      p.id
+      , p.board_id
+      <!-- Board未作成の為コメントアウト -->
+      <!-- , b.topic
+      , b.description -->
+      , p.user_id
+      , u.name
+      , p.contents
+      , p.insert_at
+      , p.update_at
+    FROM
+      posts AS p
+    INNER JOIN
+      board AS b
+    ON
+      p.board_id = b.id
+    INNER JOIN
+      users AS u
+    ON
+      p.user_id = u.id
+    WHERE
+      b.id = #{boardId}
+  </select>
+</mapper>
