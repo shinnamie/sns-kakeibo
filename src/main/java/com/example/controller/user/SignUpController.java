@@ -55,12 +55,18 @@ public class SignUpController {
 		if (result.hasErrors()) {
 			log.info("入力値エラー: {}" , signUpForm);
 			return "user/signUp";
+		//登録済みメールアドレスの重複チェック
+		}else if(signUpService.findByEmail(signUpForm.getMailAddress()) != null) {
+			log.info("登録済みのメールアドレス: mailAddress:{}" , signUpForm.getMailAddress());
+			model.addAttribute("mailAddressErrorMessage", "入力したメールアドレスは既に登録されています");
+			return "user/signUp";
 		//パスワードの一致チェック
 		}else if(!(signUpForm.getPassword().equals(signUpForm.getConfirmPassword()))){
 			log.info("パスワード不一致: password:{} confirmPassword:{}" , signUpForm.getPassword() , signUpForm.getConfirmPassword());
 			model.addAttribute("passwordErrorMessage", "確認用パスワードはパスワードと同じものを入力してください");
-			return "user/signUp";
-		}
+			return "user/signUp";	
+
+		}	
 
 		User user = new User();
 

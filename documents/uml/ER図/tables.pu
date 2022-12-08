@@ -18,19 +18,12 @@ entity users as "users\nユーザー" {
   --
   mail_address [メールアドレス]
   password [パスワード]
-  
-}
-entity profile as "profile\nプロフィール" {
-  + id [PK]
-  --
-  user_id [ユーザーID]
   name [名前]
   gender [性別]
   date_of_birth [生年月日]
   remarks [備考]
-
+  
 }
-
 
 entity expense_item  as "expense_item \n費目" {
   + id [PK]
@@ -41,5 +34,33 @@ entity settlement  as "settlement \n決済" {
   + id [PK]
   --
   settlement_name [決済方法]
+}
+entity board as  "board \n掲示板"{
+  + id [PK]
+  --
+  user_id[ユーザーID][FK]
+  topic[トピック]
+  description[説明]
+
+}
+entity posts as  "posts \n投稿"{
+  + id [PK]
+  --
+  user_id [ユーザーID][FK]
+  board_id[掲示板ID][FK]
+  contents[コンテンツ]
+  insert_at[登録日]
+  update_at[更新日]
+
+}
+entity comments as  "comments \nコメント"{
+  + id [PK]
+  --
+  user_id[ユーザーID][FK]
+  post_id[投稿ID][FK]
+  contents[コンテンツ]
+  insert_at[登録日]
+  update_at[更新日]
+
 }
 @enduml
