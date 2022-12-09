@@ -43,6 +43,6 @@
     WHERE
       b.id = #{boardId}
     ORDER BY
-      p.id DESC;
+      p.insert_at DESC;
   </select>
 </mapper>
