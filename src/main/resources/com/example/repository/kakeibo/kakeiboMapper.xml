@@ -29,6 +29,8 @@
 			settlement as s
 		ON
 			k.settlement_id = s.id
+		WHERE
+			k.user_id = #{userId}
 		ORDER BY
 			k.payment_date DESC,
 			k.update_at DESC;

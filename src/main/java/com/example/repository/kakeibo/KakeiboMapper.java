@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
-import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 
 @Mapper
 public interface KakeiboMapper {
@@ -17,7 +16,7 @@ public interface KakeiboMapper {
 	 * 
 	 * @return 検索結果
 	 */
-	List<Kakeibo> findAll();
+	List<Kakeibo> findAll(Long userId);
 
 	/**
 	 * 家計簿idから家計簿情報を取得

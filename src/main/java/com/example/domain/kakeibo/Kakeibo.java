@@ -34,5 +34,5 @@ public class Kakeibo {
 	private ExpenseItem expenseItem;
 	/** 決済 */
 	private Settlement settlement;
-	
+
 }

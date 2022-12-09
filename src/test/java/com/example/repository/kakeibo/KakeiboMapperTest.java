@@ -2,7 +2,7 @@ package com.example.repository.kakeibo;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
@@ -13,12 +13,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.kakeibo.Kakeibo;
 
 @SpringBootTest
+@Transactional
 class KakeiboMapperTest {
-	
+
 	@Autowired
 	KakeiboMapper mapper;
 
@@ -36,6 +38,31 @@ class KakeiboMapperTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
+	}
+
+	@Test
+	@DisplayName("ユーザIDを渡したとき、適切なリストが得られることを期待する")
+	void whenGiveUserId_expectedToGetKakeiboList() {
+		// 準備
+		// テスト用ユーザIDの準備
+		var userId = 100;
+		// テストデータを100件作成
+		for (int i = 1; i <= 100; i++) {
+			var kakeibo = new Kakeibo();
+			kakeibo.setUserId(userId);
+			LocalDate date = LocalDate.now();
+			kakeibo.setPaymentDate(date);
+			kakeibo.setExpenseItemId(1);
+			kakeibo.setExpenditureAmount(10000);
+			kakeibo.setIncomeAmount(0);
+			mapper.saveKakeibo(kakeibo);
+		}
+		// 実行
+		var kakeiboList = mapper.findAll(100L);
+		// 検証
+		for (var kakeibo : kakeiboList) {
+			assertEquals(userId, kakeibo.getUserId());
+		}
 	}
 
 	@Test
