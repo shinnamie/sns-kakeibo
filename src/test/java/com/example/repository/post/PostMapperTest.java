@@ -44,7 +44,9 @@ class PostMapperTest {
 		LocalDateTime insertDateTime4 = LocalDateTime.parse("2022-04-09T19:34:50.63");
 		LocalDateTime insertDateTime5 = LocalDateTime.parse("2022-05-09T19:34:50.63");
 		LocalDateTime insertDateTime6 = LocalDateTime.parse("2022-06-09T19:34:50.63");
-		LocalDateTime updateDateTime = LocalDateTime.parse("2022-11-10T19:34:50.63");
+		LocalDateTime updateDateTime4 = LocalDateTime.parse("2022-04-10T19:34:50.63");
+		LocalDateTime updateDateTime5 = LocalDateTime.parse("2022-05-10T19:34:50.63");
+		LocalDateTime updateDateTime6 = LocalDateTime.parse("2022-06-10T19:34:50.63");
 		user.setId(1L);
 		user.setMailAddress("aaa@aaa");
 		user.setPassword("test1");
@@ -52,19 +54,19 @@ class PostMapperTest {
 		post1.setId(4L);
 		post1.setContents("ボーナスやった！！(4)");
 		post1.setInsertAt(insertDateTime4);
-		post1.setUpdateAt(updateDateTime);
+		post1.setUpdateAt(updateDateTime4);
 		post1.setUser(user);
 		
 		post2.setId(5L);
 		post2.setContents("ボーナスやった！！(5)");
 		post2.setInsertAt(insertDateTime5);
-		post2.setUpdateAt(updateDateTime);
+		post2.setUpdateAt(updateDateTime5);
 		post2.setUser(user);
 		
 		post3.setId(6L);
 		post3.setContents("ボーナスやった！！(6)");
 		post3.setInsertAt(insertDateTime6);
-		post3.setUpdateAt(updateDateTime);
+		post3.setUpdateAt(updateDateTime6);
 		post3.setUser(user);
 		
 		expectedPostLists.add(post1);
