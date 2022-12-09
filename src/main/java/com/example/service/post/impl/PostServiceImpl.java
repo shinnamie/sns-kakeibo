@@ -22,6 +22,7 @@ public class PostServiceImpl implements PostService {
 	 */
 	@Override
 	public List<Post> selectPostList(Long boardId) {
+
 		return postMapper.findPostList(boardId);
 	}
 	
