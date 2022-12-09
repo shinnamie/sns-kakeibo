@@ -79,7 +79,7 @@ public class BoardControllerGetPostListTest {
 		.andReturn();
 		
 		ModelAndView mav = result.getModelAndView();
-		assertEquals(mav.getModel().get("postList") , postList);
+		assertEquals(postList , mav.getModel().get("postList"));
 	}
 	
 	//異常系
