@@ -9,6 +9,6 @@ import com.example.domain.post.Post;
 @Mapper
 public interface PostMapper {
 
-	public List<Post> findPostList();
+	public List<Post> findPostList(Long boardId);
 
 }
