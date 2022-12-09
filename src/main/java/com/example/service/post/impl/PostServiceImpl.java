@@ -13,7 +13,7 @@ import com.example.service.post.PostService;
 public class PostServiceImpl implements PostService {
 
 	@Override
-	public List<Post> postList(Long boardId) {
+	public List<Post> selectPostList(Long boardId) {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
