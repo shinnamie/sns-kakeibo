@@ -1,0 +1,8 @@
+<div th:fragment="postList">
+  <div th:each="post : ${postList}">
+    <div th:text="投稿者： + ${post.user.name}"></div>
+    <div th:text="内容： + ${post.contents}"></div>
+    <div th:text="投稿日： + ${#temporals.format(post.insertAt, 'yyyy年MM月dd日HH時mm分ss秒')}"></div>
+    <hr>
+  </div>
+</div>
