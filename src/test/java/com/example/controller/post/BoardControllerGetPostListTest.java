@@ -31,7 +31,6 @@ import com.example.service.post.PostService;
 @AutoConfigureMockMvc
 public class BoardControllerGetPostListTest {
 	
-//	Board board = new Board();
 	List<Post> postList = new ArrayList<>();
 	Post post = new Post();
 	Board board = new Board();
