@@ -19,8 +19,8 @@ public class BoardController {
 	@Autowired
 	private PostService postService;
 
-	@GetMapping("/{id}")
-	public String getPostList(@PathVariable("id") Long boardId, Model model) {
+	@GetMapping("/{boardId}")
+	public String getPostList(@PathVariable("boardId") Long boardId, Model model) {
 		// 該当掲示板の投稿リストを取得
 		List<Post> postList = postService.selectPostList(boardId);
 		if (postList.size() == 0) {
