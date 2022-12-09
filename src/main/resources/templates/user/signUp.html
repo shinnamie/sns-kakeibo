@@ -31,7 +31,6 @@ body {
 		
 		<p>メールアドレス:
 		<span th:errors="*{mailAddress}" style="color: red;"></span><br>
-		<p th:if="${mailAddressErrorMessage}" th:text="${mailAddressErrorMessage}" style="color: red;"></p>
 		<input type="email" name="mailAddress" th:field="*{mailAddress}" placeholder="xxx@co.jp" autofocus></p>
 		<p>パスワード: 
 		<span th:errors="*{password}" style="color: red;"></span><br>

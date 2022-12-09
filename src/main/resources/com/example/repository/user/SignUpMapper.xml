@@ -7,10 +7,4 @@
 	VALUES (#{mailAddress}, #{password}, #{name}, #{gender}, #{dateOfBirth}, #{remarks})
 </insert>
 
-<select id="findByEmail">
-	SELECT
-	id , mail_address, password, name, gender, date_of_birth, remarks
-	FROM users
-	WHERE mail_address = #{mailAddress}
-</select>
 </mapper>

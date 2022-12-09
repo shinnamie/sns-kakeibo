@@ -63,6 +63,7 @@ class Post{
     LocalDateTime updateAt
     User user
     Board board
+    List<Comment> commentList
 }
 
 class Comment{

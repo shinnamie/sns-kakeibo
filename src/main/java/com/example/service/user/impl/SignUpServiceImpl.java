@@ -30,17 +30,5 @@ public class SignUpServiceImpl implements SignUpService {
 			return false;
 		}
 	}
-	
-	/** メアドチェック */
-	@Override
-	public User findByEmail(String mailAddress) {
-		try {
-			mapper.findByEmail(mailAddress);
-			log.info("登録が成功しました");
-		} catch (Exception e) {
-			log.error("登録が失敗しました");
-		}
-		return null;
-	}
 
 }
