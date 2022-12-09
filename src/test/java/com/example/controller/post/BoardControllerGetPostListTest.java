@@ -63,20 +63,6 @@ public class BoardControllerGetPostListTest {
 	
 	
 	/** 表示テスト */
-
-	@Test
-	@DisplayName("投稿一覧画面に遷移")
-	void testGetPostList() throws Exception {
-		
-		
-		when(postService.selectPostList(anyLong())).thenReturn(postList);
-		
-		// 検証&実行
-		mockMvc.perform(get("/board/1"))
-		.andExpect(status().isOk())
-		.andExpect(view().name("board/topic"))
-		.andReturn();
-	}
 	
 	// 正常系
 
