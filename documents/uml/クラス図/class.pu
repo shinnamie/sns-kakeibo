@@ -48,6 +48,46 @@ class LoginForm{
     String password
 }
 
+class Board{
+    Long id
+    String topic
+    String description
+    User user
+    List<Post> postList
+}
+
+class Post{
+    Long id
+    String contents
+    LocalDateTime insertAt
+    LocalDateTime updateAt
+    User user
+    Board board
+}
+
+class Comment{
+    Long id
+    String contents
+    LocalDateTime insertAt
+    LocalDateTime updateAt
+    User user
+    Board board
+    Post post
+
+
+}
+
+class BoardController{
+    getPostList(Long boardId)
+}
+
+class PostService{
+    selectPostList(Long boardId)
+}
+
+class PostMapper{
+    findPostList()
+}
 
 LoginController  ..>  LoginService 
 LoginService  ..>  LoginMapper 
@@ -57,4 +97,10 @@ SignUpController  ..>  SignUpService
 SignUpService  ..>  SignUpMapper 
 SignUpController -- SignUpForm
 SignUpController -- User
+BoardController ..> PostService
+PostService ..> PostMapper
+BoardController -- User
+BoardController -- Board
+BoardController -- Post
+BoardController -- Comment
 @enduml
