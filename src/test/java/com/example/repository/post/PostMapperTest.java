@@ -93,7 +93,9 @@ class PostMapperTest {
 		Long mapperPostId0 = mapperPostList.get(0).getId();
 		Long mapperPostId1 = mapperPostList.get(1).getId();
 		
-		//投稿IDを比較する
+		//Listのsizeを比較する
+		assertEquals(expectedPostLists.size(), mapperPostList.size());
+		//投稿IDが一致するかどうか
 		assertEquals(expectedPostId0, mapperPostId0);
 		assertEquals(expectedPostId1, mapperPostId1);
 		
@@ -117,10 +119,10 @@ class PostMapperTest {
 		
 		List<Post> mapperPostList = mapper.findPostList(3L);
 		
-		//期待する投稿一覧とmapperから返された投稿一覧の行番号が同じものを比較する
-		assertEquals(expectedPostLists.get(0),mapperPostList.get(0));
-		assertEquals(expectedPostLists.get(1),mapperPostList.get(2));
-		assertEquals(expectedPostLists.get(2),mapperPostList.get(3));
+		//期待する投稿とmapperから返された投稿一が同じものを比較する
+		assertEquals(post3,mapperPostList.get(0));
+		assertEquals(post2,mapperPostList.get(2));
+		assertEquals(post1,mapperPostList.get(3));
 	}
 
 }
