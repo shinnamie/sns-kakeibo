@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
+import com.example.domain.user.User;
 import com.example.form.kakeibo.AddKakeiboForm;
 import com.example.form.kakeibo.EditKakeiboForm;
 import com.example.form.kakeibo.SearchKakeiboForm;
@@ -30,6 +33,9 @@ import com.example.service.user.LoginService;
 @Controller
 @RequestMapping("/kakeibo")
 public class KakeiboController {
+
+	@Autowired
+	HttpSession session;
 
 	@Autowired
 	KakeiboService kakeiboService;
@@ -62,12 +68,24 @@ public class KakeiboController {
 	/** 家計簿を追加する画面(register.html)を表示 */
 	@GetMapping("/registerKakeibo")
 	public String getRegisterKakeibo(@ModelAttribute AddKakeiboForm form) {
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+
 		return "kakeibo/register";
 	}
 
 	/** 家計簿の追加処理 */
 	@PostMapping("/saveKakeibo")
 	public String saveKakeibo(@ModelAttribute @Validated AddKakeiboForm form, BindingResult result, Model model) {
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+
 		// 入力値チェック
 		if (result.hasErrors()) {
 			return getRegisterKakeibo(form);

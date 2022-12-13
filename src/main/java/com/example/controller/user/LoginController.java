@@ -22,15 +22,15 @@ public class LoginController {
 
 	@Autowired
 	private LoginService service;
-	
+
 	@Autowired
 	private HttpSession session;
-	
+
 	@ModelAttribute
 	public LoginForm setUpLoginForm() {
 		return new LoginForm();
 	}
-	
+
 	/**
 	 * ログイン画面に遷移(user/login.html)
 	 * 
@@ -38,10 +38,10 @@ public class LoginController {
 	 */
 	@GetMapping("/login")
 	public String getLogin() {
-		
+
 		return "user/login";
 	}
-	
+
 	/**
 	 * ログイン処理
 	 * 成功時：家計簿一覧表示(kakeibo/list.html)
@@ -53,14 +53,14 @@ public class LoginController {
 	 */
 	@PostMapping("/login")
 	public String postLogin(@Validated LoginForm loginForm, BindingResult result, Model model) {
-		
+
 		// 入力値チェック
 		if (result.hasErrors()) {
 			return getLogin();
 		}
-		
+
 		User user = service.login(loginForm.getMailAddress(), loginForm.getPassword());
-		
+
 		if (user == null) {
 			model.addAttribute("errorMessage", "メールアドレスまたはパスワードが不正です");
 			return "user/login";
@@ -68,6 +68,13 @@ public class LoginController {
 			session.setAttribute("user", user);
 			return "redirect:/kakeibo/list";
 		}
+	}
+
+	@PostMapping("/test/login")
+	public String testLogin() {
+		User user = service.login("aaa@aaa", "test1");
+		session.setAttribute("user", user);
+		return "redirect:/kakeibo/list";
 	}
 
 }

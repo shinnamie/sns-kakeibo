@@ -28,8 +28,8 @@
                 <!-- 登録が失敗した場合、エラーメッセージを表示する -->
                 <div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
                 <form th:action="@{/kakeibo/saveKakeibo}" th:object="${addKakeiboForm}" method="post">
-                    <!-- ユーザーID(とりあえずダミーを使用(ID=1)) -->
-                    <input type="hidden" value="1" name="userId">
+                    <!-- ログインユーザーのユーザーID) -->
+                    <input type="hidden" th:value=${session.user.id} name="userId">
                     <!-- 決済日時 -->
                     <div th:errors="*{paymentDate}" style="color: red;"></div>
                     <div class="inputs">
