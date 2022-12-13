@@ -59,8 +59,9 @@ public class SignUpController {
 		}else if(!(signUpForm.getPassword().equals(signUpForm.getConfirmPassword()))){
 			log.info("パスワード不一致: password:{} confirmPassword:{}" , signUpForm.getPassword() , signUpForm.getConfirmPassword());
 			model.addAttribute("passwordErrorMessage", "確認用パスワードはパスワードと同じものを入力してください");
-			return "user/signUp";
-		}
+			return "user/signUp";	
+
+		}	
 
 		User user = new User();
 

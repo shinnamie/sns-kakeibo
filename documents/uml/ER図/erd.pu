@@ -1,9 +1,14 @@
 @startuml erd
  !include tables.pu
 
-users ||..|| profile
+
 users ||..|{ kakeibo
 kakeibo ||..|| expense_item
 kakeibo ||..|| settlement
+board ||..|{ posts
+users ||..|{ board
+users ||..|{ posts
+posts ||..|{ comments
+users ||..|{ comments
 
  @enduml
