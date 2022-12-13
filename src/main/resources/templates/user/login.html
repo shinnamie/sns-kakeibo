@@ -27,9 +27,11 @@
 </head>
 
 <body>
+<div th:if="${successMessage}" th:text="${successMessage}"></div><br>
     <form class="text-center card" th:action="@{/user/login}" method="post" th:object="${loginForm}">
         <div class="card-body">
             <h1 class="card-title">SNS家計簿</h1>
+             
             <div th:if="${errorMessage}">
                 <label class="control-label" style="color: red;" th:text="${errorMessage}"></label>
             </div>
