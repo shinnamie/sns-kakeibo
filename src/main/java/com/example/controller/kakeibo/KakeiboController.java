@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.user.User;
 import com.example.form.kakeibo.AddKakeiboForm;
@@ -145,29 +144,29 @@ public class KakeiboController {
 		return "redirect:/kakeibo/list";
 	}
 
-	/**
-	 * 家計簿を論理削除する
-	 *
-	 * @param id 家計簿id
-	 * @return
-	 */
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(Integer id) {
-		DeletedKakeibo deletedKakeibo = new DeletedKakeibo();
-		Kakeibo kakeibo = new Kakeibo();
-
-		// 値をセット
-		deletedKakeibo.setKakeiboId(id);
-
-		// 削除フラグをtrueにする
-		kakeibo.setId(id);
-
-		// 論理削除の実行
-		kakeiboService.delete(deletedKakeibo);
-		kakeiboService.updateIsDelete(kakeibo);
-
-		return "redirect:/kakeibo/list";
-	}
+	//	/**
+	//	 * 家計簿を論理削除する
+	//	 *
+	//	 * @param id 家計簿id
+	//	 * @return
+	//	 */
+	//	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	//	public String delete(Integer id) {
+	//		DeletedKakeibo deletedKakeibo = new DeletedKakeibo();
+	//		Kakeibo kakeibo = new Kakeibo();
+	//
+	//		// 値をセット
+	//		deletedKakeibo.setKakeiboId(id);
+	//
+	//		// 削除フラグをtrueにする
+	//		kakeibo.setId(id);
+	//
+	//		// 論理削除の実行
+	//		kakeiboService.delete(deletedKakeibo);
+	//		kakeiboService.updateIsDelete(kakeibo);
+	//
+	//		return "redirect:/kakeibo/list";
+	//	}
 
 	/**
 	 * 日付を取得するためのメソッド

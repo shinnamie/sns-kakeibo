@@ -1,14 +1,9 @@
 
 package com.example.service.kakeibo;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,18 +11,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.domain.kakeibo.ExpenseItem;
 import com.example.domain.kakeibo.Kakeibo;
@@ -84,9 +72,9 @@ class KakeiboServiceTest {
 		// 期待するList
 		List<Kakeibo> kakeiboList = new ArrayList<>();
 		Kakeibo kakeibo = new Kakeibo();
-		kakeibo.setId(1);
+		kakeibo.setId(1L);
 		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
-		kakeibo.setExpenseItemId(2);
+		kakeibo.setExpenseItemId(2L);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);
 		ExpenseItem expenseItem = new ExpenseItem();
@@ -249,7 +237,7 @@ class KakeiboServiceTest {
 	@Test
 	@DisplayName("正常系：Map内の費目別の割合を計算し、Map<費目名,割合>を返す")
 	void testCalculatePercentage() throws Exception {
-		
+
 		// 期待するMapを生成
 		Map<String, Double> expectedPercentageMap = new HashMap<>();
 		expectedPercentageMap.put("食費", 50.0);
@@ -266,7 +254,7 @@ class KakeiboServiceTest {
 		assertEquals(percentageMap, serviceThroughPercentageMap);
 
 	}
-	
+
 	@Test
 	@DisplayName("異常系：Map内の費目別の割合を計算し、Map<費目名,割合>を返す")
 	void testCalculatePercentageMapNull() throws Exception {

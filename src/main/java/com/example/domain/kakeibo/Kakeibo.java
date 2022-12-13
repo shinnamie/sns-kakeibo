@@ -3,25 +3,27 @@ package com.example.domain.kakeibo;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
+import com.example.domain.user.User;
+
 import lombok.Data;
 
 @Data
 public class Kakeibo {
 
 	/** 家計簿Id */
-	private long id;
+	private Long id;
 	/** ユーザーId */
-	private Integer userId;
+	private Long userId;
 	/** 決済日付 */
 	private LocalDate paymentDate;
 	/** 費目Id */
-	private Integer expenseItemId;
+	private Long expenseItemId;
 	/** 支出金額 */
 	private Integer expenditureAmount;
 	/** 収入金額 */
 	private Integer incomeAmount;
 	/** 決済Id */
-	private Integer settlementId;
+	private Long settlementId;
 	/** 利用店舗 */
 	private String usedStore;
 	/** 備考 */
@@ -34,5 +36,7 @@ public class Kakeibo {
 	private ExpenseItem expenseItem;
 	/** 決済 */
 	private Settlement settlement;
+	/** ユーザー */
+	private User user;
 
 }

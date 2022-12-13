@@ -45,16 +45,17 @@ class KakeiboMapperTest {
 	void whenGiveUserId_expectedToGetKakeiboList() {
 		// 準備
 		// テスト用ユーザIDの準備
-		var userId = 100;
+		var userId = 100L;
 		// テストデータを100件作成
-		for (int i = 1; i <= 100; i++) {
+		for (int i = 1; i <= 10; i++) {
 			var kakeibo = new Kakeibo();
 			kakeibo.setUserId(userId);
 			LocalDate date = LocalDate.now();
 			kakeibo.setPaymentDate(date);
-			kakeibo.setExpenseItemId(1);
+			kakeibo.setExpenseItemId(1L);
 			kakeibo.setExpenditureAmount(10000);
 			kakeibo.setIncomeAmount(0);
+			kakeibo.setSettlementId(1L);
 			mapper.saveKakeibo(kakeibo);
 		}
 		// 実行
