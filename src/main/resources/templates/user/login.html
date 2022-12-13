@@ -27,7 +27,7 @@
 </head>
 
 <body>
-<div th:if="${successMessage}" th:text="${successMessage}"></div><br>
+	<div th:replace="common/message :: message"></div>
     <form class="text-center card" th:action="@{/user/login}" method="post" th:object="${loginForm}">
         <div class="card-body">
             <h1 class="card-title">SNS家計簿</h1>
