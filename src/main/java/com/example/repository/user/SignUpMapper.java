@@ -8,5 +8,7 @@ import com.example.domain.user.User;
 public interface SignUpMapper {
 
 	public boolean signUp(User user) throws Exception;
+	
+	public User findByEmail(String mailAddress) throws Exception;
 
 }

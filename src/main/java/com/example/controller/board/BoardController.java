@@ -31,5 +31,4 @@ public class BoardController {
 		model.addAttribute("postList", postList);
 		return "board/topic";
 	}
-
 }
