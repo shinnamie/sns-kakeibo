@@ -30,5 +30,20 @@ public class SignUpServiceImpl implements SignUpService {
 			return false;
 		}
 	}
+	/** メアドチェック */
+	@Override
+	public User findByEmail(String mailAddress) {
+		User user = new User();
+		try {
+			user = mapper.findByEmail(mailAddress);
+			log.info("ユーザー:{}" , user);
+			log.info("登録が成功しました");
+			
+		} catch (Exception e) {
+			log.error("メールアドレス重複により登録が失敗しました");
+		}
+		return user;
+	}
+	
 
 }
