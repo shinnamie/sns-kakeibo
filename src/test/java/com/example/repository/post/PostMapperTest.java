@@ -18,7 +18,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.example.domain.post.Post;
 import com.example.domain.user.User;
 
+import lombok.extern.slf4j.Slf4j;
+
 @SpringBootTest
+@Slf4j
 class PostMapperTest {
 	
 	@Autowired
@@ -27,7 +30,7 @@ class PostMapperTest {
 	Post post1 = new Post();
 	Post post2 = new Post();
 	Post post3 = new Post();
-	List<Post> expectedPostLists;
+	List<Post> expectedPostLists = new ArrayList<Post>();
 	User user = new User();
 
 	@BeforeAll
@@ -90,11 +93,11 @@ class PostMapperTest {
 		Long expectedPostId1 = expectedPostLists.get(1).getId();
 		
 		//mapperから返された投稿一覧リストの0,1番目から投稿IDを抽出する
-		Long mapperPostId0 = mapperPostList.get(0).getId();
+		Long mapperPostId0 = mapperPostList.get(2).getId();
 		Long mapperPostId1 = mapperPostList.get(1).getId();
-		
+				
 		//Listのsizeを比較する
-		assertEquals(expectedPostLists.size(), mapperPostList.size());
+		assertEquals(3, mapperPostList.size());
 		//投稿IDが一致するかどうか
 		assertEquals(expectedPostId0, mapperPostId0);
 		assertEquals(expectedPostId1, mapperPostId1);
@@ -120,9 +123,9 @@ class PostMapperTest {
 		List<Post> mapperPostList = mapper.findPostList(3L);
 		
 		//期待する投稿とmapperから返された投稿一が同じものを比較する
-		assertEquals(post3,mapperPostList.get(0));
-		assertEquals(post2,mapperPostList.get(2));
-		assertEquals(post1,mapperPostList.get(3));
+		assertEquals(post3.getId(),mapperPostList.get(0).getId());
+		assertEquals(post2.getId(),mapperPostList.get(1).getId());
+		assertEquals(post1.getId(),mapperPostList.get(2).getId());
 	}
 
 }

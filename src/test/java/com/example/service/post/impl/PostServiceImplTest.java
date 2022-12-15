@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doReturn;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
@@ -33,7 +34,7 @@ class PostServiceImplTest {
 	Post post1 = new Post();
 	Post post2 = new Post();
 	Post post3 = new Post();
-	List<Post> postLists;
+	List<Post> postLists = new ArrayList<Post>();
 	User user = new User();
 	
 	@BeforeAll
