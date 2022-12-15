@@ -1,8 +1,8 @@
 package com.example.service.kakeibo;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,18 +23,18 @@ import com.example.repository.kakeibo.KakeiboMapper;
 
 @SpringBootTest
 class KakeiboServiceKakeiboByYearAndMonthTest {
-	
+
 	private List<Kakeibo> kakeiboList;
 	private Kakeibo kakeibo;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		// テスト準備(2022年11月のデータをセット)
 		kakeiboList = new ArrayList<>();
 		kakeibo = new Kakeibo();
-		kakeibo.setId(1);
+		kakeibo.setId(1L);
 		kakeibo.setPaymentDate(LocalDate.parse("2022-11-04"));
-		kakeibo.setExpenseItemId(2);
+		kakeibo.setExpenseItemId(2L);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);
 		ExpenseItem expenseItem = new ExpenseItem();
@@ -47,15 +47,15 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 		kakeibo.setSettlement(settlement);
 		kakeiboList.add(kakeibo);
 	}
-	
+
 	@InjectMocks
 	private KakeiboService kakeiboService;
-	
+
 	@Mock
 	private KakeiboMapper kakeiboMapper;
-	
+
 	// 異常系
-	
+
 	@Test
 	@DisplayName("該当年月が存在しない時、エラーメッセージを返す")
 	void testNotYearAndMonth() throws Exception {
@@ -65,7 +65,7 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 		// year:2022 , month:12 を渡す
 		assertNull(kakeiboService.findKakeiboByYearAndMonth("2022", "12"), "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
 	}
-	
+
 	// 正常系
 
 	@Test
@@ -78,7 +78,7 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 		// 検証
 		assertEquals(kakeiboList.getClass(), searchKakeiboList.getClass());
 	}
-	
+
 	@Test
 	@DisplayName("年のみ入力されている時のテスト")
 	void testMontIsNull() throws Exception {
@@ -89,17 +89,17 @@ class KakeiboServiceKakeiboByYearAndMonthTest {
 		// 検証
 		assertEquals(kakeiboList.getClass(), searchKakeiboList.getClass());
 	}
-	
+
 	@Test
 	@DisplayName("正常な値の時、収支計算結果を表示する")
 	void testMonthlyBalanceCalculationResult() throws Exception {
-		
+
 		// 収支結果に値をセット
 		MonthlyBalanceCalculationResult calc = new MonthlyBalanceCalculationResult();
 		calc.setTotalIncomeAmount(kakeibo.getIncomeAmount());
 		calc.setTotalExpenditureAmount(kakeibo.getExpenditureAmount());
 		calc.setBalanceCalculationResult(kakeibo.getIncomeAmount() - kakeibo.getExpenditureAmount());
-		
+
 		when(kakeiboMapper.monthlyBalanceCalculate(anyString(), anyString())).thenReturn(calc);
 		// year:2022 , month:11 を渡す
 		MonthlyBalanceCalculationResult result = kakeiboService.monthlyBalanceCalculate("2022", "11");

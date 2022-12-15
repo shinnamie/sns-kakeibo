@@ -1,32 +1,23 @@
 package com.example.controller.kakeibo;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -82,9 +73,9 @@ class KakeiboControllerTest {
 	void setUp() throws Exception {
 
 		// Listをセット
-		kakeibo.setId(1);
+		kakeibo.setId(1L);
 		kakeibo.setPaymentDate(LocalDate.parse("2022-11-13"));
-		kakeibo.setExpenseItemId(2);
+		kakeibo.setExpenseItemId(2L);
 		kakeibo.setExpenditureAmount(5000);
 		kakeibo.setIncomeAmount(0);
 
@@ -128,7 +119,7 @@ class KakeiboControllerTest {
 		doReturn(rateMap).when(service).calculatePercentage(integerToDoubleMap);
 
 	}
-	
+
 	@Test
 	@DisplayName("正常系：収支内訳表示のテスト（総収入・総支出・収支）")
 	void testBreakdownIncomeBalanceTotal() throws Exception {
@@ -144,9 +135,7 @@ class KakeiboControllerTest {
 		assertEquals(totalAmountMap, mavTotalAmountMap.getModel().get("totalAmountMap"));
 
 	}
-	
-	
-	
+
 	@Test
 	@DisplayName("正常系：収支内訳表示のテスト（月別の費目別）")
 	void testBreakdownIncomeBalanceItemExpense() throws Exception {
@@ -162,7 +151,7 @@ class KakeiboControllerTest {
 		assertEquals(itemExpenseMap, mavItemExpenseMap.getModel().get("itemExpenceMap"));
 
 	}
-	
+
 	@Test
 	@DisplayName("正常系：収支内訳表示のテスト（月別費目別の支出割合）")
 	void testBreakdownIncomeBalanceRate() throws Exception {
@@ -178,7 +167,7 @@ class KakeiboControllerTest {
 		assertEquals(rateMap, mavRateMap.getModel().get("rateItemMap"));
 
 	}
-	
+
 	@Test
 	@DisplayName("正常系：収支内訳表示のテスト（日付の確認）")
 	void testBreakdownIncomeBalanceDate() throws Exception {

@@ -2,22 +2,19 @@ package com.example.service.kakeibo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
-import com.example.domain.kakeibo.TotalByIncomeAndExpenditureBreakdown;
 import com.example.repository.kakeibo.KakeiboMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +32,8 @@ public class KakeiboService {
 	 * 
 	 * @return 検索結果
 	 */
-	public List<Kakeibo> findKakeiboList() {
-		return kakeiboMapper.findAll();
+	public List<Kakeibo> findKakeiboList(Long userId) {
+		return kakeiboMapper.findAll(userId);
 	}
 
 	/**
@@ -155,7 +152,7 @@ public class KakeiboService {
 		if (kakeiboItemList == null || kakeiboItemList.size() == 0) {
 			return null;
 		}
-		
+
 		return kakeiboItemList;
 	}
 
@@ -252,7 +249,7 @@ public class KakeiboService {
 	 * 
 	 */
 	public Map<String, Double> calculatePercentage(Map<String, Double> doubleMap) {
-		if(doubleMap.isEmpty()) {
+		if (doubleMap.isEmpty()) {
 			return null;
 		}
 
