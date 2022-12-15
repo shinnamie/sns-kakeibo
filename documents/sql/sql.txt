@@ -119,16 +119,18 @@ DROP TABLE IF EXISTS board CASCADE;
 
 CREATE TABLE board(
 id serial PRIMARY KEY,
-user_id INTEGER REFERENCES users(id)
+user_id INTEGER REFERENCES users(id),
+name VARCHAR(100) NOT NULL,
+description VARCHAR(100)
 );
 
 --掲示板(テストデータ作成)
 insert into board 
-	(id, user_id)
+	(id, user_id, topic, description)
 values
-	(1, 1)
-	, (2, 1)
-	, (3, 1);
+	(1, 1, '節約の会', '節約頑張ろうぜ')
+	, (2, 1, '散財の会', '宵越しのカネは持たねえ')
+	, (3, 1, '集まれ1人暮らし', null);
 
 --投稿作成					
 DROP TABLE IF EXISTS posts CASCADE;
