@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.domain.user.User;
 import com.example.form.user.SignUpForm;
@@ -37,6 +38,7 @@ public class SignUpController {
 	 */
 	@GetMapping("/signup")
 	public String getSignUp() {
+		
 		return "user/signUp";
 	}
 
@@ -51,7 +53,8 @@ public class SignUpController {
 	 * @throws Exception 
 	 */
 	@PostMapping("/signUp")
-	public String postSignUp(@Validated SignUpForm signUpForm , BindingResult result , Model model){
+	public String postSignUp(@Validated SignUpForm signUpForm , BindingResult result , Model model , RedirectAttributes redirectAttributes){
+
 		// 入力値チェック
 		if (result.hasErrors()) {
 			log.info("入力値エラー: {}" , signUpForm);
@@ -67,7 +70,7 @@ public class SignUpController {
 			model.addAttribute("passwordErrorMessage", "確認用パスワードはパスワードと同じものを入力してください");
 			return "user/signUp";	
 
-		}	
+		}			
 
 		User user = new User();
 
@@ -78,6 +81,7 @@ public class SignUpController {
 
 	// 新規ユーザー登録
 		signUpService.signUp(user);
+		redirectAttributes.addFlashAttribute("successMessage", "登録に成功しました");
 		return "redirect:/user/login";
 	}
 }

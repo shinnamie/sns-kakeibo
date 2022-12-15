@@ -37,8 +37,12 @@ public class LoginController {
 	 * @return
 	 */
 	@GetMapping("/login")
-	public String getLogin() {
-
+	public String getLogin(Model model) {
+		Object message = model.getAttribute("successMessage");
+		if(message != null) {
+			model.addAttribute("successMesssage", String.valueOf(message));
+		}
+		
 		return "user/login";
 	}
 
@@ -56,7 +60,7 @@ public class LoginController {
 
 		// 入力値チェック
 		if (result.hasErrors()) {
-			return getLogin();
+			return getLogin(model);
 		}
 
 		User user = service.login(loginForm.getMailAddress(), loginForm.getPassword());

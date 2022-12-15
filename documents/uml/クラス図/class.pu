@@ -50,7 +50,7 @@ class LoginForm{
 
 class Board{
     Long id
-    String topic
+    String name
     String description
     User user
     List<Post> postList

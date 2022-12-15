@@ -14,7 +14,6 @@ html {
 	padding: 0;
 	display: table;
 }
-
 body {
 	min-height: 100%;
 	margin: 0 auto;
@@ -28,7 +27,7 @@ body {
 	<h1>新規ユーザー登録</h1>
 	
 	<form th:action="@{/user/signUp}" method="post" th:object="${signUpForm}">
-		
+
 		<p>メールアドレス:
 		<span th:errors="*{mailAddress}" style="color: red;"></span><br>
 		<p th:if="${mailAddressErrorMessage}" th:text="${mailAddressErrorMessage}" style="color: red;"></p>
@@ -52,7 +51,6 @@ body {
 		</p>
 		<p>生年月日：<br> <input type="date" name="dateOfBirth" th:field="*{dateOfBirth}"></p>
 		<p>備考：<br> <input type="text" name="remarks" th:field="*{remarks}"></p>
-
 		<p><a th:href="@{/user/login}">ログインはこちら</a></p>
 		<p>
 			<button type="reset">クリア</button>
