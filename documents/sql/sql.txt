@@ -126,7 +126,7 @@ description VARCHAR(100)
 
 --掲示板(テストデータ作成)
 insert into board 
-	(id, user_id, topic, description)
+	(id, user_id, name, description)
 values
 	(1, 1, '節約の会', '節約頑張ろうぜ')
 	, (2, 1, '散財の会', '宵越しのカネは持たねえ')
