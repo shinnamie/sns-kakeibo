@@ -90,7 +90,7 @@ class PostServiceImplTest {
 		doReturn(postLists).when(mapper).findPostList(anyLong());
 		
 		// serviceのMock作成
-		List<Post> servicePostLists = serviceImpl.postList(3L);
+		List<Post> servicePostLists = serviceImpl.selectPostList(3L);
 		
 		assertEquals(postLists, servicePostLists);
 	}

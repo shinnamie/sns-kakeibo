@@ -23,6 +23,11 @@
             display: table-cell;
             vertical-align: middle;
         }
+
+        .test-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -41,6 +46,11 @@
             <p class="card-text"><button class="btn btn-primary" type="submit">ログイン</button></p>
             <p class="card-text"><a th:href="@{/user/signup}">新規登録はこちら</a></p>
         </div>
+    </form>
+
+    <!-- テスト用ユーザーでの簡易ログインボタン -->
+    <form class="test-btn" th:action="@{/user/test/login}" method="post">
+        <button class="btn btn-primary" type="submit">テストユーザ(1)としてログイン</button>
     </form>
 </body>
 
