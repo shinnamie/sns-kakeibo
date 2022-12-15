@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,8 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
+import com.example.domain.user.User;
 import com.example.form.kakeibo.AddKakeiboForm;
 import com.example.form.kakeibo.EditKakeiboForm;
 import com.example.form.kakeibo.SearchKakeiboForm;
@@ -30,6 +32,9 @@ import com.example.service.user.LoginService;
 @Controller
 @RequestMapping("/kakeibo")
 public class KakeiboController {
+
+	@Autowired
+	HttpSession session;
 
 	@Autowired
 	KakeiboService kakeiboService;
@@ -55,19 +60,37 @@ public class KakeiboController {
 	 */
 	@GetMapping("/list")
 	public String getList(Model model) {
-		model.addAttribute("kakeiboList", kakeiboService.findKakeiboList());
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+
+		model.addAttribute("kakeiboList", kakeiboService.findKakeiboList(user.getId()));
 		return "kakeibo/kakeiboList";
 	}
 
 	/** 家計簿を追加する画面(register.html)を表示 */
 	@GetMapping("/registerKakeibo")
 	public String getRegisterKakeibo(@ModelAttribute AddKakeiboForm form) {
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+
 		return "kakeibo/register";
 	}
 
 	/** 家計簿の追加処理 */
 	@PostMapping("/saveKakeibo")
 	public String saveKakeibo(@ModelAttribute @Validated AddKakeiboForm form, BindingResult result, Model model) {
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+
 		// 入力値チェック
 		if (result.hasErrors()) {
 			return getRegisterKakeibo(form);
@@ -133,29 +156,29 @@ public class KakeiboController {
 		return "redirect:/kakeibo/list";
 	}
 
-	/**
-	 * 家計簿を論理削除する
-	 *
-	 * @param id 家計簿id
-	 * @return
-	 */
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(Integer id) {
-		DeletedKakeibo deletedKakeibo = new DeletedKakeibo();
-		Kakeibo kakeibo = new Kakeibo();
-
-		// 値をセット
-		deletedKakeibo.setKakeiboId(id);
-
-		// 削除フラグをtrueにする
-		kakeibo.setId(id);
-
-		// 論理削除の実行
-		kakeiboService.delete(deletedKakeibo);
-		kakeiboService.updateIsDelete(kakeibo);
-
-		return "redirect:/kakeibo/list";
-	}
+	//	/**
+	//	 * 家計簿を論理削除する
+	//	 *
+	//	 * @param id 家計簿id
+	//	 * @return
+	//	 */
+	//	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	//	public String delete(Integer id) {
+	//		DeletedKakeibo deletedKakeibo = new DeletedKakeibo();
+	//		Kakeibo kakeibo = new Kakeibo();
+	//
+	//		// 値をセット
+	//		deletedKakeibo.setKakeiboId(id);
+	//
+	//		// 削除フラグをtrueにする
+	//		kakeibo.setId(id);
+	//
+	//		// 論理削除の実行
+	//		kakeiboService.delete(deletedKakeibo);
+	//		kakeiboService.updateIsDelete(kakeibo);
+	//
+	//		return "redirect:/kakeibo/list";
+	//	}
 
 	/**
 	 * 日付を取得するためのメソッド

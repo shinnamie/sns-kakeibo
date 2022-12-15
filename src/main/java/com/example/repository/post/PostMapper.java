@@ -9,6 +9,9 @@ import com.example.domain.post.Post;
 @Mapper
 public interface PostMapper {
 
-	public List<Post> findPostList();
+	/*
+	 * 掲示板IDでトピックごとの投稿一覧を取得
+	 */
+	public List<Post> findPostList(Long boardId);
 
 }

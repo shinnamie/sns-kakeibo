@@ -54,6 +54,7 @@ public class SignUpController {
 	 */
 	@PostMapping("/signUp")
 	public String postSignUp(@Validated SignUpForm signUpForm , BindingResult result , Model model , RedirectAttributes redirectAttributes){
+
 		// 入力値チェック
 		if (result.hasErrors()) {
 			log.info("入力値エラー: {}" , signUpForm);

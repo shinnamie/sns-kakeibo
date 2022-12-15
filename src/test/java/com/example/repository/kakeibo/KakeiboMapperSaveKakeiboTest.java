@@ -25,10 +25,10 @@ class KakeiboMapperSaveKakeiboTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		kakeibo.setUserId(1);
+		kakeibo.setUserId(1L);
 		LocalDate date = LocalDate.now();
 		kakeibo.setPaymentDate(date);
-		kakeibo.setExpenseItemId(1);
+		kakeibo.setExpenseItemId(1L);
 		kakeibo.setExpenditureAmount(10000);
 		kakeibo.setIncomeAmount(0);
 		kakeibo.setUsedStore("コンビニ");
