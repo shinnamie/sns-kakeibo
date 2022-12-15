@@ -39,7 +39,7 @@ entity board as  "board \n掲示板"{
   + id [PK]
   --
   user_id[ユーザーID][FK]
-  topic[トピック]
+  name[掲示板名]
   description[説明]
 
 }
