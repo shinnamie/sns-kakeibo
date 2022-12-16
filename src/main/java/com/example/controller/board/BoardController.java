@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.board.Board;
 import com.example.domain.post.Post;
-import com.example.service.board.impl.BoardServiceImpl;
+import com.example.service.board.BoardService;
 import com.example.service.post.PostService;
 
 @Controller
@@ -19,7 +19,7 @@ import com.example.service.post.PostService;
 public class BoardController {
 	
 	@Autowired
-	private BoardServiceImpl boardServiceImpl;
+	private BoardService boardService;
 
 	@Autowired
 	private PostService postService;
@@ -27,7 +27,7 @@ public class BoardController {
 	@GetMapping("/")
 	public String getBoardList(Model model) {
 		
-		List<Board> boardList = boardServiceImpl.selectBoardList();
+		List<Board> boardList = boardService.selectBoardList();
 		
 		if (boardList.size() == 0) {
 			model.addAttribute("message", "まだ掲示板のリストが存在しません");
