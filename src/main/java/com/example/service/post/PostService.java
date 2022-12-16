@@ -8,4 +8,5 @@ public interface PostService {
 
 	List<Post> selectPostList(Long boardId);
 
+	public boolean deletePost(Long boardId);
 }
