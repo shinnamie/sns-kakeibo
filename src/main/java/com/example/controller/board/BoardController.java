@@ -17,7 +17,7 @@ import com.example.service.post.PostService;
 public class BoardController {
 
 	@Autowired
-	private PostService postService;
+	private PostService postService;	
 
 	@GetMapping("/{boardId}")
 	public String getPostList(@PathVariable("boardId") Long boardId, Model model) {

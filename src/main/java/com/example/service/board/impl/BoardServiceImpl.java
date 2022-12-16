@@ -1,5 +1,7 @@
 package com.example.service.board.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +13,7 @@ import com.example.service.board.BoardService;
 public class BoardServiceImpl implements BoardService {
 
 	@Override
-	public Board selectBoardList() {
+	public List<Board> selectBoardList() {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
