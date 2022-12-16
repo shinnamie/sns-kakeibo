@@ -73,14 +73,14 @@ class PostMapperTest {
 		post2.setInsertAt(insertDateTime5);
 		post2.setUpdateAt(updateDateTime5);
 		post2.setUser(user);
-		post1.setBoard(board);
+		post2.setBoard(board);
 
 		post3.setId(6L);
 		post3.setContents("ボーナスやった！！(6)");
 		post3.setInsertAt(insertDateTime6);
 		post3.setUpdateAt(updateDateTime6);
 		post3.setUser(user);
-		post1.setBoard(board);
+		post3.setBoard(board);
 
 		expectedPostLists.add(post1);
 		expectedPostLists.add(post2);
