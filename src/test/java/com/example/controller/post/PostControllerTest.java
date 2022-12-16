@@ -53,8 +53,8 @@ class PostControllerTest {
 		when(postService.deletePost(postId)).thenReturn(true);
 		// 実行&検証
 		mockMvc.perform(post("/deletePost")
-				.param("postId", "postId")
-				.param("boardId", "boardId")
+				.flashAttr("postId", "postId")
+				.flashAttr("boardId", "boardId")
 				.session(mockHttpSession)
 				)
 		.andExpect(redirectedUrl("/board/" + boardId))
@@ -69,8 +69,8 @@ class PostControllerTest {
 		when(postService.deletePost(postId)).thenReturn(false);
 		// 実行&検証
 		mockMvc.perform(post("/deletePost")
-				.param("postId", "postId")
-				.param("boardId", "boardId")
+				.flashAttr("postId", "postId")
+				.flashAttr("boardId", "boardId")
 				.session(mockHttpSession)
 				)
 		.andExpect(redirectedUrl("/board/" + boardId))
