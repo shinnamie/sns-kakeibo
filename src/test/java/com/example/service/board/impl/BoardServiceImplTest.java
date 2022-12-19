@@ -55,10 +55,10 @@ class BoardServiceImplTest {
 		board1.setUser(user);
 		boardList.add(board1);
 		
-		board1.setId(2L);
-		board1.setName("あなたの収入を見せて");
-		board1.setDescription("自分の収入を見せる掲示板");
-		board1.setUser(user);
+		board2.setId(2L);
+		board2.setName("あなたの収入を見せて");
+		board2.setDescription("自分の収入を見せる掲示板");
+		board2.setUser(user);
 		boardList.add(board2);
 				
 	}
