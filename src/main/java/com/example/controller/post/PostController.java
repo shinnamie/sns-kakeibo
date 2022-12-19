@@ -57,5 +57,24 @@ public class PostController {
 
 		return "board/topic";
 	}
+	
+	@PostMapping("/deletePost")
+	public String deletePost(HttpServletRequest request,Long postId,Long boardId) {
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+		
+		Post targetDeletePost = new Post();
+		Board nowBoard = new Board();
+		Long nowBoardId = Long.parseLong(request.getParameter("boardId"));
+		targetDeletePost.setId(nowBoardId);
+		targetDeletePost.setBoard(nowBoard);
+		// 削除する
+		postServiceImpl.deletePost(targetDeletePost);
+
+		return "board/topic";
+	}
 
 }

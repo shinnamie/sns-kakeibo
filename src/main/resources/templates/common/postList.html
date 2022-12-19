@@ -3,6 +3,10 @@
     <!-- <div th:text="投稿者： + ${post.user.name}"></div> -->
     <div th:text="内容： + ${post.contents}"></div>
     <div th:text="投稿日： + ${#temporals.format(post.insertAt, 'yyyy年MM月dd日HH時mm分ss秒')}"></div>
+    <form th:action="@{/post/delete}" method="post">
+      <input name="id" type="hidden" th:value="${post.id}">
+      <button type="submit"><i class="fa-solid fa-trash"></i></button>
+    </form>
     <hr>
   </div>
 </div>
