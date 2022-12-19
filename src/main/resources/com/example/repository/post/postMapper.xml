@@ -47,4 +47,15 @@
     ORDER BY
       p.insert_at DESC;
   </select>
+  
+    <!-- 新規post投稿 -->
+    <insert id="savePost" parameterType="com.example.domain.post.Post">
+ 		INSERT INTO posts
+ 			(user_id,board_id,contents)
+ 		VALUES
+ 			(#{user.id}, #{board.id}, #{contents})
+ 	</insert>
+
+ 	
+  
 </mapper>

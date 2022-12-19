@@ -21,12 +21,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.domain.board.Board;
 import com.example.domain.kakeibo.Kakeibo;
+import com.example.domain.post.Post;
 import com.example.domain.user.User;
 import com.example.form.kakeibo.AddKakeiboForm;
 import com.example.form.kakeibo.EditKakeiboForm;
 import com.example.form.kakeibo.SearchKakeiboForm;
 import com.example.service.kakeibo.KakeiboService;
+import com.example.service.post.PostService;
 import com.example.service.user.LoginService;
 
 @Controller
@@ -41,6 +44,9 @@ public class KakeiboController {
 
 	@Autowired
 	LoginService loginService;
+	
+	@Autowired
+	PostService postService;
 
 	@ModelAttribute
 	private EditKakeiboForm editKakeiboForm() {
@@ -65,7 +71,7 @@ public class KakeiboController {
 		if (user == null) {
 			return "redirect:/user/login";
 		}
-
+		
 		model.addAttribute("kakeiboList", kakeiboService.findKakeiboList(user.getId()));
 		return "kakeibo/kakeiboList";
 	}

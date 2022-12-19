@@ -8,10 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.post.Post;
 import com.example.repository.post.PostMapper;
+import com.example.service.kakeibo.KakeiboService;
 import com.example.service.post.PostService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
+@Slf4j
 public class PostServiceImpl implements PostService {
 	
 	@Autowired
@@ -24,6 +28,17 @@ public class PostServiceImpl implements PostService {
 	public List<Post> selectPostList(Long boardId) {
 
 		return postMapper.findPostList(boardId);
+	}
+	
+	@Override
+	public boolean savePost(Post post) {
+		try {
+			postMapper.savePost(post);
+			return true;
+		} catch (Exception e) {
+			log.error("postの新規投稿で例外が発生しました: {}", e);
+			return false;
+		}
 	}
 	
 }

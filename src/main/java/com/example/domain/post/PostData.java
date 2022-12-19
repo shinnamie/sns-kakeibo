@@ -8,8 +8,8 @@ import com.example.domain.user.User;
 import lombok.Data;
 
 @Data
-public class Post {
-
+public class PostData {
+	
 	/** 主キー */
 	private Long id;
 	/** 内容 */
@@ -19,8 +19,8 @@ public class Post {
 	/** 更新日 */
 	private LocalDateTime updateAt;
 	/** ユーザー情報 */
-	private User user;
+	private Long userId;
 	/** 掲示板情報 */
-	private Board board;
+	private Long boardId;
 
 }
