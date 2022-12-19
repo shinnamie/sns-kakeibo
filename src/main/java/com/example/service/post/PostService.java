@@ -9,5 +9,7 @@ public interface PostService {
 	List<Post> selectPostList(Long boardId);
 	
 	public boolean savePost(Post post);
+	
+	public boolean deletePost(Post post);
 
 }

@@ -21,5 +21,13 @@ public interface PostMapper {
 	 * 
 	 * */
 	public boolean savePost(Post post) throws Exception;
+	
+	/**
+	 * post削除
+	 * @param Post
+	 * @return boolean
+	 * 
+	 * */
+	public boolean deletePost(Post post) throws Exception;
 
 }

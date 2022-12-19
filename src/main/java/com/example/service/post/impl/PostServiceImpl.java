@@ -41,4 +41,15 @@ public class PostServiceImpl implements PostService {
 		}
 	}
 	
+	@Override
+	public boolean deletePost(Post post) {
+		try {
+			postMapper.deletePost(post);
+			return true;
+		} catch (Exception e) {
+			log.error("postの削除で例外が発生しました: {}", e);
+			return false;
+		}
+	}
+	
 }
