@@ -3,7 +3,6 @@ package com.example.service.post;
 import java.util.List;
 
 import com.example.domain.post.Post;
-import com.example.domain.post.PostData;
 
 public interface PostService {
 

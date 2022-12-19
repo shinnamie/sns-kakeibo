@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{common/layout}">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout}">
 
 <head>
   <meta charset="UTF-8" th:remove="tag">
@@ -14,15 +13,14 @@
   <!-- 個別コンテンツ -->
   <th:block layout:fragment="content">
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h2>投稿一覧</h2>
 
         <!-- 新規投稿の入力画面 -->
         <section id="modal" class="hidden">
-          <form action="test.html">
-            <input type="textarea">
-            <button>送信</button>
+          <form th:action="@{/post/newPost}" th:object="${newPostForm}" method="post">
+            <input type="textarea" name="contents">
+            <button type="submit">送信</button>
           </form>
           <div id="close">
             閉じる
