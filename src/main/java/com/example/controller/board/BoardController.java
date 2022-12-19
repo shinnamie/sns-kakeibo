@@ -24,6 +24,12 @@ public class BoardController {
 	@Autowired
 	private PostService postService;
 	
+	/*
+	 * 掲示板リストを取得
+	 * 存在しない：messageを表示
+	 * 存在する：board/list.htmlに遷移
+	 * 
+	 */
 	@GetMapping("/")
 	public String getBoardList(Model model) {
 		
