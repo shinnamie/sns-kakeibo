@@ -61,6 +61,7 @@
 	<delete id="deletePost">
 		DELETE FROM posts 
 		WHERE id = #{id}
+		AND board_id = #{board.id}
 	</delete>
 
 
