@@ -9,6 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,12 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.domain.board.Board;
-import com.example.domain.post.Post;
 import com.example.domain.user.User;
 import com.example.service.board.impl.BoardServiceImpl;
 
@@ -32,6 +34,7 @@ public class BoardControllerGetBoardListTest {
 	List<Board> boardList = new ArrayList<>();
 	Board board = new Board();
 	User user = new User();
+	MockHttpSession mockHttpSession = new MockHttpSession();
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -53,6 +56,8 @@ public class BoardControllerGetBoardListTest {
 		board.setDescription("節約しないやつは許さない掲示板");
 		board.setUser(user);
 		boardList.add(board);
+		
+		
 	}
 	
 	
@@ -64,16 +69,24 @@ public class BoardControllerGetBoardListTest {
 	@DisplayName("掲示板一覧を正常に表示する")
 	void testShowBoardList() throws Exception {
 		
+		// Session情報セット
+		mockHttpSession.setAttribute("user", user);
+		
 		when(boardServiceImpl.selectBoardList()).thenReturn(boardList);
 		
 		// 検証&実行
-		MvcResult result = mockMvc.perform(get("/board/"))
+		MvcResult result = mockMvc.perform(get("/board/")
+		.session(mockHttpSession))
 		.andExpect(status().isOk())
 		.andExpect(view().name("board/list"))
 		.andReturn();
 		
 		ModelAndView mav = result.getModelAndView();
 		assertEquals(boardList , mav.getModel().get("boardList"));
+		
+		// Sessionの格納情報を検証
+		HttpSession httpSession = result.getRequest().getSession();
+		assertEquals(user, httpSession.getAttribute("user"));
 	}
 	
 	//異常系
@@ -84,16 +97,24 @@ public class BoardControllerGetBoardListTest {
 		
 		List<Board> emptyBoardList = new ArrayList<>();
 		
+		// Session情報セット
+		mockHttpSession.setAttribute("user", user);
+		
 		when(boardServiceImpl.selectBoardList()).thenReturn(emptyBoardList);
 		
 		// 検証&実行
-		MvcResult result = mockMvc.perform(get("/board/"))
+		MvcResult result = mockMvc.perform(get("/board/")
+		.session(mockHttpSession))
 		.andExpect(status().isOk())
 		.andExpect(view().name("board/list"))
 		.andReturn();
 		
 		ModelAndView mav = result.getModelAndView();
 		assertEquals("まだ掲示板のリストが存在しません", mav.getModel().get("message"));
+		
+		// Sessionの格納情報を検証
+		HttpSession httpSession = result.getRequest().getSession();
+		assertEquals(user, httpSession.getAttribute("user"));
 	}
 	
 	
