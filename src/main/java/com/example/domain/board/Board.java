@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Board {
 
-	private long id;
+	private Long id;
 	private String name;
 	private String description;
 	private User user;

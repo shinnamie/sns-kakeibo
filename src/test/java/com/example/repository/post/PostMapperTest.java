@@ -140,18 +140,19 @@ class PostMapperTest {
 
 	@Test
 	@DisplayName("新規投稿に成功したとき、戻り値にTrueを返すことを期待する")
-	void whenSavePostIsSuccess_expectedSizePlus1() {
-		// 準備
+	void whenSavePostIsSuccess_expectedToReturnTrue() {
+    // 準備
 		boolean actual;
 		// 実行
 		try {
-			actual = mapper.savePost(post1);
+			actual = mapper.savePost(post1.getId());
 		} catch (Exception e) {
 			actual = false;
 		}
 		// 検証
 		assertTrue(actual);
 	}
+  }
 
 	@Test
 	@DisplayName("ユーザーIDがNULLのとき、例外が発生することを期待する")
@@ -181,5 +182,25 @@ class PostMapperTest {
 		// 実行&検証
 		assertThrows(Exception.class, () -> mapper.savePost(post1));
 	}
+  
+  @DisplayName("投稿の削除が成功したとき、戻り値としてTrueを返す")
+	void whenDeletePostIsSuccess_returnTrue() {
+		// 準備
+		boolean actual;
+		// 実行
+		try {
+			actual = mapper.deletePost(post1.getId());
+		} catch (Exception e) {
+			actual = false;
+		}
+		// 検証
+		assertTrue(actual);
+	}
 
+	@Test
+	@DisplayName("投稿の削除が失敗したとき、戻り値としてFalseを返す")
+	void whenDeletePostIsFailed_returnFalse() {
+		// 実行&検証
+		assertThrows(Exception.class, () -> mapper.deletePost(null));
+	}
 }

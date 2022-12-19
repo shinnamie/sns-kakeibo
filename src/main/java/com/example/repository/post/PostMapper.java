@@ -16,4 +16,6 @@ public interface PostMapper {
 
 	public boolean savePost(Post post) throws Exception;
 
+  public boolean deletePost(Long postId) throws Exception;
+
 }

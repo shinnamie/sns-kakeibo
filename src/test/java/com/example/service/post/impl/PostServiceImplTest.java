@@ -103,6 +103,16 @@ class PostServiceImplTest {
 		when(mapper.savePost(post1)).thenReturn(true);
 		// 実行
 		var actual = serviceImpl.savePost(post1);
+    // 検証
+		assertTrue(actual);
+  }
+  
+	@DisplayName("投稿の削除に成功したとき、戻り値としてTrueを返す")
+	void whenDeletePostIsSuccess_returnTrue() throws Exception {
+		// 準備
+		when(mapper.deletePost(1L)).thenReturn(true);
+		// 実行
+		boolean actual = serviceImpl.deletePost(1L);
 		// 検証
 		assertTrue(actual);
 	}
@@ -114,6 +124,16 @@ class PostServiceImplTest {
 		when(mapper.savePost(post1)).thenThrow(Exception.class);
 		// 実行
 		var actual = serviceImpl.savePost(post1);
+    // 検証
+		assertFalse(actual);
+   }
+    
+	@DisplayName("投稿の削除に失敗したとき、戻り値としてFalseを返す")
+	void whenDeletePostIsFailed_returnFalse() throws Exception {
+		// 準備
+		when(mapper.deletePost(1L)).thenThrow(Exception.class);
+		// 実行
+		boolean actual = serviceImpl.deletePost(1L);
 		// 検証
 		assertFalse(actual);
 	}
