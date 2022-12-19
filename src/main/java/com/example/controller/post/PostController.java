@@ -55,7 +55,7 @@ public class PostController {
 		// 投稿する
 		postServiceImpl.savePost(newPost);
 
-		return "board/topic";
+		return "redirect:/board/topic";
 	}
 	
 	@PostMapping("/deletePost")
@@ -71,10 +71,11 @@ public class PostController {
 		Long nowBoardId = Long.parseLong(request.getParameter("boardId"));
 		targetDeletePost.setId(nowBoardId);
 		targetDeletePost.setBoard(nowBoard);
+		
 		// 削除する
 		postServiceImpl.deletePost(targetDeletePost);
 
-		return "board/topic";
+		return "redirect:/board/topic";
 	}
 
 }
