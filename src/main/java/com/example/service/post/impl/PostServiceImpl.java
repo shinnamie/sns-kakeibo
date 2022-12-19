@@ -27,6 +27,10 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
+	public boolean savePost(Post post) {
+    // TODO 自動生成されたメソッド・スタブ
+		return false;
+  }
 	public boolean deletePost(Long boardId) {
 		// TODO 自動生成されたメソッド・スタブ
 		return false;
