@@ -30,7 +30,6 @@ import com.example.service.board.impl.BoardServiceImpl;
 public class BoardControllerGetBoardListTest {
 	
 	List<Board> boardList = new ArrayList<>();
-	Post post = new Post();
 	Board board = new Board();
 	User user = new User();
 	
