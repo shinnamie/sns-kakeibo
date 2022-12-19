@@ -31,7 +31,6 @@ class BoardServiceImplTest {
 	
 	Board board1 = new Board();
 	Board board2 = new Board();
-	Board board3 = new Board();
 	List<Board> boardList = new ArrayList<Board>();
 	User user = new User();
 	
