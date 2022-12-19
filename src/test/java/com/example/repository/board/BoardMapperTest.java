@@ -2,7 +2,6 @@ package com.example.repository.board;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
@@ -29,7 +28,6 @@ class BoardMapperTest {
 	Board board1 = new Board();
 	Board board2 = new Board();
 	Board board3 = new Board();
-	List<Board> boardList = new ArrayList<Board>();
 	User user = new User();
 
 	@BeforeAll
@@ -52,19 +50,16 @@ class BoardMapperTest {
 		board1.setName("節約しろや");
 		board1.setDescription("節約しないやつは許さない掲示板");
 		board1.setUser(user);
-		boardList.add(board1);
 		
 		board2.setId(2L);
 		board2.setName("あなたの収入を見せて");
 		board2.setDescription("自分の収入を見せる掲示板");
 		board2.setUser(user);
-		boardList.add(board2);
 		
 		board3.setId(3L);
 		board3.setName("あなたの支出を見せて");
 		board3.setDescription("自分の支出を見せる掲示板");
 		board3.setUser(user);
-		boardList.add(board3);
 		
 	}
 
@@ -77,17 +72,10 @@ class BoardMapperTest {
 	void testFindPostList() {
 		
 		List<Board> mapperBoardList = mapper.findBoardList();
-		
-		//期待する掲示板一覧リストの0番目から掲示板IDを抽出する
-		Long expectedBoardId = boardList.get(0).getId();
-		
-		//mapperから返された掲示板の2番目から投稿IDを抽出する
-		Long mapperBoardId = mapperBoardList.get(2).getId();
-				
+						
 		//Listのsizeを比較する
 		assertEquals(3, mapperBoardList.size());
-		//掲示板IDが一致するかどうか
-		assertEquals(expectedBoardId, mapperBoardId);
+		
 	}
 	
 	@Test
