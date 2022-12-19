@@ -5,9 +5,8 @@
 <head>
   <meta charset="UTF-8" th:remove="tag">
   <!-- タイトルを入力 -->
-  <title>投稿一覧</title>
+  <title>掲示板一覧</title>
   <!-- 個別CSS -->
-  <link rel="stylesheet" th:href="@{/css/board/modal_window.css}">
 </head>
 
 <body>
@@ -16,38 +15,16 @@
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h2>投稿一覧</h2>
-
-        <!-- 新規投稿の入力画面 -->
-        <section id="modal" class="hidden">
-          <form action="test.html">
-            <input type="textarea">
-            <button>送信</button>
-          </form>
-          <div id="close">
-            閉じる
-          </div>
-        </section>
-
-        <div id="open">
-          新規投稿を行う
-        </div>
-
-        <div id="mask" class="hidden">
-
-        </div>
+        <h2>掲示板一覧</h2>
       </div>
       <!-- 投稿リストの呼び出し -->
-      <div th:replace="common/postList :: postList"></div>
-
+      <div th:replace="common/boardList :: boardList"></div>
     </main>
   </th:block>
 
   <!-- 個別JS -->
   <th:block layout:fragment="javascript">
-    <script th:src="@{/js/modal_window.js}"></script>
   </th:block>
-
 </body>
 
 </html>

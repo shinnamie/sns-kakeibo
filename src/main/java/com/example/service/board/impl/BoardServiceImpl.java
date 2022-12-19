@@ -17,6 +17,10 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardMapper boardMapper;
 
+	/*
+	 * 掲示板一覧を取得する
+	 * 
+	 */
 	@Override
 	public List<Board> selectBoardList() {
 		return boardMapper.findBoardList();

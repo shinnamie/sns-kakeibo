@@ -9,15 +9,38 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.board.Board;
 import com.example.domain.post.Post;
+import com.example.service.board.BoardService;
 import com.example.service.post.PostService;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+	
+	@Autowired
+	private BoardService boardService;
 
 	@Autowired
 	private PostService postService;	
+	
+	/*
+	 * 掲示板リストを取得
+	 * 存在しない：messageを表示
+	 * 存在する：board/list.htmlに遷移
+	 * 
+	 */
+	@GetMapping("/")
+	public String getBoardList(Model model) {
+		
+		List<Board> boardList = boardService.selectBoardList();
+		
+		if (boardList.size() == 0) {
+			model.addAttribute("message", "まだ掲示板のリストが存在しません");
+			return "board/list";
+		}
+	}
+
 
 	@GetMapping("/{boardId}")
 	public String getPostList(@PathVariable("boardId") Long boardId, Model model) {
