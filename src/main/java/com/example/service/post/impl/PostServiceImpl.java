@@ -13,10 +13,10 @@ import com.example.service.post.PostService;
 @Service
 @Transactional
 public class PostServiceImpl implements PostService {
-	
+
 	@Autowired
 	private PostMapper postMapper;
-	
+
 	/*
 	 * 掲示板IDでトピックごとの投稿一覧を取得
 	 */
@@ -25,5 +25,11 @@ public class PostServiceImpl implements PostService {
 
 		return postMapper.findPostList(boardId);
 	}
-	
+
+	@Override
+	public boolean deletePost(Long boardId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
+
 }
