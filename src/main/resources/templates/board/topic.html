@@ -14,12 +14,13 @@
   <th:block layout:fragment="content">
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h2>投稿一覧</h2>
+        <h2>投稿一覧</h2><br>
 
         <!-- 新規投稿の入力画面 -->
         <section id="modal" class="hidden">
           <form th:action="@{/post/newPost}" th:object="${newPostForm}" method="post">
             <input type="textarea" name="contents">
+            <input type="hidden" name="boardId" th:value="${boardId}">
             <button type="submit">送信</button>
           </form>
           <div id="close">
@@ -32,12 +33,15 @@
         </div>
 
         <div id="mask" class="hidden">
-
         </div>
+
       </div>
+
+      <!-- 削除完了メッセージ -->
+      <h5 th:if="${successMessage}" th:text="${successMessage}" style="color: red;"></h5>
+
       <!-- 投稿リストの呼び出し -->
       <div th:replace="common/postList :: postList"></div>
-
     </main>
   </th:block>
 

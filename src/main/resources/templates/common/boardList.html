@@ -1,0 +1,7 @@
+<div th:fragment="boardList">
+  <div th:each="board : ${boardList}">
+    <p>掲示板名：<a th:text="${board.name}" th:href="@{/board/} + ${board.id}"></a></p>
+    <p>詳細：<span th:text="${board.description}"></span></p>
+    <hr>
+  </div>
+</div>

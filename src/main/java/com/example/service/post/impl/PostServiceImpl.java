@@ -17,10 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @Slf4j
 public class PostServiceImpl implements PostService {
-	
+
 	@Autowired
 	private PostMapper postMapper;
-	
+
 	/*
 	 * 掲示板IDでトピックごとの投稿一覧を取得
 	 */
@@ -29,7 +29,13 @@ public class PostServiceImpl implements PostService {
 
 		return postMapper.findPostList(boardId);
 	}
-	
+
+	/**
+	 * post新規投稿
+	 * @param Post
+	 * @return boolean
+	 * 
+	 * */
 	@Override
 	public boolean savePost(Post post) {
 		try {
@@ -40,7 +46,13 @@ public class PostServiceImpl implements PostService {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * post削除
+	 * @param Post
+	 * @return boolean
+	 * 
+	 * */
 	@Override
 	public boolean deletePost(Post post) {
 		try {
@@ -51,5 +63,5 @@ public class PostServiceImpl implements PostService {
 			return false;
 		}
 	}
-	
+
 }

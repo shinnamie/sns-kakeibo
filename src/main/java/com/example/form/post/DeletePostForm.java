@@ -3,9 +3,9 @@ package com.example.form.post;
 import lombok.Data;
 
 @Data
-public class NewPostForm {
+public class DeletePostForm {
 	
-	private String contents;
+	private Long id;
 	private Long boardId;
 
 }
