@@ -13,6 +13,7 @@ public interface BoardMapper {
 	 * 掲示板一覧を取得する
 	 * 
 	 */
+
 	public List<Board> findBoardList();
 
 }

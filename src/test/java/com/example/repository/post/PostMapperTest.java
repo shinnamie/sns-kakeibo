@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.domain.board.Board;
 import com.example.domain.post.Post;
 import com.example.domain.user.User;
 
@@ -34,6 +35,7 @@ class PostMapperTest {
 	Post post3 = new Post();
 	List<Post> expectedPostLists = new ArrayList<Post>();
 	User user = new User();
+	Board board = new Board();
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -52,27 +54,33 @@ class PostMapperTest {
 		LocalDateTime updateDateTime4 = LocalDateTime.parse("2022-04-10T19:34:50.63");
 		LocalDateTime updateDateTime5 = LocalDateTime.parse("2022-05-10T19:34:50.63");
 		LocalDateTime updateDateTime6 = LocalDateTime.parse("2022-06-10T19:34:50.63");
+		// ユーザー情報
 		user.setId(1L);
 		user.setMailAddress("aaa@aaa");
 		user.setPassword("test1");
+		// 掲示板情報
+		board.setId(1L);
 
 		post1.setId(4L);
 		post1.setContents("ボーナスやった！！(4)");
 		post1.setInsertAt(insertDateTime4);
 		post1.setUpdateAt(updateDateTime4);
 		post1.setUser(user);
+		post1.setBoard(board);
 
 		post2.setId(5L);
 		post2.setContents("ボーナスやった！！(5)");
 		post2.setInsertAt(insertDateTime5);
 		post2.setUpdateAt(updateDateTime5);
 		post2.setUser(user);
+		post2.setBoard(board);
 
 		post3.setId(6L);
 		post3.setContents("ボーナスやった！！(6)");
 		post3.setInsertAt(insertDateTime6);
 		post3.setUpdateAt(updateDateTime6);
 		post3.setUser(user);
+		post3.setBoard(board);
 
 		expectedPostLists.add(post1);
 		expectedPostLists.add(post2);
@@ -131,7 +139,51 @@ class PostMapperTest {
 	}
 
 	@Test
-	@DisplayName("投稿の削除が成功したとき、戻り値としてTrueを返す")
+	@DisplayName("新規投稿に成功したとき、戻り値にTrueを返すことを期待する")
+	void whenSavePostIsSuccess_expectedToReturnTrue() {
+    // 準備
+		boolean actual;
+		// 実行
+		try {
+			actual = mapper.savePost(post1.getId());
+		} catch (Exception e) {
+			actual = false;
+		}
+		// 検証
+		assertTrue(actual);
+	}
+  }
+
+	@Test
+	@DisplayName("ユーザーIDがNULLのとき、例外が発生することを期待する")
+	void whenUserIdIsNull_whenThrowException() {
+		// 準備
+		var invalidUser = new User();
+		post1.setUser(invalidUser);
+		// 実行&検証
+		assertThrows(Exception.class, () -> mapper.savePost(post1));
+	}
+
+	@Test
+	@DisplayName("掲示板IDがNULLのとき、例外が発生することを期待する")
+	void whenBoardIdIsNull_whenThrowException() {
+		// 準備
+		var invalidBoard = new Board();
+		post1.setBoard(invalidBoard);
+		// 実行&検証
+		assertThrows(Exception.class, () -> mapper.savePost(post1));
+	}
+
+	@Test
+	@DisplayName("内容(contents)がNULLのとき、例外が発生することを期待する")
+	void whenContentsIsNull_whenThrowException() {
+		// 準備
+		post1.setContents(null);
+		// 実行&検証
+		assertThrows(Exception.class, () -> mapper.savePost(post1));
+	}
+  
+  @DisplayName("投稿の削除が成功したとき、戻り値としてTrueを返す")
 	void whenDeletePostIsSuccess_returnTrue() {
 		// 準備
 		boolean actual;

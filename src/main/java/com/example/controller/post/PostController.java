@@ -69,7 +69,7 @@ public class PostController {
 		// 投稿する
 		postServiceImpl.savePost(newPost);
 
-		// 削除完了メッセージを表示する
+		// 投稿完了メッセージを表示する
 		redirectAttributes.addFlashAttribute("successMessage", "投稿が完了しました");
 
 		return "redirect:/board/" + nowBoardId;

@@ -97,6 +97,16 @@ class PostServiceImplTest {
 	}
 
 	@Test
+	@DisplayName("新規投稿に成功したとき、戻り値でTrueを返すことを期待する")
+	void whenSavePostIsSuccess_expectedToReturnTrue() throws Exception {
+		// 準備
+		when(mapper.savePost(post1)).thenReturn(true);
+		// 実行
+		var actual = serviceImpl.savePost(post1);
+    // 検証
+		assertTrue(actual);
+  }
+  
 	@DisplayName("投稿の削除に成功したとき、戻り値としてTrueを返す")
 	void whenDeletePostIsSuccess_returnTrue() throws Exception {
 		// 準備
@@ -108,6 +118,16 @@ class PostServiceImplTest {
 	}
 
 	@Test
+	@DisplayName("新規投稿に失敗したとき、戻り値でFalseを返すことを期待する")
+	void whenSavePostIsFailed_expectedToReturnFalse() throws Exception {
+		// 準備
+		when(mapper.savePost(post1)).thenThrow(Exception.class);
+		// 実行
+		var actual = serviceImpl.savePost(post1);
+    // 検証
+		assertFalse(actual);
+   }
+    
 	@DisplayName("投稿の削除に失敗したとき、戻り値としてFalseを返す")
 	void whenDeletePostIsFailed_returnFalse() throws Exception {
 		// 準備

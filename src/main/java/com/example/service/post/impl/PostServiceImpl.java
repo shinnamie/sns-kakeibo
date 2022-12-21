@@ -34,7 +34,7 @@ public class PostServiceImpl implements PostService {
 	 * post新規投稿
 	 * @param Post
 	 * @return boolean
-	 * 
+	 *
 	 * */
 	@Override
 	public boolean savePost(Post post) {
@@ -51,7 +51,7 @@ public class PostServiceImpl implements PostService {
 	 * post削除
 	 * @param Post
 	 * @return boolean
-	 * 
+	 *
 	 * */
 	@Override
 	public boolean deletePost(Post post) {
