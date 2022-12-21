@@ -30,4 +30,5 @@
     ORDER BY
       b.id DESC
   </select>
+
 </mapper>

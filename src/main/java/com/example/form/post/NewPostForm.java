@@ -9,4 +9,5 @@ public class NewPostForm {
 	private Long boardId;
 	private String contents;
 
+
 }
