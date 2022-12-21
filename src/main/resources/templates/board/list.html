@@ -1,21 +1,40 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{common/layout}">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout}">
 
 <head>
   <meta charset="UTF-8" th:remove="tag">
   <!-- タイトルを入力 -->
   <title>掲示板一覧</title>
   <!-- 個別CSS -->
+  <link rel="stylesheet" th:href="@{/css/board/modal_window.css}">
 </head>
 
 <body>
   <!-- 個別コンテンツ -->
   <th:block layout:fragment="content">
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h2>掲示板一覧</h2>
+
+        <!-- 新規投稿の入力画面 -->
+        <section id="modal" class="hidden">
+          <form th:action="@{/board/newBoard}" th:object="${newBoardForm}" method="post">
+            掲示板名：<input type="textarea" name="contents"><br>
+            　説明　：<input type="textarea" name="description"><br>
+            <button type="submit">作成</button>
+          </form>
+          <div id="close">
+            閉じる
+          </div>
+        </section>
+
+        <div id="open">
+          掲示板を作成する
+        </div>
+
+        <div id="mask" class="hidden">
+        </div>
+
       </div>
       <!-- 投稿リストの呼び出し -->
       <div th:replace="common/boardList :: boardList"></div>
@@ -24,7 +43,9 @@
 
   <!-- 個別JS -->
   <th:block layout:fragment="javascript">
+    <script th:src="@{/js/modal_window.js}"></script>
   </th:block>
+
 </body>
 
 </html>

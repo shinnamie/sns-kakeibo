@@ -9,51 +9,59 @@
 </head>
 
 <body>
-    <div th:fragment="frag_menu">
-      <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                          <a class="nav-link" th:href="@{/kakeibo/list}">
-                            <i class="fa-solid fa-table-list"></i>
-                            <span data-feather="bar-chart-2"></span>
-                            <!-- 家計簿一覧 -->
-                            家計簿一覧
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" th:href="@{/kakeibo/registerKakeibo}">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <span data-feather="layers">
-                              <!-- 家計簿新規登録 -->
-                              新規登録
-                            </span>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" th:href="@{/kakeibo/breakdown}">
-                            <i class="fa-solid fa-chart-pie"></i>
-                            <span data-feather="layers"></span>
-                            <!-- 収支内訳 -->
-                            収支内訳
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" th:href="@{/kakeibo/kakeiboByYearAndMonth}">
-                            <i class="fa-solid fa-chart-simple"></i>
-                            <span data-feather="layers"></span>
-                            <!-- 年別・月別集計 -->
-                            年別・月別集計
-                          </a>
-                        </li>
-                    </ul>    
-                </div>
-            </nav>  
-        </div>
+  <div th:fragment="frag_menu">
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/kakeibo/list}">
+                  <i class="fa-solid fa-table-list"></i>
+                  <span data-feather="bar-chart-2"></span>
+                  <!-- 家計簿一覧 -->
+                  家計簿一覧
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/kakeibo/registerKakeibo}">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                  <span data-feather="layers">
+                    <!-- 家計簿新規登録 -->
+                    新規登録
+                  </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/kakeibo/breakdown}">
+                  <i class="fa-solid fa-chart-pie"></i>
+                  <span data-feather="layers"></span>
+                  <!-- 収支内訳 -->
+                  収支内訳
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/kakeibo/kakeiboByYearAndMonth}">
+                  <i class="fa-solid fa-chart-simple"></i>
+                  <span data-feather="layers"></span>
+                  <!-- 年別・月別集計 -->
+                  年別・月別集計
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/board/}">
+                  <i class="fa-solid fa-chart-simple"></i>
+                  <span data-feather="layers"></span>
+                  <!-- 掲示板 -->
+                  掲示板
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
     </div>
+  </div>
   </div>
 </body>
 
