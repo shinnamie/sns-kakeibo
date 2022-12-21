@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.domain.board.Board;
 import com.example.domain.kakeibo.Kakeibo;
-import com.example.domain.post.Post;
 import com.example.domain.user.User;
 import com.example.form.kakeibo.AddKakeiboForm;
 import com.example.form.kakeibo.EditKakeiboForm;

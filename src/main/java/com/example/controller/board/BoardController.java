@@ -97,7 +97,7 @@ public class BoardController {
 
 		// 作成する
 		boardService.saveBoard(newBoard);
-		System.out.println(newBoard.getId());
+		System.out.println(newBoard);
 
 		// 投稿完了メッセージを表示する
 		redirectAttributes.addFlashAttribute("successMessage", "掲示板の作成が正常に完了しました");

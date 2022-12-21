@@ -36,25 +36,13 @@
 
 	<!-- 新規board作成 -->
 	<insert id="saveBoard"
-		parameterType="com.example.domain.board.Board">
+		parameterType="com.example.domain.board.Board" keyColumn="id"
+		keyProperty="com.example.domain.board.Board.id">
 		INSERT INTO board
 		(user_id,name,description)
 		VALUES
 		(#{user.id}, #{name},
-		#{description});
-	</insert>
-
-	<insert id="saveBoardId"
-		parameterType="com.example.domain.board.Board">
-		INSERT INTO board
-		(user_id,name,description)
-		VALUES
-		(#{user.id}, #{name},
-		#{description});
-		<!-- <selectKey resultType="java.lang.Long"
-			keyProperty="id" order="AFTER">
-			SELECT max(id) from board;
-		</selectKey> -->
+		#{description})
 	</insert>
 
 	<!-- board削除 -->
@@ -72,5 +60,5 @@
 		#{user.id};
 
 	</delete>
-
+	
 </mapper>
