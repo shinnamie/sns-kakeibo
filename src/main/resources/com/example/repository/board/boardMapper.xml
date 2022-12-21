@@ -3,48 +3,74 @@
 
 <mapper namespace="com.example.repository.board.BoardMapper">
 
-  <!-- 掲示板一覧表示のresultMap -->
-  <resultMap id="boardMap" type="com.example.domain.board.Board" autoMapping="true">
-    <id property="id" column="id" />
-    <association property="user" resultMap="userMap" />
-  </resultMap>
+	<!-- 掲示板一覧表示のresultMap -->
+	<resultMap id="boardMap"
+		type="com.example.domain.board.Board" autoMapping="true">
+		<id property="id" column="id" />
+		<association property="user" resultMap="userMap" />
+	</resultMap>
 
-  <resultMap id="userMap" type="com.example.domain.user.User" autoMapping="true">
-    <id property="id" column="id" />
-  </resultMap>
+	<resultMap id="userMap" type="com.example.domain.user.User"
+		autoMapping="true">
+		<id property="id" column="id" />
+	</resultMap>
 
-  <!-- 掲示板一覧を取得 -->
-  <select id="findBoardList" resultMap="boardMap">
-    SELECT
-      b.id
-      , b.name
-      , b.description
-      , b.user_id
-      , u.name
-    FROM
-      board AS b
-    INNER JOIN
-      users AS u
-    ON
-      b.user_id = u.id
-    ORDER BY
-      b.id DESC
-  </select>
-  
-  <!-- 新規board作成 -->
+	<!-- 掲示板一覧を取得 -->
+	<select id="findBoardList" resultMap="boardMap">
+		SELECT
+		b.id
+		, b.name
+		,
+		b.description
+		, b.user_id
+		, u.name
+		FROM
+		board AS b
+		INNER JOIN
+		users AS u
+		ON
+		b.user_id = u.id
+		ORDER BY
+		b.id DESC
+	</select>
+
+	<!-- 新規board作成 -->
 	<insert id="saveBoard"
 		parameterType="com.example.domain.board.Board">
 		INSERT INTO board
 		(user_id,name,description)
 		VALUES
-		(#{user.id}, #{name}, #{description})
+		(#{user.id}, #{name},
+		#{description});
+	</insert>
+
+	<insert id="saveBoardId"
+		parameterType="com.example.domain.board.Board">
+		INSERT INTO board
+		(user_id,name,description)
+		VALUES
+		(#{user.id}, #{name},
+		#{description});
+		<!-- <selectKey resultType="java.lang.Long"
+			keyProperty="id" order="AFTER">
+			SELECT max(id) from board;
+		</selectKey> -->
 	</insert>
 
 	<!-- board削除 -->
 	<delete id="deleteBoard">
-		DELETE FROM board
-		WHERE id = #{id}
-		AND user_id = #{user.id}
+
+		<!-- boardにあるコメント削除 -->
+		DELETE from posts as p WHERE EXISTS (
+		SELECT * FROM board as b
+		WHERE
+		b.id = p.board_id
+		AND b.id = #{id}
+		);
+		<!-- board削除 -->
+		DELETE from board WHERE id = #{id} AND user_id =
+		#{user.id};
+
 	</delete>
 
 </mapper>

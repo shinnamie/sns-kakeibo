@@ -17,10 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.domain.board.Board;
 import com.example.domain.post.Post;
 import com.example.domain.user.User;
+import com.example.form.board.DeleteBoardForm;
 import com.example.form.board.NewBoardForm;
-import com.example.form.post.NewPostForm;
 import com.example.service.board.BoardService;
-import com.example.service.board.impl.BoardServiceImpl;
 import com.example.service.post.PostService;
 
 @Controller
@@ -35,9 +34,6 @@ public class BoardController {
 	
 	@Autowired
 	private PostService postService;
-	
-	@Autowired
-	private BoardServiceImpl boardServiceImpl;
 
 	@ModelAttribute
 	private NewBoardForm newBoardForm() {
@@ -100,10 +96,40 @@ public class BoardController {
 		newBoard.setUser(user);
 
 		// 作成する
-		boardServiceImpl.saveBoard(newBoard);
+		boardService.saveBoard(newBoard);
+		System.out.println(newBoard.getId());
 
 		// 投稿完了メッセージを表示する
 		redirectAttributes.addFlashAttribute("successMessage", "掲示板の作成が正常に完了しました");
+
+		return "redirect:/board/";
+	}
+	
+	/**
+	 * board削除
+	 *
+	 * @param deleteBoardForm
+	 * @return 掲示板一覧
+	 */
+	@PostMapping("/deleteBoard")
+	public String deleteBoard(DeleteBoardForm deleteBoardForm,Model model, RedirectAttributes redirectAttributes) {
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+
+		// 削除される掲示板情報をBoardオブジェクトに詰める
+		Board deleteBoard = new Board(); 
+		deleteBoard.setId(deleteBoardForm.getId());
+		deleteBoard.setUser(user);
+
+		// 削除する
+		boardService.deleteBoard(deleteBoard);
+		System.out.println();
+
+		// 削除完了メッセージを表示する
+		redirectAttributes.addFlashAttribute("successMessage", "選択した掲示板が削除されました");
 
 		return "redirect:/board/";
 	}
