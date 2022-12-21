@@ -5,7 +5,10 @@ import lombok.Data;
 @Data
 public class DeletePostForm {
 	
+	// postのID
 	private Long id;
+	
+	// 掲示板のID
 	private Long boardId;
 
 }

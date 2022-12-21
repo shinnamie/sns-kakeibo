@@ -44,9 +44,6 @@ public class KakeiboController {
 
 	@Autowired
 	LoginService loginService;
-	
-	@Autowired
-	PostService postService;
 
 	@ModelAttribute
 	private EditKakeiboForm editKakeiboForm() {

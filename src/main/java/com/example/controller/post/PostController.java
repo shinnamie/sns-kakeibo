@@ -1,19 +1,14 @@
 package com.example.controller.post;
 
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.domain.board.Board;
@@ -21,7 +16,8 @@ import com.example.domain.post.Post;
 import com.example.domain.user.User;
 import com.example.form.post.DeletePostForm;
 import com.example.form.post.NewPostForm;
-import com.example.service.post.impl.PostServiceImpl;
+import com.example.service.post.PostService;
+
 
 @Controller
 @RequestMapping("/post")
@@ -31,7 +27,7 @@ public class PostController {
 	HttpSession session;
 
 	@Autowired
-	PostServiceImpl postServiceImpl;
+	PostService postService;
 
 	@ModelAttribute
 	private NewPostForm newPostForm() {
@@ -67,7 +63,7 @@ public class PostController {
 		newPost.setContents(newPostForm.getContents());
 
 		// 投稿する
-		postServiceImpl.savePost(newPost);
+		postService.savePost(newPost);
 
 		// 投稿完了メッセージを表示する
 		redirectAttributes.addFlashAttribute("successMessage", "投稿が完了しました");
@@ -98,7 +94,7 @@ public class PostController {
 		targetDeletePost.setBoard(nowBoard);
 
 		// 削除する
-		postServiceImpl.deletePost(targetDeletePost);
+		postService.deletePost(targetDeletePost);
 
 		// 削除完了メッセージを表示する
 		redirectAttributes.addFlashAttribute("successMessage", "削除が完了しました");
