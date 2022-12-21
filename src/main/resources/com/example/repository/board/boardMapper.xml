@@ -31,7 +31,7 @@
       b.id DESC
   </select>
   
-  <!-- 新規post投稿 -->
+  <!-- 新規board作成 -->
 	<insert id="saveBoard"
 		parameterType="com.example.domain.board.Board">
 		INSERT INTO board
@@ -40,7 +40,7 @@
 		(#{user.id}, #{name}, #{description})
 	</insert>
 
-	<!-- post削除 -->
+	<!-- board削除 -->
 	<delete id="deleteBoard">
 		DELETE FROM board
 		WHERE id = #{id}
