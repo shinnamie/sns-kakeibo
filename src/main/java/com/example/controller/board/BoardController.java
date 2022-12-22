@@ -39,6 +39,9 @@ public class BoardController {
 			model.addAttribute("message", "まだ掲示板のリストが存在しません");
 			return "board/list";
 		}
+
+		model.addAttribute("boardList", boardList);
+		return "board/list";
 	}
 
 
