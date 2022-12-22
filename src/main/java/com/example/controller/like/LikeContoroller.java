@@ -4,8 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,12 +37,7 @@ public class LikeContoroller {
 	 * @return
 	 */
 	@PostMapping("/mark")
-	public String markLike(LikeForm likeForm, BindingResult result, Model model) {
-
-		// 入力値エラーの際は編集画面を表示する
-		if (result.hasErrors()) {
-			return "kakeibo/edit";
-		}
+	public String markLike(LikeForm likeForm) {
 
 		// ログインチェックを追加
 		User user = (User) session.getAttribute("user");
@@ -69,6 +62,8 @@ public class LikeContoroller {
 		loginUser.setId(likeForm.getUserId());
 		likePost.setUser(loginUser);
 		
+		likeService.markLike(likePost);
+		
 		return "redirect:/board/" + nowBoardId;
 	}
 	
@@ -79,12 +74,7 @@ public class LikeContoroller {
 	 * @return
 	 */
 	@PostMapping("/remove")
-	public String removeLike(LikeForm likeForm, BindingResult result, Model model) {
-
-		// 入力値エラーの際は編集画面を表示する
-		if (result.hasErrors()) {
-			return "kakeibo/edit";
-		}
+	public String removeLike(LikeForm likeForm) {
 
 		// ログインチェックを追加
 		User user = (User) session.getAttribute("user");
@@ -108,9 +98,8 @@ public class LikeContoroller {
 		User loginUser = new User();
 		loginUser.setId(likeForm.getUserId());
 		removeLikePost.setUser(loginUser);
-		
-		System.out.println(removeLikePost);
 
+		// いいねを取り消す
 		likeService.removeLike(removeLikePost);
 
 		return "redirect:/board/" + nowBoardId;
