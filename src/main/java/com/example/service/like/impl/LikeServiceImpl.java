@@ -34,5 +34,22 @@ public class LikeServiceImpl implements LikeService{
 			return false;
 		}
 	}
+	
+	/**
+	 * いいねを取り消す
+	 * 
+	 * @param　Like
+	 * @return boolean
+	 */
+	@Override
+	public boolean removeLike(Like like) {
+		try {
+			likeMapper.removeLike(like);
+			return true;
+		} catch (Exception e) {
+			log.error("いいねを取り消すで例外が発生しました: {}", e);
+			return false;
+		}
+	}
 
 }

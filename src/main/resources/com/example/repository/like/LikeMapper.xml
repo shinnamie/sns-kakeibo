@@ -3,11 +3,20 @@
 
 <mapper namespace="com.example.repository.like.LikeMapper">
 
-	<!-- いいねする -->
+	<!-- いいねする(すでにいいねしている場合はinsertの処理は行われるがなにも登録されない) -->
 	<insert id="markLike">
 		INSERT INTO likes (user_id, post_id)
-		VALUES (#{userId}, #{postId})
+		SELECT #{user.id}, #{post.id} 
+		WHERE NOT EXISTS 
+		(SELECT 1 FROM likes WHERE user_id = #{user.id} AND post_id = #{post.id})
 	</insert>
+	
+	<!-- いいねを取り消す -->
+	<delete id="removeLike">
+		DELETE FROM likes 
+		WHERE post_id = #{post.id}
+		AND user_id = #{user.id}
+	</delete>
 
 	<!-- LikeResultMap -->
 	<resultMap id="likeResultMap"
