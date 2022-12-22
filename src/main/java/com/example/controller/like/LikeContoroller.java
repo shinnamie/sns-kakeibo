@@ -65,10 +65,10 @@ public class LikeContoroller {
 		board.setId(nowBoardId);
 		likePost.setBoard(board);
 		
-		likePost.setUser(user);
-
-		likeService.markLike(likePost);
-
+		User loginUser = new User();
+		loginUser.setId(likeForm.getUserId());
+		likePost.setUser(loginUser);
+		
 		return "redirect:/board/" + nowBoardId;
 	}
 	
@@ -105,7 +105,11 @@ public class LikeContoroller {
 		board.setId(nowBoardId);
 		removeLikePost.setBoard(board);
 		
-		removeLikePost.setUser(user);
+		User loginUser = new User();
+		loginUser.setId(likeForm.getUserId());
+		removeLikePost.setUser(loginUser);
+		
+		System.out.println(removeLikePost);
 
 		likeService.removeLike(removeLikePost);
 

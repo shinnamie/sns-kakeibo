@@ -6,11 +6,13 @@
     <form th:action="@{/like/mark}" method="post" th:object="${likeForm}">
       <input type="hidden" name="boardId" th:value="${boardId}">
       <input type="hidden" name="postId" th:value="${post.id}">
+      <input type="hidden" name="userId" th:value=${session.user.id}>
       <button type="submit"><i class="fa-solid fa-trash"></i></button>
     </form>
     <form th:action="@{/like/remove}" method="post" th:object="${likeForm}">
       <input type="hidden" name="boardId" th:value="${boardId}">
       <input type="hidden" name="postId" th:value="${post.id}">
+      <input type="hidden" name="userId" th:value=${session.user.id}>
       <button type="submit"><i class="fa-solid fa-trash"></i></button>
     </form>
 
