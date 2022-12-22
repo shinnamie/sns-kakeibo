@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.repository.like.LikeMapper">
+
+	<!-- いいねする -->
+	<insert id="markLike">
+		INSERT INTO likes (user_id, post_id)
+		VALUES (#{userId}, #{postId})
+	</insert>
+
+	<!-- LikeResultMap -->
+	<resultMap id="likeResultMap"
+		type="com.example.domain.like.Like" autoMapping="true">
+		<result property="insertAt" column="insert_at" />
+		<association property="user" resultMap="userMap" />
+		<association property="post" resultMap="userMap" />
+	</resultMap>
+
+	<!-- UserResultMap -->
+	<resultMap id="userMap" type="com.example.domain.user.User"
+		autoMapping="true">
+		<result property="id" column="user_id" />
+	</resultMap>
+
+	<!-- PostResultMap -->
+	<resultMap id="postMap" type="com.example.domain.post.Post"
+		autoMapping="true">
+		<result property="id" column="post_id" />
+	</resultMap>
+
+
+</mapper>

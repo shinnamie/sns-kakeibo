@@ -22,7 +22,7 @@ entity users as "users\nユーザー" {
   gender [性別]
   date_of_birth [生年月日]
   remarks [備考]
-  
+
 }
 
 entity expense_item  as "expense_item \n費目" {
@@ -62,5 +62,12 @@ entity comments as  "comments \nコメント"{
   insert_at[登録日]
   update_at[更新日]
 
+}
+
+entity likes as  "likes \nいいね"{
+  --
+  user_id[ユーザーID]
+  posts_id[投稿ID]
+  insert_at[登録日]
 }
 @enduml
