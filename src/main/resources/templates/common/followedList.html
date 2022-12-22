@@ -1,0 +1,7 @@
+<div th:fragment="followedList">
+  <div th:each="followed : ${followedList}">
+  <h1></h1>
+    <p><a th:text="${followed.user.name}"></a></p>
+    <hr>
+  </div>
+</div>
