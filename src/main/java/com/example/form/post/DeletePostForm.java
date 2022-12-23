@@ -6,9 +6,12 @@ import lombok.Data;
 public class DeletePostForm {
 	
 	// postのID
-	private Long id;
+	private Long postId;
 	
 	// 掲示板のID
 	private Long boardId;
+	
+	// ログインしているuserのID
+	private Long userId;
 
 }

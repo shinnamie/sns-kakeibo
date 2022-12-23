@@ -19,8 +19,9 @@
         <!-- 新規投稿の入力画面 -->
         <section id="modal" class="hidden">
           <form th:action="@{/post/newPost}" th:object="${newPostForm}" method="post">
-            <input type="textarea" name="contents">
+            <input type="textarea" name="contents" th:value="${contents}">
             <input type="hidden" name="boardId" th:value="${boardId}">
+            <input type="hidden" name="userId" th:value=${session.user.id}>
             <button type="submit">送信</button>
           </form>
           <div id="close">
