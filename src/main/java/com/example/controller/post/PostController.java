@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.controller.user.SignUpController;
 import com.example.domain.board.Board;
 import com.example.domain.post.Post;
 import com.example.domain.user.User;
@@ -19,6 +20,9 @@ import com.example.form.post.DeletePostForm;
 import com.example.form.post.NewPostForm;
 import com.example.service.post.PostService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/post")
 public class PostController {
@@ -48,17 +52,20 @@ public class PostController {
 	@PostMapping("/newPost")
 	public String getNewPost(@Validated NewPostForm newPostForm, BindingResult result, Model model,
 			RedirectAttributes redirectAttributes) {
+		
+		Long boardId = newPostForm.getBoardId();
+		
 		// ログインチェックを追加
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
 			return "redirect:/user/login";
 		}
-
+		
 		// 入力値チェック
 		if (result.hasErrors()) {
-			Long nowBoardId = newPostForm.getBoardId();
+			log.info("入力値エラー: {}" , newPostForm);
 			model.addAttribute("errorMessage", "投稿が完了しませんでした");
-			return "/board/" + nowBoardId;
+			return "redirect:/board/" + boardId;
 		}
 
 		// 投稿情報をPostオブジェクトに詰める
@@ -93,17 +100,20 @@ public class PostController {
 	@PostMapping("/deletePost")
 	public String deletePost(@Validated DeletePostForm deletePostForm, BindingResult result, Model model,
 			RedirectAttributes redirectAttributes) {
+		
+		Long boardId = deletePostForm.getBoardId();
+		
 		// ログインチェックを追加
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
 			return "redirect:/user/login";
 		}
-
+		
 		// 入力値チェック
 		if (result.hasErrors()) {
-			Long nowBoardId = deletePostForm.getBoardId();
+			log.info("入力値エラー: {}" , deletePostForm);
 			model.addAttribute("errorMessage", "削除が完了しませんでした");
-			return "/board/" + nowBoardId;
+			return "redirect:/board/" + boardId;
 		}
 
 		// 削除対象の投稿情報をPostオブジェクトに詰める
