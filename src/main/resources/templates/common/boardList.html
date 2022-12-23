@@ -3,7 +3,8 @@
     <p>掲示板名：<a th:text="${board.name}" th:href="@{/board/} + ${board.id}"></a></p>
     <p>詳細：<span th:text="${board.description}"></span></p>
     <form th:action="@{/board/deleteBoard}" method="post" th:object="${deleteBoardForm}">
-      <input type="hidden" name="id" th:value="${board.id}">
+      <input type="hidden" name="boardId" th:value="${board.id}">
+      <input type="hidden" name="userId" th:value=${session.user.id}>
       <button type="submit"><i class="fa-solid fa-trash"></i></button>
     </form>
     <hr>

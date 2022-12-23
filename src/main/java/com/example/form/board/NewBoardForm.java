@@ -1,14 +1,24 @@
 package com.example.form.board;
 
-import com.example.domain.user.User;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
 
 @Data
 public class NewBoardForm {
 
-	private String name;
+	// 掲示板名
+	@NotBlank
+	@Length(max = 100, min = 1)
+	private String boardName;
+	// 掲示板の説明
+	@Length(max = 100)
 	private String description;
-	private User user;
+	// 作成したUserのID
+	@NotNull
+	private Long userId;
 
 }

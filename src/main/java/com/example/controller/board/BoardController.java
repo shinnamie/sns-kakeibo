@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,16 +24,19 @@ import com.example.form.board.NewBoardForm;
 import com.example.service.board.BoardService;
 import com.example.service.post.PostService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/board")
 public class BoardController {
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@Autowired
 	private BoardService boardService;
-	
+
 	@Autowired
 	private PostService postService;
 
@@ -39,18 +44,16 @@ public class BoardController {
 	private NewBoardForm newBoardForm() {
 		return new NewBoardForm();
 	}
-	
+
 	/*
-	 * 掲示板リストを取得
-	 * 存在しない：messageを表示
-	 * 存在する：board/list.htmlに遷移
+	 * 掲示板リストを取得 存在しない：messageを表示 存在する：board/list.htmlに遷移
 	 * 
 	 */
 	@GetMapping("/")
 	public String getBoardList(Model model) {
-		
+
 		List<Board> boardList = boardService.selectBoardList();
-		
+
 		if (boardList.size() == 0) {
 			model.addAttribute("message", "まだ掲示板のリストが存在しません");
 			return "board/list";
@@ -59,7 +62,6 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 		return "board/list";
 	}
-
 
 	@GetMapping("/{boardId}")
 	public String getPostList(@ModelAttribute @PathVariable("boardId") Long boardId, Model model) {
@@ -73,8 +75,7 @@ public class BoardController {
 		model.addAttribute("postList", postList);
 		return "board/topic";
 	}
-	
-	
+
 	/**
 	 * board新規投稿
 	 *
@@ -82,29 +83,39 @@ public class BoardController {
 	 * @return 作成した掲示板のurl
 	 */
 	@PostMapping("/newBoard")
-	public String getNewBoard(NewBoardForm newBoardForm,Model model, RedirectAttributes redirectAttributes) {
+	public String getNewBoard(@Validated NewBoardForm newBoardForm, Model model, BindingResult result,
+			RedirectAttributes redirectAttributes) {
 		// ログインチェックを追加
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
 			return "redirect:/user/login";
 		}
 
+		// 入力値チェック
+		if (result.hasErrors()) {
+			log.info("入力値エラー: {}", newBoardForm);
+			model.addAttribute("errorMessage", "掲示板名は必ず入力してください");
+			return "board/topic";
+		}
+
 		// 作成される掲示板情報をBoardオブジェクトに詰める
-		Board newBoard = new Board(); 
-		newBoard.setName(newBoardForm.getName());
+		Board newBoard = new Board();
+		newBoard.setName(newBoardForm.getBoardName());
 		newBoard.setDescription(newBoardForm.getDescription());
-		newBoard.setUser(user);
+
+		User boardUser = new User();
+		boardUser.setId(newBoardForm.getUserId());
+		newBoard.setUser(boardUser);
 
 		// 作成する
 		boardService.saveBoard(newBoard);
-		System.out.println(newBoard);
 
 		// 投稿完了メッセージを表示する
 		redirectAttributes.addFlashAttribute("successMessage", "掲示板の作成が正常に完了しました");
 
 		return "redirect:/board/";
 	}
-	
+
 	/**
 	 * board削除
 	 *
@@ -112,27 +123,36 @@ public class BoardController {
 	 * @return 掲示板一覧
 	 */
 	@PostMapping("/deleteBoard")
-	public String deleteBoard(DeleteBoardForm deleteBoardForm,Model model, RedirectAttributes redirectAttributes) {
+	public String deleteBoard(@Validated DeleteBoardForm deleteBoardForm, Model model, BindingResult result,RedirectAttributes redirectAttributes) {
 		// ログインチェックを追加
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
 			return "redirect:/user/login";
 		}
 
+		// 入力値チェック
+		if (result.hasErrors()) {
+			log.info("入力値エラー: {}", deleteBoardForm);
+			model.addAttribute("errorMessage", "正常に掲示板が削除されませんでした");
+			return "board/topic";
+		}
+
 		// 削除される掲示板情報をBoardオブジェクトに詰める
-		Board deleteBoard = new Board(); 
-		deleteBoard.setId(deleteBoardForm.getId());
-		deleteBoard.setUser(user);
+		Board deleteBoard = new Board();
+
+		deleteBoard.setId(deleteBoardForm.getBoardId());
+
+		User boardUser = new User();
+		boardUser.setId(deleteBoardForm.getUserId());
+		deleteBoard.setUser(boardUser);
 
 		// 削除する
 		boardService.deleteBoard(deleteBoard);
-		System.out.println();
 
 		// 削除完了メッセージを表示する
 		redirectAttributes.addFlashAttribute("successMessage", "選択した掲示板が削除されました");
 
 		return "redirect:/board/";
 	}
-	
-	
+
 }

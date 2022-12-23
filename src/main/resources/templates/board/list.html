@@ -19,8 +19,9 @@
         <!-- 新規投稿の入力画面 -->
         <section id="modal" class="hidden">
           <form th:action="@{/board/newBoard}" th:object="${newBoardForm}" method="post">
-            掲示板名：<input type="textarea" name="name"><br>
+            掲示板名：<input type="textarea" name="boardName"><br>
             　説明　：<input type="textarea" name="description"><br>
+            <input type="hidden" name="userId" th:value=${session.user.id}>
             <button type="submit">作成</button>
           </form>
           <div id="close">

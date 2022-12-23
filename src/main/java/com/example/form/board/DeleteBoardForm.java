@@ -1,11 +1,17 @@
 package com.example.form.board;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 
 @Data
 public class DeleteBoardForm {
 	
 	// boardのID
-	public Long id;
+	@NotNull
+	public Long boardId;
+	// 削除するUserのID
+	@NotNull
+	public Long userId;
 
 }
