@@ -1,4 +1,10 @@
 spring:
+  batch:
+    job:
+      names: ExportMybatisCursorJob
+    jdbc:
+      initialize-schema: always
+      schema: classpath:org/springframework/batch/core/schema-postgresql.sql
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/kakeibo
@@ -14,3 +20,7 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+
+logging:
+  level:
+    '[com.example]': debug
