@@ -1,0 +1,20 @@
+決済日付, 費目, 支出金額, 収入金額, 決済, 利用店舗, 備考, 登録日
+2022-12-07,ExpenseItem [id=18, expenseItemName=保険],10000,0,Settlement [id=18, settlementName=クレジットカード],,,2022-12-07 16:46:52.645673
+2022-12-07,ExpenseItem [id=17, expenseItemName=給料],0,300000,Settlement [id=17, settlementName=null],,,2022-12-07 16:40:54.651988
+2022-11-11,ExpenseItem [id=1, expenseItemName=交通費],3000,0,Settlement [id=1, settlementName=現金],,,2022-11-10 15:16:15.315424
+2022-09-06,ExpenseItem [id=4, expenseItemName=交通費],3000,0,Settlement [id=4, settlementName=IC],東横線,電車テスト,2022-11-10 15:16:15.315424
+2022-09-06,ExpenseItem [id=5, expenseItemName=日用品],1220,0,Settlement [id=5, settlementName=現金],スギ薬局,薬局テスト,2022-11-10 15:16:15.315424
+2022-09-05,ExpenseItem [id=3, expenseItemName=交際費],3000,0,Settlement [id=3, settlementName=現金],鳥貴族,飲み会テスト,2022-11-10 15:16:15.315424
+2022-09-02,ExpenseItem [id=2, expenseItemName=食費],3450,0,Settlement [id=2, settlementName=クレジットカード],イオン,買い物テスト,2022-11-10 15:16:15.315424
+2022-08-30,ExpenseItem [id=9, expenseItemName=健康・医療],4550,0,Settlement [id=9, settlementName=現金],太郎医院,医療テスト,2022-11-10 15:16:15.315424
+2022-08-29,ExpenseItem [id=8, expenseItemName=税・社会保障],29000,0,Settlement [id=8, settlementName=現金],住民税,税金テスト,2022-11-10 15:16:15.315424
+2022-08-27,ExpenseItem [id=10, expenseItemName=自動車],12245,0,Settlement [id=10, settlementName=クレジットカード],Timesレンタカー,自動車テスト,2022-11-10 15:16:15.315424
+2022-08-27,ExpenseItem [id=15, expenseItemName=住宅],65000,0,Settlement [id=15, settlementName=銀行],▲▲ハウジング,住宅費テスト,2022-11-10 15:16:15.315424
+2022-08-25,ExpenseItem [id=16, expenseItemName=給料],0,210000,Settlement [id=16, settlementName=null],■■株式会社,給料テスト,2022-11-10 15:16:15.315424
+2022-08-24,ExpenseItem [id=13, expenseItemName=食費],2000,0,Settlement [id=13, settlementName=クレジットカード],イオン,買い物テスト,2022-11-10 15:16:15.315424
+2022-08-22,ExpenseItem [id=7, expenseItemName=衣服],1220,0,Settlement [id=7, settlementName=現金],ユニクロ,買い物テスト,2022-11-10 15:16:15.315424
+2022-08-20,ExpenseItem [id=6, expenseItemName=美容],3000,0,Settlement [id=6, settlementName=クレジットカード],haircut,美容テスト,2022-11-10 15:16:15.315424
+2022-08-19,ExpenseItem [id=14, expenseItemName=食費],3450,0,Settlement [id=14, settlementName=クレジットカード],イオン,買い物テスト,2022-11-10 15:16:15.315424
+2022-08-15,ExpenseItem [id=12, expenseItemName=水道・光熱費],6000,0,Settlement [id=12, settlementName=クレジットカード],光熱費,光熱費テスト,2022-11-10 15:16:15.315424
+2022-08-10,ExpenseItem [id=11, expenseItemName=水道・光熱費],2000,0,Settlement [id=11, settlementName=クレジットカード],水道代,水道代テスト,2022-11-10 15:16:15.315424
+合計 = 18 件

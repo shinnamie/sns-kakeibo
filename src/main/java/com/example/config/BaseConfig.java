@@ -4,6 +4,9 @@ import java.nio.charset.StandardCharsets;
 
 import org.springframework.batch.core.ItemReadListener;
 import org.springframework.batch.core.ItemWriteListener;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.file.FlatFileFooterCallback;
 import org.springframework.batch.item.file.FlatFileHeaderCallback;
@@ -19,22 +22,29 @@ import org.springframework.core.io.Resource;
 
 import com.example.domain.kakeibo.Kakeibo;
 
+@EnableBatchProcessing
 public abstract class BaseConfig {
+	
+	@Autowired
+	protected StepBuilderFactory stepBuilderFactory;
+	
+	@Autowired
+	protected JobBuilderFactory jobBuilderFactory;
 
 	@Autowired
-	private SampleProperty property;
+	protected SampleProperty property;
 	
 	@Autowired
-	private ItemReadListener<Kakeibo> readListener;
+	protected ItemReadListener<Kakeibo> readListener;
 	
 	@Autowired
-	private ItemWriteListener<Kakeibo> writeListener;
+	protected ItemWriteListener<Kakeibo> writeListener;
 	
 	@Autowired
-	private FlatFileHeaderCallback csvHeaderCallback;
+	protected FlatFileHeaderCallback csvHeaderCallback;
 	
 	@Autowired
-	private FlatFileFooterCallback csvFooterCallback;
+	protected FlatFileFooterCallback csvFooterCallback;
 	
 	/*
 	 * CSV出力のWriterを生成
