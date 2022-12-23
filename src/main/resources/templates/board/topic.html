@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{common/layout}">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout}">
 
 <head>
   <meta charset="UTF-8" th:remove="tag">
@@ -14,15 +13,16 @@
   <!-- 個別コンテンツ -->
   <th:block layout:fragment="content">
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h2>投稿一覧</h2>
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h2>投稿一覧</h2><br>
 
         <!-- 新規投稿の入力画面 -->
         <section id="modal" class="hidden">
-          <form action="test.html">
-            <input type="textarea">
-            <button>送信</button>
+          <form th:action="@{/post/newPost}" th:object="${newPostForm}" method="post">
+            <input type="textarea" name="contents" th:value="${contents}">
+            <input type="hidden" name="boardId" th:value="${boardId}">
+            <input type="hidden" name="userId" th:value=${session.user.id}>
+            <button type="submit">送信</button>
           </form>
           <div id="close">
             閉じる
@@ -34,12 +34,17 @@
         </div>
 
         <div id="mask" class="hidden">
-
         </div>
+
       </div>
+
+      <!-- 削除完了メッセージ -->
+      <h5 th:if="${successMessage}" th:text="${successMessage}" style="color: blue;"></h5>
+      <!-- エラーメッセージ -->
+      <h5 th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></h5>
+
       <!-- 投稿リストの呼び出し -->
       <div th:replace="common/postList :: postList"></div>
-
     </main>
   </th:block>
 

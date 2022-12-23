@@ -1,24 +1,20 @@
 package com.example.form.post;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
 
 @Data
-public class NewPostForm {
-
-	// postのコンテンツ
-	@NotBlank
-	@Length(max=280)
-	private String contents;
-
+public class DeletePostForm {
+	
+	// postのID
+	@NotNull
+	private Long postId;
+	
 	// 掲示板のID
 	@NotNull
 	private Long boardId;
-
+	
 	// ログインしているuserのID
 	@NotNull
 	private Long userId;

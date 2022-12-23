@@ -10,5 +10,6 @@ public interface PostService {
 
 	public boolean savePost(Post post);
 
-	public boolean deletePost(Long boardId);
+	public boolean deletePost(Post post);
+
 }

@@ -14,8 +14,20 @@ public interface PostMapper {
 	 */
 	public List<Post> findPostList(Long boardId);
 
+	/**
+	 * post新規投稿
+	 * @param Post
+	 * @return boolean
+	 *
+	 * */
 	public boolean savePost(Post post) throws Exception;
 
-  public boolean deletePost(Long postId) throws Exception;
+	/**
+	 * post削除
+	 * @param Post
+	 * @return boolean
+	 *
+	 * */
+	public boolean deletePost(Post post) throws Exception;
 
 }
