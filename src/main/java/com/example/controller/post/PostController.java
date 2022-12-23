@@ -55,11 +55,16 @@ public class PostController {
 
 		// 投稿情報をPostオブジェクトに詰める
 		Post newPost = new Post();
-		newPost.setUser(user);
+		
+		User postUser = new User();
+		postUser.setId(newPostForm.getUserId());
+		newPost.setUser(postUser);
+		
 		Board nowBoard = new Board();
 		Long nowBoardId = newPostForm.getBoardId();
 		nowBoard.setId(nowBoardId);
 		newPost.setBoard(nowBoard);
+		
 		newPost.setContents(newPostForm.getContents());
 
 		// 投稿する
@@ -86,15 +91,21 @@ public class PostController {
 		}
 
 		// 削除対象の投稿情報をPostオブジェクトに詰める
-		Post targetDeletePost = new Post();
+		Post deletePost = new Post();
+		
+		User postUser = new User();
+		postUser.setId(deletePostForm.getUserId());
+		deletePost.setUser(postUser);
+		
 		Board nowBoard = new Board();
 		Long nowBoardId = deletePostForm.getBoardId();
 		nowBoard.setId(nowBoardId);
-		targetDeletePost.setId(deletePostForm.getId());
-		targetDeletePost.setBoard(nowBoard);
+		deletePost.setBoard(nowBoard);
+		
+		deletePost.setId(deletePostForm.getPostId());
 
 		// 削除する
-		postService.deletePost(targetDeletePost);
+		postService.deletePost(deletePost);
 
 		// 削除完了メッセージを表示する
 		redirectAttributes.addFlashAttribute("successMessage", "削除が完了しました");
