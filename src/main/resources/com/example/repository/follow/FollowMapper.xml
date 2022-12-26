@@ -16,15 +16,18 @@
 		SELECT
 			u.name
 		FROM
-			follow AS f
+			users AS u
 		INNER JOIN
-      		users AS u
+      		follow AS f
     	ON
-    		f.followed_id = u.id
+    		u.id = f.followed_id
     	WHERE
-     		f.following_id = #{followingId}
-    	ORDER BY
-    		f.following_id
+     		f.following_id
+		IN
+			(#{userId})
+		ORDER BY
+			f.followed_id
+			
 	</select>
 	
 	<!-- フォロワー機能 -->
@@ -32,19 +35,29 @@
 	SELECT
 			u.name
 		FROM
-			follow AS f
+			users AS u
 		INNER JOIN
-      		users AS u
+      		follow AS f
     	ON
-    		f.following_id = u.id
+    		u.id = f.following_id
     	WHERE
-     		f.followed_id = #{followedId}
+     		f.followed_id
+     	IN
+			(#{userId})
     	ORDER BY
-    		f.followed_id
+    		f.following_id
 	</select>	
-		
+	<!-- マイページ機能 -->
+	<select id="findMyPage" resultMap="userMap">
+	SELECT
+		u.mail_address,
+		u.name,
+		u.date_of_birth
+	FROM
+		users AS u
+	WHERE
+		u.id = (#{userId})
 
-
-
+	</select>
 
 </mapper>

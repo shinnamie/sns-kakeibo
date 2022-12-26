@@ -17,19 +17,26 @@ public class FollowServiceImpl implements FollowService{
 	@Autowired
 	private FollowMapper followMapper;
 
+	
+	//プロフィール機能
+	@Override
+	public User selectMyPage(Long id) {
+
+		return followMapper.findMyPage(id);
+	}
 	/*
 	 * ユーザーIDでフォローリスト一覧を取得
 	 */
 	@Override
-	public List<User> selectFollowingList(Long followingId) {
+	public List<User> selectFollowingList(Long id) {
 
-		return followMapper.findFollowingList(followingId);
+		return followMapper.findFollowingList(id);
 	}
 	
 	//フォロワーリスト一覧取得
 	@Override
-	public List<User> selectFollowedList(Long followedId) {
+	public List<User> selectFollowedList(Long id) {
 
-		return followMapper.findFollowedList(followedId);
+		return followMapper.findFollowedList(id);
 	}
 }

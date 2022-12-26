@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{common/layout}">
+
+<head>
+    <meta charset="UTF-8" th:remove="tag">
+    <title>マイページ</title>
+</head>
+
+<body>
+    <th:block layout:fragment="content">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <h2>マイページ</h2>
+                <p><a th:href="@{'/user/' + ${session.user.id} + '/following'}">フォロー</a></p>
+                <p><a th:href="@{'/user/' + ${session.user.id} + '/followed'}">フォロワー</a></p>
+                
+            </div>
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>メールアドレス</th>
+                                <th>名前</th>
+                                <th>生年月日</th>
+                            </tr>
+                                <td th:text="${myPage.mailAddress}">aaaa@aaa</td>
+                                <td th:text="${myPage.name}">山田山男</td>
+                                <td th:text="${myPage.dateOfBirth}">テストテスト</td>                       
+                    </table>
+                </div>
+            </div>
+        </main>
+    </th:block>
+
+    <!-- 個別JS -->
+    <th:block layout:fragment="javascript">
+    </th:block>
+</body>
+</html>
