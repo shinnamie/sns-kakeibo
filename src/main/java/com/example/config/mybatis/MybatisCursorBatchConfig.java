@@ -53,12 +53,6 @@ public class MybatisCursorBatchConfig extends BaseConfig {
 				.reader(mybatisCursorReader()).listener(readListener)
 				.writer(csvWriter()).listener(writeListener)
 				.build();
-		
-//		return new StepBuilder("ExportMybatisCursorStep")
-//				.<Kakeibo, Kakeibo>chunk(10)
-//				.reader(mybatisCursorReader()).listener(readListener)
-//				.writer(csvWriter()).listener(writeListener)
-//				.build();
 	}
 	
 	/*
@@ -71,10 +65,5 @@ public class MybatisCursorBatchConfig extends BaseConfig {
 				.incrementer(new RunIdIncrementer())
 				.start(exportMybatisCursorStep())
 				.build();
-		
-//		return new JobBuilder("ExportMybatisCursorJob")
-//				.incrementer(new RunIdIncrementer())
-//				.start(exportMybatisCursorStep())
-//				.build();
 	}
 }

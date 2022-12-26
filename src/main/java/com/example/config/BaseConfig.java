@@ -63,7 +63,7 @@ public abstract class BaseConfig {
 		
 		// 出力フィールドの設定
 		BeanWrapperFieldExtractor<Kakeibo> extractor = new BeanWrapperFieldExtractor<>();
-		extractor.setNames(new String[] {"paymentDate", "expenseItem", "expenditureAmount", "incomeAmount", "settlement", "usedStore", "remarks", "insertAt"});
+		extractor.setNames(new String[] {"paymentDate", "expenseItem.expenseItemName", "expenditureAmount", "incomeAmount", "settlement.settlementName", "usedStore", "remarks", "insertAt"});
 		aggregator.setFieldExtractor(extractor);
 		
 		return new FlatFileItemWriterBuilder<Kakeibo>()
