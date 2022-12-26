@@ -12,7 +12,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
 import com.example.repository.kakeibo.KakeiboMapper;
@@ -70,23 +69,13 @@ public class KakeiboService {
 			return false;
 		}
 	}
-
 	/**
-	 * 論理削除フラグ
+	 * 家計簿の削除
 	 * 
-	 * @param kakeibo 家計簿
+	 * @param id 
 	 */
-	public void updateIsDelete(Kakeibo kakeibo) {
-		kakeiboMapper.updateIsDelete(kakeibo);
-	}
-
-	/**
-	 * 家計簿の論理削除
-	 * 
-	 * @param deletedKakeibo 家計簿論理削除データ
-	 */
-	public void delete(DeletedKakeibo deletedKakeibo) {
-		kakeiboMapper.delete(deletedKakeibo);
+	public void delete(Long id) {
+		kakeiboMapper.delete(id);
 	}
 
 	/**

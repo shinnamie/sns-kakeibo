@@ -65,6 +65,15 @@
 			k.id = #{id};
  	</select>
  	
+ 	
+ 	<!-- 家計簿削除 -->
+	<delete id="delete">
+		DELETE 
+		FROM kakeibo
+		WHERE
+		id = #{id}
+	</delete>
+ 	
  	<!-- 家計簿情報取得用のresultMap -->
  	<resultMap id="kakeiboResultMap" type="com.example.domain.kakeibo.Kakeibo">
  		<id property="id" column="id"/>

@@ -156,29 +156,19 @@ public class KakeiboController {
 		return "redirect:/kakeibo/list";
 	}
 
-	//	/**
-	//	 * 家計簿を論理削除する
-	//	 *
-	//	 * @param id 家計簿id
-	//	 * @return
-	//	 */
-	//	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	//	public String delete(Integer id) {
-	//		DeletedKakeibo deletedKakeibo = new DeletedKakeibo();
-	//		Kakeibo kakeibo = new Kakeibo();
-	//
-	//		// 値をセット
-	//		deletedKakeibo.setKakeiboId(id);
-	//
-	//		// 削除フラグをtrueにする
-	//		kakeibo.setId(id);
-	//
-	//		// 論理削除の実行
-	//		kakeiboService.delete(deletedKakeibo);
-	//		kakeiboService.updateIsDelete(kakeibo);
-	//
-	//		return "redirect:/kakeibo/list";
-	//	}
+	/**
+	 * 家計簿を削除する
+	 * 
+	 * @param id 家計簿id
+	 * @return
+	 */
+	@PostMapping("/delete")
+	public String delete(Long id) {
+
+		kakeiboService.delete(id);
+
+		return "redirect:/kakeibo/list";
+	}
 
 	/**
 	 * 日付を取得するためのメソッド
