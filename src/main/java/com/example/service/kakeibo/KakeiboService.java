@@ -2,16 +2,24 @@ package com.example.service.kakeibo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
+import com.example.domain.kakeibo.CsvKakeibo;
 import com.example.domain.kakeibo.DeletedKakeibo;
 import com.example.domain.kakeibo.Kakeibo;
 import com.example.domain.kakeibo.MonthlyBalanceCalculationResult;
@@ -23,6 +31,9 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @Slf4j
 public class KakeiboService {
+	
+	@Autowired
+	HttpSession session;
 
 	@Autowired
 	KakeiboMapper kakeiboMapper;
@@ -413,6 +424,55 @@ public class KakeiboService {
 		}
 
 		return rateMap;
+	}
+	
+	/*
+	 * 年月を指定してCSV出力する
+	 */
+	public void csvDownloadKakeiboList(HttpServletResponse response) throws Exception {
+		
+		// textをCSVで出力する
+		response.setContentType("text/csv; charset=UTF-8");
+		// ファイル名を設定
+		String filename = "kakeibo_list.csv";
+		
+		 String headerKey = "Content-Disposition";
+		 String headerValue = "attachment; filename=" + filename;
+		 
+		 response.setHeader(headerKey, headerValue);
+		 
+		 // 元となるkakeiboList
+		 List<Kakeibo> kakeiboList = (List<Kakeibo>) session.getAttribute("kakeiboList");
+		 // 詰め替え先リスト
+		 List<CsvKakeibo> csvKakeiboList = new ArrayList<>();
+		 
+		 for (Kakeibo kakeibo : kakeiboList) {
+			 CsvKakeibo csvKakeibo = new CsvKakeibo();
+			 csvKakeibo.setPaymentDate(kakeibo.getPaymentDate());
+			 csvKakeibo.setExpenseItemName(kakeibo.getExpenseItem().getExpenseItemName());
+			 csvKakeibo.setExpenditureAmount(kakeibo.getExpenditureAmount());
+			 csvKakeibo.setIncomeAmount(kakeibo.getIncomeAmount());
+			 csvKakeibo.setSettlementName(kakeibo.getSettlement().getSettlementName());
+			 csvKakeibo.setUsedStore(kakeibo.getUsedStore());
+			 csvKakeibo.setRemarks(kakeibo.getRemarks());
+			 csvKakeibo.setInsertAt(kakeibo.getInsertAt());
+			 csvKakeiboList.add(csvKakeibo);
+		 }
+		 
+		 ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+		 
+		 // CSVのカラム名
+		 String[] csvHeader = {"決済日付", "費目", "支出金額", "収入金額", "決済", "利用店舗", "備考", "登録日"};
+		 // CSVのレコード
+		 String[] nameMapping = {"paymentDate", "expenseItemName", "expenditureAmount", "incomeAmount", "settlementName", "usedStore", "remarks", "insertAt"};
+		 
+		 csvWriter.writeHeader(csvHeader);
+		 
+		 for (CsvKakeibo csvKakeibo : csvKakeiboList) {
+			 csvWriter.write(csvKakeibo, nameMapping);
+		 }
+		 
+		 csvWriter.close();
 	}
 
 }

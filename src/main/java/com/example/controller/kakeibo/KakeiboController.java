@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
@@ -118,6 +119,13 @@ public class KakeiboController {
 	 */
 	@GetMapping("/edit")
 	public String editKakeibo(Long id, EditKakeiboForm editKakeiboForm) {
+		
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+		
 		// idから家計簿情報を1件取得する
 		Kakeibo kakeibo = kakeiboService.findByKakeiboId(id);
 
@@ -136,6 +144,12 @@ public class KakeiboController {
 	 */
 	@PostMapping("/update")
 	public String updateKakeibo(@Validated EditKakeiboForm editKakeiboForm, BindingResult result, Model model) {
+		
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
 
 		// 入力値エラーの際は編集画面を表示する
 		if (result.hasErrors()) {
@@ -259,6 +273,13 @@ public class KakeiboController {
 	 */
 	@GetMapping("/kakeiboByYearAndMonth")
 	public String getKakeiboByYearAndMonth() {
+		
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+		
 		return "kakeibo/kakeiboByYearAndMonth";
 	}
 
@@ -272,6 +293,12 @@ public class KakeiboController {
 	@PostMapping("/kakeiboByYearAndMonth")
 	public String postKakeiboByYearAndMonth(@Validated SearchKakeiboForm searchKakeiboForm, BindingResult result,
 			Model model) {
+		
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
 
 		// 入力値エラーの際は集計ページを表示する
 		if (result.hasErrors()) {
@@ -279,7 +306,7 @@ public class KakeiboController {
 		}
 
 		// リストが返ってきた時、kakeiboListに格納
-		model.addAttribute("kakeiboList",
+		session.setAttribute("kakeiboList",
 				kakeiboService.findKakeiboByYearAndMonth(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
 		// リストがnullの時、messageに格納
 		model.addAttribute("message", "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
@@ -288,5 +315,14 @@ public class KakeiboController {
 				kakeiboService.monthlyBalanceCalculate(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
 
 		return "kakeibo/kakeiboByYearAndMonth";
+	}
+	
+	/*
+	 * 年月を指定してCSV出力する
+	 */
+	@GetMapping("/csvKakeiboList")
+	public void getCsvKakeiboList(HttpServletResponse response) throws Exception {
+		
+		kakeiboService.csvDownloadKakeiboList(response);
 	}
 }
