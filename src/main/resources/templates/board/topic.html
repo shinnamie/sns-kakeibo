@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{common/layout}">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{common/layout}">
 
 <head>
   <meta charset="UTF-8" th:remove="tag">
@@ -14,8 +13,7 @@
   <!-- 個別コンテンツ -->
   <th:block layout:fragment="content">
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h2>投稿一覧</h2>
 
         <!-- 新規投稿の入力画面 -->
@@ -46,6 +44,7 @@
   <!-- 個別JS -->
   <th:block layout:fragment="javascript">
     <script th:src="@{/js/modal_window.js}"></script>
+    <script th:src="@{/js/like.js}"></script>
   </th:block>
 
 </body>
