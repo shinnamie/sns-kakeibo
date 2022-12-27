@@ -119,6 +119,13 @@ public class KakeiboController {
 	 */
 	@GetMapping("/edit")
 	public String editKakeibo(Long id, EditKakeiboForm editKakeiboForm) {
+		
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+		
 		// idから家計簿情報を1件取得する
 		Kakeibo kakeibo = kakeiboService.findByKakeiboId(id);
 
@@ -137,6 +144,12 @@ public class KakeiboController {
 	 */
 	@PostMapping("/update")
 	public String updateKakeibo(@Validated EditKakeiboForm editKakeiboForm, BindingResult result, Model model) {
+		
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
 
 		// 入力値エラーの際は編集画面を表示する
 		if (result.hasErrors()) {
@@ -260,6 +273,13 @@ public class KakeiboController {
 	 */
 	@GetMapping("/kakeiboByYearAndMonth")
 	public String getKakeiboByYearAndMonth() {
+		
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+		
 		return "kakeibo/kakeiboByYearAndMonth";
 	}
 
@@ -273,6 +293,12 @@ public class KakeiboController {
 	@PostMapping("/kakeiboByYearAndMonth")
 	public String postKakeiboByYearAndMonth(@Validated SearchKakeiboForm searchKakeiboForm, BindingResult result,
 			Model model) {
+		
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
 
 		// 入力値エラーの際は集計ページを表示する
 		if (result.hasErrors()) {
