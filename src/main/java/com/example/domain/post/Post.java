@@ -22,5 +22,6 @@ public class Post {
 	private User user;
 	/** 掲示板情報 */
 	private Board board;
+	private Integer likes;
 
 }

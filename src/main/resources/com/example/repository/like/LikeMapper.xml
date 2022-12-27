@@ -17,6 +17,12 @@
 		WHERE post_id = #{post.id}
 		AND user_id = #{user.id}
 	</delete>
+	
+	<!-- いいねを集計する -->
+	<select id = "totallingLike" resultType="java.lang.Integer">
+	SELECT COUNT(post_id) from likes 
+	WHERE post_id = #{post.id}
+	</select>
 
 	<!-- LikeResultMap -->
 	<resultMap id="likeResultMap"

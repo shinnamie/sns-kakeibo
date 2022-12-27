@@ -3,6 +3,7 @@
     <!-- <div th:text="投稿者： + ${post.user.name}"></div> -->
     <div th:text="内容： + ${post.contents}"></div>
     <div th:text="投稿日： + ${#temporals.format(post.insertAt, 'yyyy年MM月dd日HH時mm分ss秒')}"></div>
+    <div th:text="いいね数： + ${post.likes}"></div>
     <form th:action="@{/like/mark}" method="post" th:object="${likeForm}">
       <input type="hidden" name="boardId" th:value="${boardId}">
       <input type="hidden" name="postId" th:value="${post.id}">
