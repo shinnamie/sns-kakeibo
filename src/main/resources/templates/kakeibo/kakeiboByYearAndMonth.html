@@ -48,7 +48,7 @@
             </form>
 
             <!-- データが存在しない場合のメッセージ -->
-            <div th:unless="${kakeiboList}" th:text="${message}" style="color: red;"></div>
+            <div th:unless="${session.kakeiboList}" th:text="${message}" style="color: red;"></div>
 
             <!-- 収支計算ボックス -->
             <div th:if="${result}">
@@ -83,7 +83,7 @@
             </div>
     
             <!-- テーブル表示 -->
-            <div th:if="${kakeiboList}">
+            <div th:if="${session.kakeiboList}">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
@@ -102,7 +102,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="kakeibo : ${kakeiboList}" class="align-middle">
+                                <tr th:each="kakeibo : ${session.kakeiboList}" class="align-middle">
                                     <td th:text="${kakeibo.paymentDate}">2022-09-01</td>
                                     <td th:text="${kakeibo.expenseItem.expenseItemName}">3</td>
                                     <td th:if="${kakeibo.expenditureAmount >= 1000}" th:text="${#numbers.formatInteger(kakeibo.expenditureAmount, 3, 'COMMA')} + '円'">3000</td>
@@ -129,6 +129,9 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div class="btn-area">
+                    <a th:href="@{/kakeibo/csvKakeiboList}" class="btn btn-sm btn-outline-secondary">CSV出力</a>
                 </div>
             </div>
         </main>

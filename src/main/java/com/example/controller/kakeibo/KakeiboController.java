@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
@@ -279,7 +280,7 @@ public class KakeiboController {
 		}
 
 		// リストが返ってきた時、kakeiboListに格納
-		model.addAttribute("kakeiboList",
+		session.setAttribute("kakeiboList",
 				kakeiboService.findKakeiboByYearAndMonth(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
 		// リストがnullの時、messageに格納
 		model.addAttribute("message", "ご入力頂いた年月のデータは存在しません（年の指定は必須です）");
@@ -288,5 +289,14 @@ public class KakeiboController {
 				kakeiboService.monthlyBalanceCalculate(searchKakeiboForm.getYear(), searchKakeiboForm.getMonth()));
 
 		return "kakeibo/kakeiboByYearAndMonth";
+	}
+	
+	/*
+	 * 年月を指定してCSV出力する
+	 */
+	@GetMapping("/csvKakeiboList")
+	public void getCsvKakeiboList(HttpServletResponse response) throws Exception {
+		
+		kakeiboService.csvDownloadKakeiboList(response);
 	}
 }
