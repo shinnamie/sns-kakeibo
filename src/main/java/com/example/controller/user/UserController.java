@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.user.User;
+import com.example.form.follow.RemoveFollowForm;
 import com.example.service.follow.FollowService;
 
 @Controller
@@ -73,5 +75,18 @@ public class UserController {
 
 		model.addAttribute("followedList", followedList);
 		return "follow/followed";
+	}
+	//フォロー解除
+	@PostMapping("/unfollow")
+	public String deleteFollowing(RemoveFollowForm removeFollowForm ) {
+		// ログインチェックを追加
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+
+		followService.deleteFollowing(removeFollowForm);
+
+		return "redirect:/user/" + user.getId() + "/following";
 	}
 }

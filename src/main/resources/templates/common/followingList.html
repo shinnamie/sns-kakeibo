@@ -1,7 +1,19 @@
 <div th:fragment="followingList">
-  <div th:each="following : ${followingList}">
+<tbody>
+  <tr th:each="following : ${followingList}">
   <h1></h1>
-    <p><a th:text="${following.user.name}"></a></p>
-    <hr>
+    <p><td th:text="${following.user.name}"></a></p>
+			<td><form th:object="${removeFollowForm}" th:action="@{/user/unfollow}" method="post">
+				<input name="yourId" th:value="${following.user.id}" type="hidden">
+				<input name="myId" th:value="${session.user.id}" type="hidden">
+				<button type="submit">
+					フォロー解除
+				</button>
+			</form>
+			</td>
+		</td>
+		<hr>
+	</tr>
+</tbody>
   </div>
 </div>
